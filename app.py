@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, make_response, session, abort
 from flask import render_template, redirect, jsonify
 
@@ -11,7 +12,8 @@ def main_page():
 
 
 def main():
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
