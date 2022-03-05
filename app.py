@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
-@app.route("/main")
+@app.route("/")
 def main_page():
     return render_template('main_content.html', title='TheLastWolfpack')
 
