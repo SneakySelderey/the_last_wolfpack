@@ -21,10 +21,12 @@ height: 100%;">Капитаны Кригсмарине</h1>
             <tr>
                 <th scope="row">{{ item.id }}</th>
                 <td>{{ item.name }}</td>
-                {% if item.image == 'None' %}
+                {% if not item.image %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
                 {% else %}
-                    <td> <img src={{ item.image }}> </td>
+                    {% set name = 'img/' + (loop.index - 1) | string + '.png' %}
+                    {% set static = 'static' %}
+                    <td> <img src={{ url_for(static, filename=name) }} class="img-fluid img-thumbnail"> </td>
                 {% endif %}
                 <td>{{ item.info }}</td>
                 <td>{{ item.boats }}</td>

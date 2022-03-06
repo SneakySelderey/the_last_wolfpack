@@ -1,8 +1,9 @@
 import os
 from flask import Flask, request, make_response, session, abort
-from flask import render_template, redirect, jsonify
+from flask import render_template, redirect, jsonify, url_for
 from data import db_session
 from data.captains import Captain
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -17,6 +18,15 @@ def main_page():
 def captains_list():
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
+
+    count = 0
+    for i in caps:
+        if i.image:
+            name = f'{count}.png'
+            with open(f'static/img/{name}', 'wb') as f:
+                f.write(i.image)
+        count += 1
+
     return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps)
 
 
