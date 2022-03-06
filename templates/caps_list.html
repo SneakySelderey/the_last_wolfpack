@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;">Капитаны Кригсмарине</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Имя</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Фото</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Информация</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Командовал</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Ссылка на uboat.net</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in caps%}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.name }}</td>
+                {% if item.image == 'None' %}
+                    <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
+                {% else %}
+                    <td> <img src={{ item.image }}> </td>
+                {% endif %}
+                <td>{{ item.info }}</td>
+                <td>{{ item.boats }}</td>
+                <td>{{ item.profile_link }}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
