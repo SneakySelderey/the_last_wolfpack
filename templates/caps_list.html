@@ -30,7 +30,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
                 {% endif %}
                 <td>{{ item.info }}</td>
                 <td>{{ item.boats }}</td>
-                <td>{{ item.profile_link }}</td>
+                <td> <a href={{ item.profile_link }} target="_blank">{{ item.profile_link }}</a> </td>
             </tr>
             {% endfor %}
     </tbody>
