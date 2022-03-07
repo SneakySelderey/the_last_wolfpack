@@ -38,10 +38,18 @@
           </ul>
         </div>
         {% if current_user.is_authenticated %}
-            <a class="navbar-brand" href="/logout">{{ current_user.username }}</a>
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ current_user.username }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/profile">Profile</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+              </div>
+            </div>
         {% else %}
-            <a class="btn btn-primary " href="/register">Register</a>
-            <a class="btn btn-success" href="/login">Log in</a>
+            <a id="margin_do" class="btn btn-primary " href="/register">Register</a>
+            <a id="margin_do" class="btn btn-success" href="/login">Log in</a>
         {% endif %}
       </nav>
 </header>
@@ -50,6 +58,8 @@
     {% block content %}{% endblock %}
     {% block register %}{% endblock %}
     {% block authorization %}{% endblock %}
+    {% block profile %}{% endblock %}
+    {% block edit_profile %}{% endblock %}
 </main>
 </body>
 </html>
