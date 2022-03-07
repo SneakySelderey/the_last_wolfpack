@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, make_response, session, abort
+from flask import Flask, request, make_response, session, abort, url_for
 from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user
 from data.user import User
@@ -26,11 +26,11 @@ def reqister():
         if form.password.data != form.password_again.data:
             return render_template('register.html', title='Register',
                                    form=form,
-                                   message="Пароли не совпадают")
+                                   message="Passwords don't match")
         if db_sess.query(User).filter(User.email == form.email.data).first():
             return render_template('register.html', title='Register',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="User is already exists")
         user = User()
         user.username = form.username.data
         user.email = form.email.data
@@ -68,7 +68,6 @@ def logout():
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
-
 
 
 if __name__ == '__main__':
