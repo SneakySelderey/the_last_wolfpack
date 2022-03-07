@@ -1,11 +1,13 @@
 import os
+import os.path
 from flask import Flask, request, make_response, session, abort, url_for
 from flask import render_template, redirect, jsonify
-from flask_login import LoginManager, logout_user, login_required, login_user
+from flask_login import LoginManager, logout_user, login_required, login_user, \
+    current_user
 from data.user import User
 from data.captains import Captain
 from data import db_session
-from forms.userform import LoginForm, RegisterForm
+from forms.userform import LoginForm, RegisterForm, EditProfileForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -66,7 +68,7 @@ def login():
             User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
-            return redirect("/")
+            return redirect("/profile")
         return render_template('login.html',
                                message="Wrong login or password",
                                form=form)
@@ -84,6 +86,42 @@ def logout():
 def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
+
+
+@app.route('/profile')
+@login_required
+def user_profile():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).get(current_user.id)
+    return render_template('profile.html', user=user)
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    db_sess = db_session.create_session()
+    if request.method == 'GET':
+        user = db_sess.query(User).get(current_user.id)
+        form.username.data = user.username
+    if form.validate_on_submit():
+        user = db_sess.query(User).get(current_user.id)
+        if db_sess.query(User).filter(User.username == form.username.data) \
+                and not form.username.data == current_user.username:
+            return render_template('edit_profile.html',
+                                   message='Username is already taken',
+                                   form=form)
+        user.username = form.username.data
+        if form.picture.data:
+            image_data = request.files[form.picture.name]
+            name = os.path.join('static/img/profile_pictures',
+                                current_user.username + '.png')
+            open(name, 'wb').write(image_data.read())
+            user.profile_picture = current_user.username + '.png'
+            db_sess.commit()
+        db_sess.commit()
+        return redirect("/profile")
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
 
 
 if __name__ == '__main__':
