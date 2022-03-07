@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;">Капитаны Кригсмарине</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Имя</th>
+            <th scope="col" style="width: 150px; background-color:rgba(192, 192, 192, 0.5)">Фото</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Информация</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Командовал</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Ссылка на uboat.net</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in caps%}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.name }}</td>
+                {% if not item.image %}
+                    <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
+                {% else %}
+                    {% set name = 'img/' + (loop.index - 1) | string + '.png' %}
+                    {% set static = 'static' %}
+                    <td> <img src={{ url_for(static, filename=name) }} class="img-fluid img-thumbnail"> </td>
+                {% endif %}
+                <td>{{ item.info }}</td>
+                <td>{{ item.boats }}</td>
+                <td> <a href={{ item.profile_link }} target="_blank">{{ item.profile_link }}</a> </td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
