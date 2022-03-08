@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+scripts_path = os.curdir + 'data/scripts.py'
 
 
 @app.route("/")
@@ -33,7 +34,7 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
-    return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps)
+    return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps, path=scripts_path)
 
   
 @app.route('/register', methods=['GET', 'POST'])
@@ -118,7 +119,6 @@ def edit_profile():
                                 current_user.username + '.png')
             open(name, 'wb').write(image_data.read())
             user.profile_picture = current_user.username + '.png'
-            db_sess.commit()
         db_sess.commit()
         return redirect("/profile")
     return render_template('edit_profile.html', title='Edit Profile', form=form)
