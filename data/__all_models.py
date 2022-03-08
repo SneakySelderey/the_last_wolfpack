@@ -1,1 +1,1 @@
-from . import captains
+from . import captains, uboats
