@@ -13,7 +13,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
-scripts_path = os.curdir + 'data/scripts.py'
 
 
 @app.route("/")
@@ -34,7 +33,7 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
-    return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps, path=scripts_path)
+    return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps)
 
   
 @app.route('/register', methods=['GET', 'POST'])

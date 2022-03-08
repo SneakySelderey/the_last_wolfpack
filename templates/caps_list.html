@@ -10,11 +10,13 @@ height: 100%;">Капитаны Кригсмарине</h1>
       Filter by
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" type="button" id="sort_id">ID</button>
+        <div class="dropdown-divider"></div>
         <button class="dropdown-item" type="button" id="sort_alph">Name A-Z</button>
         <button class="dropdown-item" type="button" id="sort_alph_rev">Name Z-A</button>
     </div>
   </div>
-<table class="table" id="caps_table">
+<table class="table table-sortable" id="caps_table">
     <thead>
         <tr>
             <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
@@ -27,13 +29,13 @@ height: 100%;">Капитаны Кригсмарине</h1>
     </thead>
     <tbody>
         {% for item in caps%}
-            <tr id="caps_row">
+            <tr>
                 <th scope="row">{{ item.id }}</th>
                 <td id="cap_name">{{ item.name }}</td>
                 {% if not item.image %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
                 {% else %}
-                    {% set name = 'img/' + (loop.index - 1) | string + '.png' %}
+                    {% set name = 'img/' + loop.index0 | string + '.png' %}
                     {% set static = 'static' %}
                     <td> <img data-src="{{ url_for(static, filename=name) }}" src="{{url_for('static', filename='img/dummy.gif')}}" class="img-fluid img-thumbnail" id="cap_image"> </td>
                 {% endif %}
@@ -45,4 +47,5 @@ height: 100%;">Капитаны Кригсмарине</h1>
     </tbody>
 </table>
 <script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/table_sort.js')}}"></script>
 {% endblock %}
