@@ -20,6 +20,11 @@ def main_page():
     return render_template('main_content.html', title='TheLastWolfpack')
 
 
+@app.route("/historical_reference")
+def historical_reference():
+    return render_template('historical_reference.html', title='Историческая справка')
+
+
 @app.route("/captains")
 def captains_list():
     db_sess = db_session.create_session()
