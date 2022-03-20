@@ -1,18 +1,30 @@
-function searchByName(event){
-    const tBody = table.tBodies[0];
-    const rows = Array.from(tBody.querySelectorAll("tr"));
-    // for (var i = 0; i < rows.length - 500, ++i;){
-    //     console.log(rows[i].style.display + 'a');
-    //     rows[i].style.display = '';
-    // }
-    for (var i = 0; i < rows.length, ++i;){
-        var name = rows[i].cells[1].innerText.trim().toLowerCase();
-        if(!name.includes(event.target.value)){
-            rows[i].style.display = 'none';
-        }
+var TableController = function () {
+    const init = function () {
+        $("#ContentTable").DataTable({
+            orderCellsTop: true,
+            dom: "Blftipr",
+            paging: false,
+            buttons: ["excelHtml5", "print"],
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($("#ContentTable thead tr:eq(1) th").eq(column.index()).empty())
+                        .on("change",
+                            function () {
+                                const val = $.fn.dataTable.util.escapeRegex($(this).val());
+                                column.search(val ? `^${val}$` : "", true, false).draw();
+                            });
+ 
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append(`<option value="${d}">${d}</option>`);
+                    });
+                });
+            }
+        });
+    };
+ 
+    return {
+        init: init
     }
-}
-
-
-var table = document.querySelector('.table-sortable');
-document.querySelector('#search-data').addEventListener("input", searchByName);
+}();
