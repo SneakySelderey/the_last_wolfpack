@@ -1,6 +1,6 @@
 import os
 import os.path
-from flask import Flask, request, make_response, session, abort, url_for
+from flask import Flask, request, make_response, session, abort, url_for, redirect
 from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
@@ -17,6 +17,7 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
+    return redirect('/captains')
     return render_template('main_content.html', title='TheLastWolfpack')
 
 
@@ -33,9 +34,10 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
-    return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps)
+    return render_template('caps_list.html', title='Капитаны Кригсмарине',
+                           caps=caps)
 
-  
+
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm()
@@ -107,7 +109,7 @@ def edit_profile():
     if form.validate_on_submit():
         user = db_sess.query(User).get(current_user.id)
         if db_sess.query(User).filter(User.username == form.username.data) \
-                and not form.username.data == current_user.username:
+            and not form.username.data == current_user.username:
             return render_template('edit_profile.html',
                                    message='Username is already taken',
                                    form=form)
@@ -120,7 +122,8 @@ def edit_profile():
             user.profile_picture = current_user.username + '.png'
         db_sess.commit()
         return redirect("/profile")
-    return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form)
 
 
 if __name__ == '__main__':

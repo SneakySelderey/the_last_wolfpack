@@ -1,10 +1,6 @@
 #margin_do {
     margin: 5px;
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0;
-}
 #profile_pic {
     border-radius: 50%;
     max-width: 300px;

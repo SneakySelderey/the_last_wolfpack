@@ -7,12 +7,12 @@ function sortTableByColumn(column, asc = true) {
 
     const sortedRows = rows.sort((a, b) => {
         if (column !== 0){
-            var aColText = a.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
-            var bColText = b.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
+            var aColText = a.cells[column].innerText.trim().toLowerCase();
+            var bColText = b.cells[column].innerText.trim().toLowerCase();
         }
         else {
-            var aColText = a.querySelector(`td:nth-child(${ column + 1 })`);
-            var bColText = b.querySelector(`td:nth-child(${ column + 1 })`);
+            var aColText = parseInt(a.cells[column].innerText);
+            var bColText = parseInt(b.cells[column].innerText);
         }
 
         return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);

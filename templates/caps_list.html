@@ -5,17 +5,24 @@
 align-items: center;
 justify-content: center;
 height: 100%;">Капитаны Кригсмарине</h1>
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Filter by
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <button class="dropdown-item" type="button" id="sort_id">ID</button>
-        <div class="dropdown-divider"></div>
-        <button class="dropdown-item" type="button" id="sort_alph">Name A-Z</button>
-        <button class="dropdown-item" type="button" id="sort_alph_rev">Name Z-A</button>
+<div class="btn-toolbar">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter by
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="button" id="sort_id">ID</button>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" type="button" id="sort_alph">Name A-Z</button>
+            <button class="dropdown-item" type="button" id="sort_alph_rev">Name Z-A</button>
+        </div>
     </div>
-  </div>
+    <div class="input-group">
+        <div class="form-outline">
+            <input type="search" id="search-data" class="form-control" placeholder="Search by name"/>
+        </div>
+    </div>
+</div>
 <table class="table table-sortable" id="caps_table">
     <thead>
         <tr>
@@ -48,4 +55,5 @@ height: 100%;">Капитаны Кригсмарине</h1>
 </table>
 <script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
 <script src="{{url_for('static', filename='scripts/table_sort.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/table_search.js')}}"></script>
 {% endblock %}
