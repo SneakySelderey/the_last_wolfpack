@@ -17,7 +17,13 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    return render_template('main_content.html', title='TheLastWolfpack')
+    # return render_template('main_content.html', title='TheLastWolfpack')
+    return redirect('/historical_reference')
+
+
+@app.route("/historical_reference")
+def historical_reference():
+    return render_template('historical_reference.html', title='Историческая справка')
 
 
 @app.route("/captains")
@@ -35,7 +41,7 @@ def captains_list():
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине', caps=caps)
 
-  
+
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm()
