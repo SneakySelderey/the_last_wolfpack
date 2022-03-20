@@ -6,6 +6,7 @@ from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
 from data.user import User
 from data.captains import Captain
+from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
 
@@ -17,7 +18,6 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    return redirect('/captains')
     return redirect('/historical_reference')
 
 
@@ -41,6 +41,14 @@ def captains_list():
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
                            caps=caps)
+
+
+
+@app.route("/uboats")
+def uboats_list():
+    db_sess = db_session.create_session()
+    uboats = db_sess.query(Uboat).all()
+    return render_template('uboats_list.html', title='Подлодки Кригсмарине', uboats=uboats)
 
 
 @app.route('/register', methods=['GET', 'POST'])
