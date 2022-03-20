@@ -17,7 +17,11 @@
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <title>{{title}}</title>
 </head>
-<body>
+{% if title == 'Историческая справка' %}
+    <body style="background-image: url(static/img/background/Kriegsmarine_map3.jpg); background-size: cover">
+{% else %}
+    <body>
+{% endif %}
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">The Last Wolfpack</a>
@@ -27,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav" id="main_menu">
             <li class="nav-item active">
-              <a class="nav-link" href="/history_reference">Историческая справка<span class="sr-only"></span></a>
+              <a class="nav-link" href="/historical_reference">Историческая справка<span class="sr-only"></span></a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="/uboats">Подводные лодки<span class="sr-only"></span></a>
