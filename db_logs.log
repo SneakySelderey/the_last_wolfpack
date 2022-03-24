@@ -1,0 +1,164 @@
+2022-03-24 22:21:12,179 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-24 22:21:12,179 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-24 22:21:25,997 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:25] "GET /historical_reference HTTP/1.1" 200 -
+2022-03-24 22:21:26,058 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:26,098 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:26,318 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:21:26,330 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:26,332 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[36mGET /static/img/misc.%20pictures/Karl_Doenitz.jpg HTTP/1.1[0m" 304 -
+2022-03-24 22:21:26,334 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[36mGET /static/img/misc.%20pictures/U-96.jpg HTTP/1.1[0m" 304 -
+2022-03-24 22:21:26,539 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[36mGET /static/img/misc.%20pictures/U-243_under_attack.jpg HTTP/1.1[0m" 304 -
+2022-03-24 22:21:26,547 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[36mGET /static/img/misc.%20pictures/convoy.jpg HTTP/1.1[0m" 304 -
+2022-03-24 22:21:26,553 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:26] "[36mGET /static/img/background/Kriegsmarine_map3.jpg HTTP/1.1[0m" 304 -
+2022-03-24 22:21:30,006 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:30] "GET /register HTTP/1.1" 200 -
+2022-03-24 22:21:30,079 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:30] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:30,084 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:30] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:30,085 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:30] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:21:30,120 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:30] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:31,882 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:31] "GET /login HTTP/1.1" 200 -
+2022-03-24 22:21:31,953 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:31] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:31,966 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:31] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:31,968 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:31] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:21:31,973 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:31] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:39,595 ERROR root (sqlite3.OperationalError) no such column: users.register_date
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.hashed_password AS users_hashed_password, users.register_date AS users_register_date, users.profile_picture AS users_profile_picture 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('test@user.org', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-03-24 22:21:39,602 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:39] "POST /login HTTP/1.1" 200 -
+2022-03-24 22:21:39,672 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:39] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:39,685 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:39] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:21:39,688 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:39] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:39,701 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:39] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:47,288 ERROR root (sqlite3.OperationalError) no such column: users.register_date
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.hashed_password AS users_hashed_password, users.register_date AS users_register_date, users.profile_picture AS users_profile_picture 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('test@user.org', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-03-24 22:21:47,289 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:47] "POST /login HTTP/1.1" 200 -
+2022-03-24 22:21:47,346 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:47] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:21:47,354 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:47] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:47,377 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:47] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:49,001 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:49] "GET /register HTTP/1.1" 200 -
+2022-03-24 22:21:49,053 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:49] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:21:49,061 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:49] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:49,065 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:49] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:21:49,083 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:21:49] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:22:01,710 ERROR root (sqlite3.OperationalError) no such column: users.register_date
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.hashed_password AS users_hashed_password, users.register_date AS users_register_date, users.profile_picture AS users_profile_picture 
+FROM users 
+WHERE users.email = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('test2@test', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-03-24 22:22:01,712 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:22:01] "POST /register HTTP/1.1" 200 -
+2022-03-24 22:22:01,803 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:22:01] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:22:01,829 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:22:01] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:22:01,831 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:22:01] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:13,773 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-24 22:31:13,773 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-24 22:31:22,414 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "GET /captains HTTP/1.1" 200 -
+2022-03-24 22:31:22,478 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:22,532 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:22,659 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:31:22,669 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-24 22:31:22,670 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:22,683 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "GET /static/scripts/lazy_load.js HTTP/1.1" 200 -
+2022-03-24 22:31:22,692 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:22] "GET /static/img/dummy.gif HTTP/1.1" 200 -
+2022-03-24 22:31:23,464 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,466 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,473 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,475 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,477 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,478 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,488 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,509 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,524 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-24 22:31:23,528 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:23] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-24 22:31:24,723 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:24] "GET /captains HTTP/1.1" 200 -
+2022-03-24 22:31:24,804 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:24] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-24 22:31:24,811 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:24] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:24,814 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:24] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:24,895 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:24] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:24,932 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:24] "GET /static/scripts/lazy_load.js HTTP/1.1" 200 -
+2022-03-24 22:31:25,079 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-24 22:31:25,377 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/dummy.gif HTTP/1.1" 200 -
+2022-03-24 22:31:25,598 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,604 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,609 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,614 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,629 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,633 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,637 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,640 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,649 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-24 22:31:25,654 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:25] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-24 22:31:26,594 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:26] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-24 22:31:27,448 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:27] "GET /register HTTP/1.1" 200 -
+2022-03-24 22:31:27,510 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:27] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:27,522 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:27] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:31:27,526 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:27] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:31:27,539 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:31:27] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:21,108 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-24 22:35:21,108 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-24 22:35:46,207 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "GET /captains HTTP/1.1" 200 -
+2022-03-24 22:35:46,339 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:46,341 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:46,443 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:35:46,452 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:46,454 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -
+2022-03-24 22:35:46,477 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[36mGET /static/scripts/lazy_load.js HTTP/1.1[0m" 304 -
+2022-03-24 22:35:46,838 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:46] "[36mGET /static/img/dummy.gif HTTP/1.1[0m" 304 -
+2022-03-24 22:35:47,255 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,259 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,266 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,270 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,272 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,274 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,276 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,277 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,286 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-24 22:35:47,289 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:47] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-24 22:35:48,534 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "GET /captains HTTP/1.1" 200 -
+2022-03-24 22:35:48,621 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-24 22:35:48,629 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:48,637 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:48,696 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:48,775 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "GET /static/scripts/lazy_load.js HTTP/1.1" 200 -
+2022-03-24 22:35:48,881 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-24 22:35:48,920 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:48] "GET /static/img/dummy.gif HTTP/1.1" 200 -
+2022-03-24 22:35:49,490 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,496 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,502 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,504 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,505 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,508 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,511 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,524 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,535 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-24 22:35:49,538 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:49] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-24 22:35:50,434 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-24 22:35:51,357 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:51] "GET /register HTTP/1.1" 200 -
+2022-03-24 22:35:51,439 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:51] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:35:51,447 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:51] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:51,452 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:51] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:35:51,475 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:35:51] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:36:00,918 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:00] "[32mPOST /register HTTP/1.1[0m" 302 -
+2022-03-24 22:36:00,941 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:00] "GET /login HTTP/1.1" 200 -
+2022-03-24 22:36:01,018 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:01] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:36:01,022 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:01] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:36:01,023 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:01] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:36:09,502 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "[32mPOST /login HTTP/1.1[0m" 302 -
+2022-03-24 22:36:09,564 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "GET /profile HTTP/1.1" 200 -
+2022-03-24 22:36:09,630 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-24 22:36:09,635 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:36:09,638 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:36:09,658 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-24 22:36:09,661 INFO werkzeug 192.168.10.102 - - [24/Mar/2022 22:36:09] "GET /static/img/profile_pictures/empty_pic.jpg HTTP/1.1" 200 -

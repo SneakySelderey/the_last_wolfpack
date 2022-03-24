@@ -9,11 +9,17 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
+import logging
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+logging.basicConfig(
+    filename='db_logs.log',
+    format='%(asctime)s %(levelname)s %(name)s %(message)s'
+)
 
 
 @app.route("/")
@@ -23,7 +29,8 @@ def main_page():
 
 @app.route("/historical_reference")
 def historical_reference():
-    return render_template('historical_reference.html', title='Историческая справка')
+    return render_template('historical_reference.html',
+                           title='Историческая справка')
 
 
 @app.route("/captains")
@@ -43,12 +50,12 @@ def captains_list():
                            caps=caps)
 
 
-
 @app.route("/uboats")
 def uboats_list():
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
-    return render_template('uboats_list.html', title='Подлодки Кригсмарине', uboats=uboats)
+    return render_template('uboats_list.html', title='Подлодки Кригсмарине',
+                           uboats=uboats)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -68,9 +75,12 @@ def reqister():
         user.username = form.username.data
         user.email = form.email.data
         user.set_password(form.password.data)
-        db_sess.add(user)
-        db_sess.commit()
-        return redirect('/login')
+        try:
+            db_sess.add(user)
+            db_sess.commit()
+            return redirect('/login')
+        except Exception as error:
+            logging.error(error)
     return render_template('register.html', title='Register', form=form)
 
 
@@ -79,14 +89,17 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(
-            User.email == form.email.data).first()
-        if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            return redirect("/profile")
-        return render_template('login.html',
-                               message="Wrong login or password",
-                               form=form)
+        try:
+            user = db_sess.query(User).filter(
+                User.email == form.email.data).first()
+            if user and user.check_password(form.password.data):
+                login_user(user, remember=form.remember_me.data)
+                return redirect("/profile")
+            return render_template('login.html',
+                                   message="Wrong login or password",
+                                   form=form)
+        except Exception as error:
+            logging.error(error)
     return render_template('login.html', title='Authorization', form=form)
 
 
