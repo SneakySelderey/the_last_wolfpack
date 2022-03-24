@@ -18,7 +18,7 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    return redirect('/historical_reference')
+    return render_template('main_content.html', title='The Last Wolfpack')
 
 
 @app.route("/historical_reference")
