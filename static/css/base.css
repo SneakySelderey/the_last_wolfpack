@@ -61,3 +61,8 @@ a.btn-edit-profile:active {
     border-radius: 0.5rem;
     background: #fff;
 }
+.test{color:#fff;background-color:#7f77e0;border-color:#7f77e0}
+.test:hover{color:#fff;background-color:#7069c2;border-color:#655ead}
+.test:focus{color:#fff;background-color:#7069c2;border-color:#655ead;box-shadow:0 0 0 .2rem rgb(224, 119, 119)}
+.test:disabled{color:#fff;background-color:#7f77e0;border-color:#7f77e0}
+.test:not{color:#fff;background-color:#7f77e0;border-color:#7f77e0}
