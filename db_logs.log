@@ -900,3 +900,139 @@ WHERE users.email = ?
 2022-03-25 22:06:36,339 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:06:36] "GET /static/css/base.css HTTP/1.1" 200 -
 2022-03-25 22:06:36,345 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:06:36] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
 2022-03-25 22:06:38,175 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:06:38] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:11:40,803 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:11:40,803 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:11:44,285 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:44] "GET / HTTP/1.1" 200 -
+2022-03-25 22:11:44,334 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:44] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:11:44,539 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:44] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:11:44,602 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:44] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:11:44,630 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:44] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:11:44,635 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:44] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:11:45,840 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:45] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:11:45,900 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:45] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:11:45,915 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:45] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:11:45,920 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:45] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:11:45,923 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:11:45] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -
+2022-03-25 22:12:01,044 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:12:01] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:13:47,154 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:13:47,154 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:13:49,739 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:13:49] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:13:49,836 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:13:49] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:13:49,837 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:13:49] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:13:49,969 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:13:49] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:13:49,976 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:13:49] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:13:49,986 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:13:49] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:14:04,673 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:14:04,673 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:14:32,727 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:14:32,727 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:14:34,350 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:34] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:14:34,447 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:34] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:14:34,450 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:34] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:14:34,614 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:34] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:14:34,615 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:34] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:14:34,649 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:34] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:14:36,724 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:14:41,163 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:14:41] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:15:19,639 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:15:19,639 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:15:21,846 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:21] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:15:21,997 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:21] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:15:21,998 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:21] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:15:22,211 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:22] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:15:22,219 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:22] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:15:22,225 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:22] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:15:24,021 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:24] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:15:27,209 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:15:27] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:16:55,489 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:16:55,489 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:16:58,820 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:16:58] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:16:59,013 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:16:59] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:16:59,065 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:16:59] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:16:59,067 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:16:59] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:16:59,083 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:16:59] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:16:59,114 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:16:59] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:17:01,369 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:17:01,910 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:01] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:17:01,985 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:01] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:17:01,991 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:01] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:17:01,995 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:01] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:17:01,999 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:01] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:17:02,039 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:02] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:17:04,272 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:17:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:18:36,589 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:18:36,589 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:18:39,094 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:39] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:18:39,182 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:39] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:18:39,183 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:39] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:18:39,331 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:39] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:18:39,337 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:39] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:18:39,370 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:39] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:18:41,213 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:18:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:28:23,264 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:28:23,264 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:28:27,820 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:27] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:28:27,948 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:27] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:28:27,948 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:27] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:28:28,073 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:28] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:28:28,085 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:28] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:28:28,907 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:28] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:28:35,586 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:28:35] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:32:26,316 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:32:26,316 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:32:29,463 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:29] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:32:29,560 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:29] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:32:29,562 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:29] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:32:29,647 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:29] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:32:29,687 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:29] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:32:31,674 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:31] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:32:32,776 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:32:32] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:33:17,334 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:33:17,334 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:33:19,642 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:19] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:33:19,764 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:19] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:33:19,765 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:19] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:33:19,865 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:19] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:33:19,871 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:19] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:33:21,887 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:33:40,154 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:33:40] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-25 22:47:47,706 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:47:47,706 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:48:10,708 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:10] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:48:10,826 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:10] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:48:10,826 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:10] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:48:11,023 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:11] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:48:11,031 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:11] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:48:11,043 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:11] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:48:12,916 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:48:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:49:57,301 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:49:57,301 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:50:00,687 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:00] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:50:00,783 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:00] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:50:00,786 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:00] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:50:00,962 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:00] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:50:00,970 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:00] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:50:01,014 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:01] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:50:02,760 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:50:02] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 22:56:31,038 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 22:56:31,038 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 22:56:35,532 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:35] "GET /uboats HTTP/1.1" 200 -
+2022-03-25 22:56:35,627 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:35] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:56:35,662 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:35] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:56:35,773 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:35] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 22:56:35,781 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:35] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 22:56:35,822 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:35] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-25 22:56:37,960 INFO werkzeug 127.0.0.1 - - [25/Mar/2022 22:56:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

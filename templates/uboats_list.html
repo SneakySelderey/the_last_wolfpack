@@ -56,7 +56,8 @@ height: 100%;">Подлодки Кригсмарине</h1>
         $('#boats_table').DataTable({
             "bPaginate": false,
             columnDefs: [
-    {orderable: false, targets: [5, 6, 7, 8, 9]},
+    {orderable: false, targets: [6, 7, 8, 9]},
+    { type: 'date-dd-mmm-yyyy', targets: [2, 3, 4, 5] }
   ]
         });
     } );
