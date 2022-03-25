@@ -36,10 +36,14 @@ height: 100%;">Капитаны Кригсмарине</h1>
     </tbody>
 </table>
 <script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
-<script src="{{url_for('static', filename='scripts/table_sort.js')}}"></script>
 <script>
     $(document).ready(function() {
-        $('#caps_table').DataTable({"bPaginate": false});
+        $('#caps_table').DataTable({
+            "bPaginate": false,
+            columnDefs: [
+    { orderable: false, targets: [2, 3, 5] }
+  ]
+        });
     } );
 </script>
 {% endblock %}
