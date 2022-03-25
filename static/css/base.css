@@ -9,3 +9,10 @@
 .profile {
     margin: 50px;
 }
+.dataTables_filter input {
+    border:1px solid #aaa;
+    border-radius:3px;
+    padding:5px;
+    background-color:transparent;
+    margin-left:3px
+}

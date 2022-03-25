@@ -1,28 +1,52 @@
-"use strict"
+(function () {
+ 
+    var customDateDDMMMYYYYToOrd = function (date) {
+        "use strict";
+        var dateParts = date.split(" ");
+        return (dateParts[2] * 10000) + ($.inArray(dateParts[1], ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]) * 100) + (dateParts[0]*1);
+    };
 
-function sortTableByColumn(column, asc = true) {
-    const dirModifier = asc ? 1 : -1;
-    const tBody = table.tBodies[0];
-    const rows = Array.from(tBody.querySelectorAll("tr"));
-
-    const sortedRows = rows.sort((a, b) => {
-        if (column !== 0){
-            var aColText = a.cells[column].innerText.trim().toLowerCase();
-            var bColText = b.cells[column].innerText.trim().toLowerCase();
+    var customBoatNumToOrd = function (type) {
+        "use strict";
+        return parseInt(type.split(", ")[0].split("-")[1]);
+    };
+     
+    jQuery.fn.dataTableExt.aTypes.unshift(
+        function (sData) {
+            "use strict";
+            if (/^([0-2]?\d|3[0-1])-(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-\d{4}/i.test(sData)) {
+                return 'date-dd-mmm-yyyy';
+            }
+            return null;
         }
-        else {
-            var aColText = parseInt(a.cells[column].innerText);
-            var bColText = parseInt(b.cells[column].innerText);
-        }
+    );
+     
+    jQuery.fn.dataTableExt.oSort['date-dd-mmm-yyyy-asc'] = function (a, b) {
+        "use strict";
+        var ordA = customDateDDMMMYYYYToOrd(a),
+            ordB = customDateDDMMMYYYYToOrd(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+    };
+     
+    jQuery.fn.dataTableExt.oSort['date-dd-mmm-yyyy-desc'] = function (a, b) {
+        "use strict";
+        var ordA = customDateDDMMMYYYYToOrd(a),
+            ordB = customDateDDMMMYYYYToOrd(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+    };
 
-        return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
-    });
-    var newBody = document.createElement('tbody');
-    tBody.parentNode.replaceChild(newBody, tBody)
-    newBody.append(...sortedRows);
-}
-
-var table = document.querySelector('.table-sortable');
-document.querySelector('#sort_id').addEventListener("click", () => sortTableByColumn(0, true));
-document.querySelector('#sort_alph').addEventListener("click", () => sortTableByColumn(1, true));
-document.querySelector('#sort_alph_rev').addEventListener("click", () => sortTableByColumn(1, false));
+    jQuery.fn.dataTableExt.oSort['boat-num-asc'] = function (a, b) {
+        "use strict";
+        var ordA = customBoatNumToOrd(a),
+            ordB = customBoatNumToOrd(b);
+        return (ordA < ordB) ? -1 : ((ordA > ordB) ? 1 : 0);
+    };
+     
+    jQuery.fn.dataTableExt.oSort['boat-num-desc'] = function (a, b) {
+        "use strict";
+        var ordA = customBoatNumToOrd(a),
+            ordB = customBoatNumToOrd(b);
+        return (ordA < ordB) ? 1 : ((ordA > ordB) ? -1 : 0);
+    };
+     
+    })();
