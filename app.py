@@ -17,7 +17,7 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    return redirect('/profile')
+    return redirect('/test')
     return render_template('main_content.html', title='TheLastWolfpack')
 
 
