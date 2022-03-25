@@ -704,3 +704,53 @@ WHERE users.email = ?
 2022-03-25 21:19:11,496 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:19:11] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
 2022-03-25 21:19:11,503 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:19:11] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
 2022-03-25 21:19:11,512 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:19:11] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:13,478 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 21:24:13,478 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 21:24:16,580 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:16] "GET /captains HTTP/1.1" 200 -
+2022-03-25 21:24:17,169 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "GET /captains HTTP/1.1" 200 -
+2022-03-25 21:24:17,284 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:17,308 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:17,499 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 21:24:17,530 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "GET /static/scripts/lazy_load.js HTTP/1.1" 200 -
+2022-03-25 21:24:17,535 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:17,535 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:17] "GET /static/img/dummy.gif HTTP/1.1" 200 -
+2022-03-25 21:24:18,292 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,299 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,317 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,332 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,337 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,340 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,345 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,354 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,359 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-25 21:24:18,364 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:18] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-25 21:24:19,337 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 21:24:38,137 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-25 21:24:38,137 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-25 21:24:41,684 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:41] "GET /captains HTTP/1.1" 200 -
+2022-03-25 21:24:41,869 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:41] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:41,899 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:41] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:41,902 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:41] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-25 21:24:41,930 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:41] "GET /static/scripts/lazy_load.js HTTP/1.1" 200 -
+2022-03-25 21:24:41,932 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:41] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-25 21:24:42,152 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/dummy.gif HTTP/1.1" 200 -
+2022-03-25 21:24:42,782 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,798 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,802 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,814 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,817 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,825 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,830 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,834 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,838 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-25 21:24:42,842 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:42] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-25 21:24:43,719 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-25 21:24:45,340 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:45] "GET /static/img/403.png HTTP/1.1" 200 -
+2022-03-25 21:24:47,583 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:47] "GET /static/img/427.png HTTP/1.1" 200 -
+2022-03-25 21:24:47,583 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:47] "GET /static/img/360.png HTTP/1.1" 200 -
+2022-03-25 21:24:47,584 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:47] "GET /static/img/289.png HTTP/1.1" 200 -
+2022-03-25 21:24:47,585 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:47] "GET /static/img/552.png HTTP/1.1" 200 -
+2022-03-25 21:24:47,651 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:47] "GET /static/img/199.png HTTP/1.1" 200 -
+2022-03-25 21:24:51,517 INFO werkzeug 192.168.10.102 - - [25/Mar/2022 21:24:51] "GET /static/img/37.png HTTP/1.1" 200 -
