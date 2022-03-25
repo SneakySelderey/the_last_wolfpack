@@ -57,7 +57,9 @@ height: 100%;">Подлодки Кригсмарине</h1>
             "bPaginate": false,
             columnDefs: [
     {orderable: false, targets: [6, 7, 8, 9]},
-    { type: 'date-dd-mmm-yyyy', targets: [2, 3, 4, 5] }
+    {type: 'date-dd-mmm-yyyy', targets: [2, 3, 4, 5]},
+    {type: 'boat-num', targets: 1}
+
   ]
         });
     } );
