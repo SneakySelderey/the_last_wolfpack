@@ -27,6 +27,11 @@ def main_page():
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
+@app.route("/uboat_types")
+def uboat_types():
+    return render_template('uboat_types.html', title='Типы подводных лодок Кригсмарине')
+
+
 @app.route("/historical_reference")
 def historical_reference():
     return render_template('historical_reference.html',
