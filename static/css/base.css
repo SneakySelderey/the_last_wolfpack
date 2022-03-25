@@ -5,19 +5,14 @@
     display: block;
     margin-top: 0;
 }
-.profile {
-    margin: 50px;
-}
 .profile-img .file {
     position: relative;
     overflow: hidden;
-    /* margin-top: -20%; */
+    height: 80%;
     width: 70%;
     border: none;
     border-radius: 0;
     font-size: 15px;
-    background: #212529b8;
-    background-color: #212529b8;
 }
 .profile-img .file input {
     position: absolute;
@@ -25,14 +20,20 @@
     right: 0;
     top: 0;
 }
-.profile-edit-btn{
+a.btn-edit-profile {
     border: none;
     border-radius: 1.5rem;
     width: 70%;
     padding: 2%;
     font-weight: 600;
-    color: #6c757d;
-    cursor: pointer;
+    background-color: #a0a9b1;
+    color: #4b4f52;
+}
+a.btn-edit-profile:hover {
+    background-color: #949aa0;
+}
+a.btn-edit-profile:active {
+    background-color: #858a8f;
 }
 .profile-head .nav-tabs{
     margin-bottom:5%;

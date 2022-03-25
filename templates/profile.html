@@ -12,10 +12,12 @@
                             Change Photo
                             <input type="file" name="file"/>
                         </div>
-                        <h5>{{ user.username }}</h5>
-                        <h6>Register date: <span>{{ user.register_date }}</span></h6>
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
                     </div>
+                    <h5>{{ user.username }}</h5>
+                    <h6>Register date: <span>{{ user.register_date }}</span></h6>
+                    <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/> -->
+                    <a class="btn btn-default btn-edit-profile" href="/edit_profile">Edit profile</a>
+                    <br>
                 </div>
                 <div class="col-md-8">
                     <div class="profile-head">
