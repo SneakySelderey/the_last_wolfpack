@@ -5,6 +5,13 @@ from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
 import threading
+import logging
+
+
+logging.basicConfig(
+    filename='db_logs.log',
+    format='%(asctime)s %(levelname)s %(name)s %(message)s'
+)
 
 
 def run_continuously():
@@ -123,6 +130,7 @@ def cap_parse():
             session.commit()
         count += 1
         print(f'{count / len(tr) * 100} captains')
+    logging.info('Captains parse finished')
 
 
 def uboat_parse():
@@ -274,6 +282,8 @@ def uboat_parse():
         fate='Launched as the Italian submarine Luigi Torelli. Taken over at Kobe, Japan on 10 May, 1945 and commissioned as I-504. Surrendered at Kobe, Japan in August 1945. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.')
     session.add(boat)
     session.commit()
+
+    logging.info('U-boats parse finished')
 
 
 scheduler1 = schedule.Scheduler()
