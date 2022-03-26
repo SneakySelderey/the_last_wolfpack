@@ -10,6 +10,7 @@ from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
 import logging
+import schedule_parser
 
 
 app = Flask(__name__)
@@ -161,3 +162,4 @@ if __name__ == '__main__':
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+    schedule_parser.run()

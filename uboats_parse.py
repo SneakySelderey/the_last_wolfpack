@@ -1,7 +1,5 @@
-from ast import parse
 from bs4 import BeautifulSoup
 import requests
-import sqlalchemy
 from data import db_session
 from data.uboats import Uboat
 
