@@ -5,10 +5,9 @@ from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
 import threading
-import time
 
 
-def run_continuously(interval=1):
+def run_continuously():
     """Continuously run, while executing pending jobs at each
     elapsed time interval.
     @return cease_continuous_run: threading. Event which can
@@ -25,8 +24,31 @@ def run_continuously(interval=1):
         @classmethod
         def run(cls):
             while not cease_continuous_run.is_set():
-                schedule.run_pending()
-                time.sleep(interval)
+                scheduler1.run_all()
+
+    continuous_thread = ScheduleThread()
+    continuous_thread.start()
+    return cease_continuous_run
+
+
+def run_continuously2():
+    """Continuously run, while executing pending jobs at each
+    elapsed time interval.
+    @return cease_continuous_run: threading. Event which can
+    be set to cease continuous run. Please note that it is
+    *intended behavior that run_continuously() does not run
+    missed jobs*. For example, if you've registered a job that
+    should run every minute and you set a continuous run
+    interval of one hour then your job won't be run 60 times
+    at each interval but only once.
+    """
+    cease_continuous_run = threading.Event()
+
+    class ScheduleThread(threading.Thread):
+        @classmethod
+        def run(cls):
+            while not cease_continuous_run.is_set():
+                scheduler2.run_all()
 
     continuous_thread = ScheduleThread()
     continuous_thread.start()
@@ -39,7 +61,7 @@ def cap_parse():
 
     tr = soup.find_all('tr')
 
-    db_session.global_init("db/database.db")
+    db_session.global_init("database.db")
     session = db_session.create_session()
 
     count = 0
@@ -254,9 +276,14 @@ def uboat_parse():
     session.commit()
 
 
-schedule.every(1).week.do(cap_parse)
-schedule.every(1).week.do(uboat_parse)
+scheduler1 = schedule.Scheduler()
+scheduler2 = schedule.Scheduler()
+
+scheduler1.every().monday.at("00:00").do(cap_parse)
+scheduler2.every().monday.at("00:00").do(uboat_parse)
 
 
 def run():
+    global stop_run_continuously
     stop_run_continuously = run_continuously()
+    stop_run_continuously = run_continuously2()
