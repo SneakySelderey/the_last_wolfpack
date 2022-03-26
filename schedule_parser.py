@@ -70,8 +70,8 @@ def cap_parse():
 
     db_session.global_init("database.db")
     session = db_session.create_session()
+    print('Captains parse started')
 
-    count = 0
     for i in tr:
         block = BeautifulSoup(str(i), 'lxml')
         a = block.find_all('a')
@@ -128,15 +128,14 @@ def cap_parse():
                 profile_link=cap_list[0])
             session.add(cap)
             session.commit()
-        count += 1
-        print(f'{count / len(tr) * 100} captains')
+    print('Captains parse finished')
     logging.info('Captains parse finished')
 
 
 def uboat_parse():
     db_session.global_init("database.db")
     session = db_session.create_session()
-    count = 0
+    print('U-boats parse started')
     for number in range(4720):
         parse_error = False
         try:
@@ -249,8 +248,6 @@ def uboat_parse():
                     fate=boat_list[8])
                 session.add(boat)
                 session.commit()
-        count += 1
-        print(f'{count / 4720 * 100} uboats')
 
     boat = Uboat(
         tactical_number='UD-5',
@@ -283,6 +280,7 @@ def uboat_parse():
     session.add(boat)
     session.commit()
 
+    print('U-boats parse finished')
     logging.info('U-boats parse finished')
 
 
