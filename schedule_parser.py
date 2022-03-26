@@ -218,9 +218,6 @@ def uboat_parse():
             parse_error = True
 
         if not parse_error:
-            print(boat_list[-1])
-
-        if not parse_error:
             if type(boat_list[-1]) == str:
                 boat = Uboat(
                     tactical_number=boat_list[0],
