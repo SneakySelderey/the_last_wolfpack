@@ -7,6 +7,7 @@ from datetime import datetime
 
 
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
+    """Класс таблицы для пользователя в БД"""
     __tablename__ = 'users'
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
@@ -18,7 +19,11 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
                                         default='empty_pic.jpg')
 
     def set_password(self, password):
+        """Функция установки хешированного пароля.
+        Принимает пароль (строку)"""
         self.hashed_password = generate_password_hash(password)
 
     def check_password(self, password):
+        """Функция проверки введенного пароля с тем, который записан в БД.
+        Принимает пароль (строку)"""
         return check_password_hash(self.hashed_password, password)

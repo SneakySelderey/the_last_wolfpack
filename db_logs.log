@@ -1856,3 +1856,96 @@ WHERE users.email = ?
 2022-03-26 00:03:09,782 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:03:09] "GET /static/img/276.png HTTP/1.1" 200 -
 2022-03-26 00:03:09,793 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:03:09] "GET /static/img/468.png HTTP/1.1" 200 -
 2022-03-26 00:03:09,794 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:03:09] "GET /static/img/1222.png HTTP/1.1" 200 -
+2022-03-26 00:07:26,900 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-26 00:07:26,900 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-26 00:07:31,264 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:31] "GET /captains HTTP/1.1" 200 -
+2022-03-26 00:07:31,462 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:31] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:31,482 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:31] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:31,500 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:31] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-26 00:07:31,593 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:31] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-26 00:07:32,420 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:32] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:32,464 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:32] "GET /static/scripts/lazy_load.js HTTP/1.1" 200 -
+2022-03-26 00:07:32,653 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:32] "GET /static/img/dummy.gif HTTP/1.1" 200 -
+2022-03-26 00:07:33,299 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/0.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,306 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/1.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,313 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/2.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,316 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/3.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,318 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/4.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,320 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/5.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,322 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/6.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,743 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/7.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,744 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/8.png HTTP/1.1" 200 -
+2022-03-26 00:07:33,768 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:33] "GET /static/img/9.png HTTP/1.1" 200 -
+2022-03-26 00:07:34,314 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-26 00:07:35,844 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/193.png HTTP/1.1" 200 -
+2022-03-26 00:07:35,850 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/260.png HTTP/1.1" 200 -
+2022-03-26 00:07:35,852 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/340.png HTTP/1.1" 200 -
+2022-03-26 00:07:35,855 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/345.png HTTP/1.1" 200 -
+2022-03-26 00:07:35,858 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/597.png HTTP/1.1" 200 -
+2022-03-26 00:07:35,859 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/436.png HTTP/1.1" 200 -
+2022-03-26 00:07:35,861 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:35] "GET /static/img/688.png HTTP/1.1" 200 -
+2022-03-26 00:07:37,672 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:37] "GET /static/img/386.png HTTP/1.1" 200 -
+2022-03-26 00:07:37,678 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:37] "GET /static/img/540.png HTTP/1.1" 200 -
+2022-03-26 00:07:39,579 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:39] "GET /uboats HTTP/1.1" 200 -
+2022-03-26 00:07:39,655 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:39] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:39,665 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:39] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:39,668 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:39] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-26 00:07:39,673 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:39] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -
+2022-03-26 00:07:39,684 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:39] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:49,058 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "GET /historical_reference HTTP/1.1" 200 -
+2022-03-26 00:07:49,116 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-26 00:07:49,126 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:49,130 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:49,135 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -
+2022-03-26 00:07:49,146 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:49,165 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "GET /static/img/misc.%20pictures/U-96.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:49,173 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "GET /static/img/misc.%20pictures/Karl_Doenitz.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:49,300 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "GET /static/img/misc.%20pictures/U-243_under_attack.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:49,314 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "GET /static/img/misc.%20pictures/convoy.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:49,340 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:49] "GET /static/img/background/Kriegsmarine_map3.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:53,629 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /uboat_types HTTP/1.1" 200 -
+2022-03-26 00:07:53,680 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-26 00:07:53,689 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:53,695 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:53,700 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -
+2022-03-26 00:07:53,711 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-26 00:07:53,712 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/uboat_type_II.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:53,720 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/uboat_type_VII.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:53,847 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/uboat_type_IX.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:53,850 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/uboat_type_XXI.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:53,852 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/proj641.png HTTP/1.1" 200 -
+2022-03-26 00:07:53,855 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/proj675.png HTTP/1.1" 200 -
+2022-03-26 00:07:53,873 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/misc.%20pictures/uss-clamagore.jpg HTTP/1.1" 200 -
+2022-03-26 00:07:53,879 INFO werkzeug 127.0.0.1 - - [26/Mar/2022 00:07:53] "GET /static/img/background/uboat_type_VII_sheme3.png HTTP/1.1" 200 -
+2022-03-27 10:38:22,697 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-27 10:38:22,763 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-27 10:39:01,700 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-27 10:39:01,700 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-27 10:39:06,242 WARNING werkzeug  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2022-03-27 10:39:06,242 INFO werkzeug  * Running on http://192.168.10.102:5000/ (Press CTRL+C to quit)
+2022-03-27 10:39:39,938 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:39] "GET /historical_reference HTTP/1.1" 200 -
+2022-03-27 10:39:40,051 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:40,052 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:40,460 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/css/base.css HTTP/1.1" 200 -
+2022-03-27 10:39:40,461 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/scripts/table_sort.js HTTP/1.1" 200 -
+2022-03-27 10:39:40,491 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:40,515 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/img/misc.%20pictures/U-96.jpg HTTP/1.1" 200 -
+2022-03-27 10:39:40,550 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/img/misc.%20pictures/Karl_Doenitz.jpg HTTP/1.1" 200 -
+2022-03-27 10:39:40,750 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/img/misc.%20pictures/U-243_under_attack.jpg HTTP/1.1" 200 -
+2022-03-27 10:39:40,757 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/img/misc.%20pictures/convoy.jpg HTTP/1.1" 200 -
+2022-03-27 10:39:40,809 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:40] "GET /static/img/background/Kriegsmarine_map3.jpg HTTP/1.1" 200 -
+2022-03-27 10:39:41,273 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-03-27 10:39:42,321 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:42] "GET /register HTTP/1.1" 200 -
+2022-03-27 10:39:42,388 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:42] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-27 10:39:42,401 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:42] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:42,402 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:42] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:42,406 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:42] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -
+2022-03-27 10:39:52,824 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:52] "POST /register HTTP/1.1" 200 -
+2022-03-27 10:39:52,895 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:52] "[33mGET /js/jquery-3.5.1.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:52,909 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:52] "[36mGET /static/css/base.css HTTP/1.1[0m" 304 -
+2022-03-27 10:39:52,915 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:52] "[33mGET /js/bootstrap.min.js HTTP/1.1[0m" 404 -
+2022-03-27 10:39:52,917 INFO werkzeug 192.168.10.102 - - [27/Mar/2022 10:39:52] "[36mGET /static/scripts/table_sort.js HTTP/1.1[0m" 304 -

@@ -63,6 +63,7 @@ def run_continuously2():
 
 
 def cap_parse():
+    """Функция парсинга капитанов"""
     response = requests.get("https://uboat.net/men/commanders/")
     soup = BeautifulSoup(response.content, 'lxml')
 
@@ -133,6 +134,7 @@ def cap_parse():
 
 
 def uboat_parse():
+    """Функция парсинга лодок"""
     db_session.global_init("database.db")
     session = db_session.create_session()
     print('U-boats parse started')
