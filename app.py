@@ -9,6 +9,7 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
+import json
 # import logging
 # import schedule_parser
 
@@ -90,9 +91,19 @@ def reqister():
         user.username = form.username.data
         user.email = form.email.data
         user.set_password(form.password.data)
+        print(user.id)
         try:
             db_sess.add(user)
             db_sess.commit()
+            # Внесем данные о пользователе в json-файл
+            data = json.load(open('data/users.json', encoding='utf8'))
+            data["users"].append({
+                "id": user.id,
+                "name": user.username,
+                "email": user.email
+            })
+            with open('data/users.json', 'w') as file:
+                json.dump(data, file, indent=4)
             return redirect('/login')
         except Exception as error:
             # logging.error(error)
@@ -156,12 +167,20 @@ def edit_profile():
         form.username.data = user.username
     if form.validate_on_submit():
         user = db_sess.query(User).get(current_user.id)
-        if db_sess.query(User).filter(User.username == form.username.data) \
-            and not form.username.data == current_user.username:
+        if db_sess.query(User).filter(
+                User.username == form.username.data).first() and not \
+                form.username.data == current_user.username:
             return render_template('edit_profile.html',
                                    message='Username is already taken',
                                    form=form)
         user.username = form.username.data
+        # Изменим данные о пользователе в json-файле
+        data = json.load(open('data/users.json', encoding='utf8'))
+        data_user = [i[0] for i in enumerate(data['users']) if i[1][
+            'id'] == user.id][0]
+        data["users"][data_user]["name"] = form.username.data
+        with open('data/users.json', 'w') as file:
+            json.dump(data, file, indent=4)
         if form.picture.data:
             image_data = request.files[form.picture.name]
             name = os.path.join('static/img/profile_pictures',

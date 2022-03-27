@@ -1,4 +1,17 @@
-from browser import document, console
+from browser import document
+
+
+def checkPassword(data, min_l=8):
+    """Функция для проверки пароля на надежность. Пароль считаестя надежным,
+    если его длина не менее min_l символов и есть как минимум одна буква и
+    одна цифра"""
+    if len(data) < min_l:
+        return f'Must be at least {min_l} characters'
+    if not any(x.isalpha() for x in data):
+        return 'Must be at least one letter'
+    if not any(x.isdigit() for x in data):
+        return 'Must be at least one digit'
+    return False
 
 
 class ErrorChecker:
@@ -22,19 +35,27 @@ class ErrorChecker:
             field.validity.valid = False
     
     def equalsTo(self, field1, field2):
-        """Функция, проверяющая совпадение данных двух полей.
+        """Метод, проверяющий совпадение данных двух полей.
         Принимает два поля, значения которых необходимо сравнить"""
         if field1.value != field2.value:
             field1.setCustomValidity("Passwords do not match")
             field1.validity.valid = False
+
+    def badInput(self, field):
+        """Метод, проверяющий валидность введенного пароля. Принимает поле"""
+        resp = checkPassword(field.value)
+        if resp:
+            field.setCustomValidity(resp)
+            field.validity.valid = False
     
     def checkField(self, field):
         """Метод, проверяющий поле на валидность введенных значений (по всем 
         ранее созданных методам). Принимает поле"""
-        console.log(field.value)
         field.setCustomValidity("")
         self.valueMissing(field)
         self.typeMismatch(field)
+        if field == password:
+            self.badInput(field)
         if field == password2:
             self.equalsTo(field, password)
         field.reportValidity()
