@@ -23,11 +23,11 @@
     <title>{{title}}</title>
 </head>
 {% if title == 'Историческая справка' %}
-    <body style="background-image: url(static/img/background/Kriegsmarine_map3.jpg); background-size: cover">
+    <body style="background-image: url(static/img/background/Kriegsmarine_map3.jpg); background-size: cover" onload="brython();">
 {% elif title == 'Типы подводных лодок Кригсмарине' %}
-    <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain">
+    <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain" onload="brython();">
 {% else %}
-    <body>
+    <body onload="brython();">
 {% endif %}
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

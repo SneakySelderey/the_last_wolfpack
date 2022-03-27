@@ -25,7 +25,7 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    """Основаная страница"""
+    """Основная страница"""
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
