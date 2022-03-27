@@ -49,20 +49,15 @@ class ErrorChecker:
             field.setCustomValidity(resp)
             field.validity.valid = False
 
-    def ajaxCall(self):
-        """Метод, проверяющий наличие пользователя в БД. Делает ajax-запрос,
-        который в случае успешного выполнения делает остальную работу в
-        функции onSuccess"""
-        jq.ajax('/api/users', {'success': onSuccess})
-
     def checkField(self, field):
         """Метод, проверяющий поле на валидность введенных значений (по всем 
         ранее созданных методам). Принимает поле"""
         field.setCustomValidity("")
         self.valueMissing(field)
         self.typeMismatch(field)
-        if field == email:
-            self.ajaxCall()
+        if field == email and field.validity.valid:
+            jq.ajax('/api/users', {'success': onSuccess})
+            return
         if field == password:
             self.badInput(field)
         if field == password2:
