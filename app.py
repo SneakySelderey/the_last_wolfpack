@@ -4,6 +4,9 @@ from flask import Flask, request, make_response, session, abort, url_for, redire
 from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
+from flask_restful import Api
+
+from api import users_api
 from data.user import User
 from data.captains import Captain
 from data.uboats import Uboat
@@ -16,6 +19,9 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+api = Api(app)
+api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
+api.add_resource(users_api.UsersListResource, '/api/users')
 login_manager = LoginManager()
 login_manager.init_app(app)
 # logging.basicConfig(
@@ -27,7 +33,6 @@ login_manager.init_app(app)
 @app.route("/")
 def main_page():
     """Основная страница"""
-    return redirect('/register')
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
@@ -95,15 +100,6 @@ def reqister():
         try:
             db_sess.add(user)
             db_sess.commit()
-            # Внесем данные о пользователе в json-файл
-            data = json.load(open('data/users.json', encoding='utf8'))
-            data["users"].append({
-                "id": user.id,
-                "name": user.username,
-                "email": user.email
-            })
-            with open('data/users.json', 'w') as file:
-                json.dump(data, file, indent=4)
             return redirect('/login')
         except Exception as error:
             # logging.error(error)
@@ -174,13 +170,6 @@ def edit_profile():
                                    message='Username is already taken',
                                    form=form)
         user.username = form.username.data
-        # Изменим данные о пользователе в json-файле
-        data = json.load(open('data/users.json', encoding='utf8'))
-        data_user = [i[0] for i in enumerate(data['users']) if i[1][
-            'id'] == user.id][0]
-        data["users"][data_user]["name"] = form.username.data
-        with open('data/users.json', 'w') as file:
-            json.dump(data, file, indent=4)
         if form.picture.data:
             image_data = request.files[form.picture.name]
             name = os.path.join('static/img/profile_pictures',

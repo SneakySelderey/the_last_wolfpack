@@ -1,4 +1,5 @@
-from browser import document
+from browser import document, console, window
+import json
 
 
 def checkPassword(data, min_l=8):
@@ -47,13 +48,21 @@ class ErrorChecker:
         if resp:
             field.setCustomValidity(resp)
             field.validity.valid = False
-    
+
+    def ajaxCall(self):
+        """Метод, проверяющий наличие пользователя в БД. Делает ajax-запрос,
+        который в случае успешного выполнения делает остальную работу в
+        функции onSuccess"""
+        jq.ajax('/api/users', {'success': onSuccess})
+
     def checkField(self, field):
         """Метод, проверяющий поле на валидность введенных значений (по всем 
         ранее созданных методам). Принимает поле"""
         field.setCustomValidity("")
         self.valueMissing(field)
         self.typeMismatch(field)
+        if field == email:
+            self.ajaxCall()
         if field == password:
             self.badInput(field)
         if field == password2:
@@ -77,6 +86,19 @@ def checkValidate(event):
         event.preventDefault()
 
 
+def onSuccess(data, status, req):
+    """Функция, которая вызывается, если ajax смог успешно выполнить запрос.
+    Функция проверяет наличие почты, которую вводит пользователь в поле в
+    списке почт зарегистрированных пользователей. Если она найдена, то
+    вызываетяя ошибка валидации об уникальности"""
+    if email.value in [data.users[i]["email"] for i in range(
+            len(data.users))]:
+        email.setCustomValidity("User with this email is already exists")
+        email.validity.valid = False
+        email.reportValidity()
+
+
+jq = window.jQuery
 form = document.getElementsByTagName('form')[0]
 name = document.getElementById('name')
 email = document.getElementById('email')

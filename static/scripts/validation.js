@@ -1,12 +1,10 @@
 const form  = document.getElementsByTagName('form')[0];
 const email = document.getElementById('email');
 
-email.addEventListener('blur', function (event) {
-  if (email.validity.valid) {
-      console.log('success');
-  } else {
-    showError();
-  }
+email.addEventListener('input', function (event) {
+    $.getJSON('/api/users', function(data) {
+    console.log(data);
+});
 });
 
 form.addEventListener('submit', function (event) {
