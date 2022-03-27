@@ -9,8 +9,8 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
-import logging
-import schedule_parser
+# import logging
+# import schedule_parser
 
 
 app = Flask(__name__)
@@ -50,7 +50,8 @@ def captains_list():
 
     count = 0
     for i in caps:
-        if i.image:
+        if i.image and f'static/img/{count}.png' not in os.listdir(
+                'static/img'):
             name = f'{count}.png'
             with open(f'static/img/{name}', 'wb') as f:
                 f.write(i.image)
@@ -92,7 +93,8 @@ def reqister():
             db_sess.commit()
             return redirect('/login')
         except Exception as error:
-            logging.error(error)
+            # logging.error(error)
+            pass
     return render_template('register.html', title='Register', form=form)
 
 
@@ -112,7 +114,8 @@ def login():
                                    message="Wrong login or password",
                                    form=form)
         except Exception as error:
-            logging.error(error)
+            # logging.error(error)
+            pass
     return render_template('login.html', title='Authorization', form=form)
 
 
