@@ -26,13 +26,15 @@ login_manager.init_app(app)
 @app.route("/")
 def main_page():
     """Основная страница"""
+    return redirect('/register')
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
 @app.route("/uboat_types")
 def uboat_types():
     """Страница с типами лодок"""
-    return render_template('uboat_types.html', title='Типы подводных лодок Кригсмарине')
+    return render_template('uboat_types.html',
+                           title='Типы подводных лодок Кригсмарине')
 
 
 @app.route("/historical_reference")
