@@ -33,7 +33,13 @@ login_manager.init_app(app)
 @app.route("/")
 def main_page():
     """Основная страница"""
+    # return redirect('/test')
     return render_template('main_content.html', title='The Last Wolfpack')
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 @app.route("/uboat_types")
@@ -96,7 +102,6 @@ def reqister():
         user.username = form.username.data
         user.email = form.email.data
         user.set_password(form.password.data)
-        print(user.id)
         try:
             db_sess.add(user)
             db_sess.commit()
@@ -121,7 +126,7 @@ def login():
                 return redirect("/profile")
             return render_template('login.html',
                                    message="Wrong login or password",
-                                   form=form)
+                                   form=form, title="Authorization")
         except Exception as error:
             # logging.error(error)
             pass

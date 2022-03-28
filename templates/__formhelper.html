@@ -1,5 +1,5 @@
 {% macro render_field(field) %}
-    <p>
+    <div class="form-outline mb-4">
         {{ field.label }} <br>
         {{ field(**kwargs) | safe }} <br>
         {% for error in field.errors %}
@@ -8,5 +8,5 @@
             </p>
         {% endfor %}
 
-    </p>
+    </div>
 {% endmacro %}

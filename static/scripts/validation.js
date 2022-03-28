@@ -35,3 +35,19 @@ function showError() {
   }
 
 }
+
+
+// {% block content %}
+// <h1 style="text-align: center">Register form</h1>
+// {% from "__formhelper.html" import render_field %}
+// <form action="" method="post" novalidate>
+//     {{ form.hidden_tag() }}
+//     {{ render_field(form.username, class="form-control", id="name") }}
+//     {{ render_field(form.email, class="form-control", type="email", id="email") }}
+//     {{ render_field(form.password, class="form-control", type="password", id="password") }}
+//     {{ render_field(form.password_again, class="form-control", type="password", id="password2") }}
+//     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+//     {{message}}
+// </form>
+// <script type="text/python" src="{{url_for('static', filename='scripts/validation.py')}}"></script>
+// {% endblock %}

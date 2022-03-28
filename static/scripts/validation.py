@@ -1,5 +1,4 @@
 from browser import document, console, window
-import json
 
 
 def checkPassword(data, min_l=8):
@@ -55,7 +54,7 @@ class ErrorChecker:
         field.setCustomValidity("")
         self.valueMissing(field)
         self.typeMismatch(field)
-        if field == email and field.validity.valid:
+        if field == email and field.validity.valid and password2 is not None:
             jq.ajax('/api/users', {'success': onSuccess})
             return
         if field == password:
@@ -77,7 +76,11 @@ class ErrorChecker:
 def checkValidate(event):
     """Функция для проверки полей перед отправкой.
     Если не все поля валидны, запрещает отправку формы"""
-    if not checker.checkAll([name, email, password, password2][::-1]):
+    if password2 is not None:
+        fields = [name, email, password, password2][::-1]
+    else:
+        fields = [name, email]
+    if not checker.checkAll(fields):
         event.preventDefault()
 
 
@@ -100,8 +103,12 @@ email = document.getElementById('email')
 password = document.getElementById('password')
 password2 = document.getElementById('password2')
 checker = ErrorChecker()
-name.addEventListener('input', lambda x: checker.checkField(name))
-email.addEventListener('input', lambda x: checker.checkField(email))
-password.addEventListener('input', lambda x: checker.checkField(password))
-password2.addEventListener('input', lambda x: checker.checkField(password2))
+if name is not None:
+    name.addEventListener('input', lambda x: checker.checkField(name))
+if email is not None:
+    email.addEventListener('input', lambda x: checker.checkField(email))
+if password is not None:
+    password.addEventListener('input', lambda x: checker.checkField(password))
+if password2 is not None:
+    password2.addEventListener('input', lambda x: checker.checkField(password2))
 form.addEventListener('submit', checkValidate)
