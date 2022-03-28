@@ -4,49 +4,68 @@ from flask import Flask, request, make_response, session, abort, url_for, redire
 from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
+from flask_restful import Api
+
+from api import users_api
 from data.user import User
 from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
-import logging
-import schedule_parser
+import json
+# import logging
+# import schedule_parser
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+api = Api(app)
+api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
+api.add_resource(users_api.UsersListResource, '/api/users')
 login_manager = LoginManager()
 login_manager.init_app(app)
-logging.basicConfig(
-    filename='db_logs.log',
-    format='%(asctime)s %(levelname)s %(name)s %(message)s'
-)
+# logging.basicConfig(
+#     filename='db_logs.log',
+#     format='%(asctime)s %(levelname)s %(name)s %(message)s'
+# )
 
 
 @app.route("/")
 def main_page():
+    """Основная страница"""
+    # return redirect('/test')
     return render_template('main_content.html', title='The Last Wolfpack')
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 @app.route("/uboat_types")
 def uboat_types():
-    return render_template('uboat_types.html', title='Типы подводных лодок Кригсмарине')
+    """Страница с типами лодок"""
+    return render_template('uboat_types.html',
+                           title='Типы подводных лодок Кригсмарине')
 
 
 @app.route("/historical_reference")
 def historical_reference():
+    """Страница с исторической справкой"""
     return render_template('historical_reference.html',
                            title='Историческая справка')
 
 
 @app.route("/captains")
 def captains_list():
+    """Страница с капитанами"""
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
 
     count = 0
     for i in caps:
-        if i.image:
+        if i.image and f'static/img/{count}.png' not in os.listdir(
+                'static/img'):
             name = f'{count}.png'
             with open(f'static/img/{name}', 'wb') as f:
                 f.write(i.image)
@@ -58,6 +77,7 @@ def captains_list():
 
 @app.route("/uboats")
 def uboats_list():
+    """Страница с лодками"""
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
@@ -66,6 +86,7 @@ def uboats_list():
 
 @app.route('/register', methods=['GET', 'POST'])
 def reqister():
+    """Страница регистрации и обработка формы"""
     form = RegisterForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -86,12 +107,14 @@ def reqister():
             db_sess.commit()
             return redirect('/login')
         except Exception as error:
-            logging.error(error)
+            # logging.error(error)
+            pass
     return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Страница авторизации и обработки формы"""
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -103,21 +126,24 @@ def login():
                 return redirect("/profile")
             return render_template('login.html',
                                    message="Wrong login or password",
-                                   form=form)
+                                   form=form, title="Authorization")
         except Exception as error:
-            logging.error(error)
+            # logging.error(error)
+            pass
     return render_template('login.html', title='Authorization', form=form)
 
 
 @app.route('/logout')
 @login_required
 def logout():
+    """Выход пользователя"""
     logout_user()
     return redirect("/")
 
 
 @login_manager.user_loader
 def load_user(user_id):
+    """Загрузка пользователя"""
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
 
@@ -125,6 +151,7 @@ def load_user(user_id):
 @app.route('/profile')
 @login_required
 def user_profile():
+    """Страница профиля пользователя"""
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
     return render_template('profile.html', user=user)
@@ -133,6 +160,7 @@ def user_profile():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    """Страница редактирования профиля и обработка формы"""
     form = EditProfileForm()
     db_sess = db_session.create_session()
     if request.method == 'GET':
@@ -140,8 +168,9 @@ def edit_profile():
         form.username.data = user.username
     if form.validate_on_submit():
         user = db_sess.query(User).get(current_user.id)
-        if db_sess.query(User).filter(User.username == form.username.data) \
-            and not form.username.data == current_user.username:
+        if db_sess.query(User).filter(
+                User.username == form.username.data).first() and not \
+                form.username.data == current_user.username:
             return render_template('edit_profile.html',
                                    message='Username is already taken',
                                    form=form)

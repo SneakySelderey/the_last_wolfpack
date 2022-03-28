@@ -20,14 +20,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="{{url_for('static', filename='scripts/table_sort.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <title>{{title}}</title>
 </head>
 {% if title == 'Историческая справка' %}
-    <body style="background-image: url(static/img/background/Kriegsmarine_map3.jpg); background-size: cover">
+    <body style="background-image: url(static/img/background/Kriegsmarine_map3.jpg); background-size: cover" onload="brython();">
 {% elif title == 'Типы подводных лодок Кригсмарине' %}
-    <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain">
+    <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain" onload="brython();">
+{% elif title == "Register" or title == "Authorization" %}
+    <body class="gradient-custom" onload="brython();"></body>
 {% else %}
-    <body>
+    <body onload="brython();">
 {% endif %}
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

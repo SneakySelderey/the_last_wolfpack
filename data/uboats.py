@@ -5,6 +5,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Uboat(SqlAlchemyBase, UserMixin, SerializerMixin):
+    """Класс таблицы для лодки в БД"""
     __tablename__ = 'uboats'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,

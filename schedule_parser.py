@@ -64,6 +64,7 @@ def run_continuously2():
 
 
 def cap_parse():
+    """Функция парсинга капитанов"""
     response = requests.get("https://uboat.net/men/commanders/")
     soup = BeautifulSoup(response.content, 'lxml')
 
