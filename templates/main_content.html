@@ -1,5 +1,98 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="margin-left: 50%;">Попробуйте перейти по разделам сайта</h1>
+<section class="text-center">
+    <br>
+    <h4 class="mb-5"><strong>Разделы</strong></h4>
+    <div class="row">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-4">
+        <div class="card">
+          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <a href="/historical_reference">
+                <img src="static/img/main_page_pictures/hist.jpg" class="img-fluid"/>
+            </a>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Историческая справка</h5>
+            <p class="card-text">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Amet beatae nam, doloribus inventore ab, eligendi quam magni quasi facere velit natus aliquid earum neque quos. Voluptatem minus velit distinctio sint.
+            </p>
+            <a href="/historical_reference" class="btn btn-outline-dark">Перейти</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-4">
+        <div class="card">
+          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+            <a href="/map">
+                <img src="static/img/main_page_pictures/map.jpg" class="img-fluid" />
+            </a>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Карта</h5>
+            <p class="card-text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro, quibusdam? Recusandae quae incidunt sunt, repellat amet accusamus natus vitae ea. Nulla, iusto. Quaerat, culpa nisi vitae recusandae illo neque reiciendis.
+            </p>
+            <a href="/map" class="btn btn-outline-dark">Перейти</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <a href="/captains">
+                    <img src="static/img/main_page_pictures/caps.jpg" class="img-fluid"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Капитаны Кригсмарине</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus voluptas dolor tempora delectus possimus id eligendi nesciunt, commodi a excepturi deserunt quasi in labore modi voluptatem, aliquam, soluta aspernatur doloremque.
+                </p>
+                <a href="/captains" class="btn btn-outline-dark">Перейти</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <a href="/uboats">
+                    <img src="static/img/main_page_pictures/boats.jpg" class="img-fluid"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Подводные лодки</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis enim fugit saepe laborum minus, quis veniam assumenda, error inventore nisi officia illo dolorum quidem quod repellat ducimus optio dicta blanditiis?
+                </p>
+                <a href="/uboats" class="btn btn-outline-dark">Перейти</a>
+              </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-4">
+            <div class="card">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <a href="/uboat_types">
+                    <img src="static/img/main_page_pictures/types.png" class="img-fluid"/>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Типы лодок Кригсмарине</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero odio beatae fuga excepturi, tempore recusandae consequuntur voluptatum minus ut, nobis repellendus sint ex veniam eveniet! Doloremque natus animi obcaecati repellendus.
+                </p>
+                <!-- <button class="btn">GHBDTN</button> -->
+                <a href="/uboat_types" class="btn btn-outline-dark">Перейти</a>
+              </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 {% endblock %}
