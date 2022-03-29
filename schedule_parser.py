@@ -5,14 +5,14 @@ from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
 import threading
-import logging
+# import logging
 import sqlite3
 
 
-logging.basicConfig(
-    filename='db_logs.log',
-    format='%(asctime)s %(levelname)s %(name)s %(message)s'
-)
+# logging.basicConfig(
+#     filename='db_logs.log',
+#     format='%(asctime)s %(levelname)s %(name)s %(message)s'
+# )
 
 
 def run_continuously():
@@ -148,10 +148,10 @@ def cap_parse():
             count += 1
 
         print('Captains parse finished')
-        logging.info('Captains parse finished')
+        # logging.info('Captains parse finished')
     else:
         print('No response from uboat.net captains page')
-        logging.warning('No response from uboat.net captains page')
+        # logging.warning('No response from uboat.net captains page')
 
 
 def uboat_parse():
@@ -326,10 +326,10 @@ def uboat_parse():
         session.commit()
 
         print('U-boats parse finished')
-        logging.info('U-boats parse finished')
+        # logging.info('U-boats parse finished')
     else:
         print('No response from uboat.net U-boats list page')
-        logging.warning('No response from uboat.net U-boats list page')
+        # logging.warning('No response from uboat.net U-boats list page')
 
 
 scheduler1 = schedule.Scheduler()
