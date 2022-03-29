@@ -71,7 +71,8 @@ class ErrorChecker:
             for field in fields:
                 self.checkField(field)
             return False
-        document.getElementById('form_submit').attributes.can_close = 'true'
+        if form_submit is not None:
+            form_submit.attributes.can_close = 'true'
         return True
 
 
@@ -100,7 +101,9 @@ def onSuccess(data, status, req):
 
 jq = window.jQuery
 form = document.getElementsByTagName('form')[0]
-document.getElementById('form_submit').attributes.can_close = 'false'
+form_submit = document.getElementById('form_submit')
+if form_submit is not None:
+    form_submit.attributes.can_close = 'false'
 name = document.getElementById('name')
 email = document.getElementById('email')
 password = document.getElementById('password')
