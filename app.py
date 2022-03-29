@@ -57,7 +57,7 @@ def historical_reference():
                            title='Историческая справка')
 
 
-@app.route("/captains")
+@app.route("/captains", methods=['GET', 'POST'])
 def captains_list():
     """Страница с капитанами"""
     form = UpdateForm()
@@ -75,14 +75,13 @@ def captains_list():
         count += 1
 
     if form.validate_on_submit():
-        return redirect('historical_reference.html',
-                        title='Историческая справка')
+        return redirect('/historical_reference')
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
                            caps=caps, form=form)
 
 
-@app.route("/uboats")
+@app.route("/uboats", methods=['GET', 'POST'])
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
@@ -91,8 +90,7 @@ def uboats_list():
     uboats = db_sess.query(Uboat).all()
 
     if form.validate_on_submit():
-        return redirect('historical_reference.html',
-                        title='Историческая справка')
+        return redirect('/historical_reference')
 
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats, form=form)

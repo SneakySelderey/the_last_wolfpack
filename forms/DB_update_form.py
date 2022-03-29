@@ -4,4 +4,4 @@ from wtforms import SubmitField
 
 class UpdateForm(FlaskForm):
     """Класс формы обновления БД"""
-    submit = SubmitField('Submit')
+    submit = SubmitField('Обновить БД')
