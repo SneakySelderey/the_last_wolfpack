@@ -1,46 +1,29 @@
 {% extends "base.html" %}
 
-{% block register %}
-<h1>Register form</h1>
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.username.label }}<br>
-        {{ form.username(class="form-control")}}<br>
-        {% for error in form.username.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.email.label }}<br>
-        {{ form.email(class="form-control", type="email") }}<br>
-        {% for error in form.email.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password.label }}<br>
-        {{ form.password(class="form-control", type="password") }}<br>
-        {% for error in form.password.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {{ form.password_again.label }}<br>
-        {{ form.password_again(class="form-control", type="password") }}<br>
-        {% for error in form.password_again.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-        {% endfor %}
-    </p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {{message}}
-</form>
+
+{% block content %}
+{% from "__formhelper.html" import render_field %}
+<div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+<div class="card" style="border-radius: 15px;">
+<div class="card-body p-5">
+    <h2 class="text-uppercase text-center mb-5">Register</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {{ render_field(form.username, class="form-control", id="name") }}
+        {{ render_field(form.email, class="form-control", type="email", id="email") }}
+        {{ render_field(form.password, class="form-control", type="password", id="password") }}
+        {{ render_field(form.password_again, class="form-control", type="password", id="password2") }}
+        <p>{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
+        {{message}}
+        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/python" src="{{url_for('static', filename='scripts/validation.py')}}"></script>
 {% endblock %}

@@ -1,29 +1,42 @@
 {% extends "base.html" %}
 
-{% block authorization %}
-    <h1>Authorization</h1>
+{% block cringe %}
+    <h1 style="text-align: center;">Authorization</h1>
+    {% from "__formhelper.html" import render_field %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(class="form-control", type="email") }}<br>
-            {% for error in form.email.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(class="form-control", type="password") }}<br>
-            {% for error in form.password.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-        </p>
+        {{ render_field(form.email, class="form-control", type="email", id="email") }}
+        {{ render_field(form.password, class="form-control", type="password", id="name") }}
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
         <div>{{ message }}</div>
     </form>
+{% endblock %}
+
+
+
+{% block content %}
+{% from "__formhelper.html" import render_field %}
+<div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+<div class="card" style="border-radius: 15px;">
+<div class="card-body p-5">
+    <h2 class="text-uppercase text-center mb-5">Login</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        {{ render_field(form.email, class="form-control", type="email", id="email") }}
+        {{ render_field(form.password, class="form-control", type="password", id="name") }}
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
+        {{message}}
+        <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register" class="fw-bold text-body"><u>Register here</u></a></p>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/python" src="{{url_for('static', filename='scripts/validation.py')}}"></script>
 {% endblock %}

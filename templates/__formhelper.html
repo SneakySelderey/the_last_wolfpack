@@ -1,14 +1,14 @@
 {% macro render_field(field) %}
-<div class="form-outline mb-4">
-    {{ field.label }} <br>
-    {{ field(**kwargs) | safe }} <br>
-    {% for error in field.errors %}
-        <p class="alert alert-danger" role="alert">
-            {{ error }}
-        </p>
-    {% endfor %}
+    <div class="form-outline mb-4">
+        {{ field.label }} <br>
+        {{ field(**kwargs) | safe }} <br>
+        {% for error in field.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
 
-</div>
+    </div>
 {% endmacro %}
 
 {% macro render_edit_form(form) %}

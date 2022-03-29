@@ -5,7 +5,7 @@
 align-items: center;
 justify-content: center;
 height: 100%;">Капитаны Кригсмарине</h1>
-<table class="table">
+<table class="table table-sortable" id="caps_table">
     <thead>
         <tr>
             <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
@@ -20,13 +20,13 @@ height: 100%;">Капитаны Кригсмарине</h1>
         {% for item in caps%}
             <tr>
                 <th scope="row">{{ item.id }}</th>
-                <td>{{ item.name }}</td>
+                <td id="cap_name">{{ item.name }}</td>
                 {% if not item.image %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
                 {% else %}
-                    {% set name = 'img/' + (loop.index - 1) | string + '.png' %}
+                    {% set name = 'img/' + loop.index0 | string + '.png' %}
                     {% set static = 'static' %}
-                    <td> <img src={{ url_for(static, filename=name) }} class="img-fluid img-thumbnail"> </td>
+                    <td> <img data-src="{{ url_for(static, filename=name) }}" src="{{url_for('static', filename='img/dummy.gif')}}" class="img-fluid img-thumbnail" id="cap_image"> </td>
                 {% endif %}
                 <td>{{ item.info }}</td>
                 <td>{{ item.boats }}</td>
@@ -35,4 +35,17 @@ height: 100%;">Капитаны Кригсмарине</h1>
             {% endfor %}
     </tbody>
 </table>
+<script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
+<script>
+    $(document).ready(function() {
+        $('#caps_table').DataTable({
+            "bPaginate": false,
+            columnDefs: [
+    {orderable: false, targets: [2, 3, 5]},
+    {searchable: false, targets: [2, 5]},
+    {type: 'boat-num', targets: 4}
+  ]
+        });
+    } );
+</script>
 {% endblock %}

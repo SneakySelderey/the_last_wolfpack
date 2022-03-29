@@ -62,3 +62,33 @@ button.btn-edit-profile:focus {
     font-weight: 600;
     color: #4b4f52;
 }
+#profile_pic {
+    border-radius: 50%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
+}
+.profile {
+    margin: 50px;
+}
+.dataTables_filter input {
+    border:1px solid #aaa;
+    border-radius:3px;
+    padding:5px;
+    background-color:transparent;
+    margin-left:3px
+}
+.gradient-custom {
+    background: #9598a6;
+    background: -webkit-linear-gradient(to right, rgba(149, 152, 166, 0.5), rgba(58, 53, 77));
+    background: linear-gradient(to right, rgba(149, 152, 166, 0.5), rgba(58, 53, 77))
+}
+.gradient-custom2 {
+    background: -webkit-linear-gradient(180deg, #d9d9d9,#929292);
+    background: linear-gradient(180deg, #d9d9d9,#929292);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                               
+}
+.stamp {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+    font-size: xx-large;
+}

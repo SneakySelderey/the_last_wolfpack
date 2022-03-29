@@ -5,6 +5,7 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Captain(SqlAlchemyBase, UserMixin, SerializerMixin):
+    """Класс таблицы для капитана в БД"""
     __tablename__ = 'caps'
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,

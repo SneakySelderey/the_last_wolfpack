@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="display: flex;
+align-items: center;
+justify-content: center;
+height: 100%;">Подлодки Кригсмарине</h1>
+<table class="table" style="width: 100%" id="boats_table">
+    <thead>
+        <tr>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Тактический номер</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Заказана</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Заложена</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Спуск на воду</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Прошла испытания</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Капитаны</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Боевой путь</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Успехи</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Судьба</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Координаты гибели</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in uboats%}
+            <tr>
+                <th scope="row">{{ item.id }}</th>
+                <td>{{ item.tactical_number }}</td>
+                {% if item.ordered %}
+                    <td>{{ item.ordered }}</td>
+                {% else %}
+                    <td style="background-color:rgba(231, 98, 98, 0.3)">None</td>
+                {% endif %}
+                <td>{{ item.laid_down }}</td>
+                {% if item.launched %}
+                    <td>{{ item.launched }}</td>
+                {% else %}
+                    <td style="background-color:rgba(231, 98, 98, 0.3)">None</td>
+                {% endif %}
+                <td>{{ item.commissioned }}</td>
+                <td>{{ item.commanders }}</td>
+                <td>{{ item.career }}</td>
+                <td>{{ item.successes }}</td>
+                <td>{{ item.fate }}</td>
+                {% if item.coords %}
+                    <td>{{ item.coords }}</td>
+                {% else %}
+                    <td style="background-color:rgba(231, 98, 98, 0.3)">None</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    $(document).ready(function() {
+        $('#boats_table').DataTable({
+            "bPaginate": false,
+            columnDefs: [
+    {orderable: false, targets: [6, 7, 8, 9]},
+    {type: 'date-dd-mmm-yyyy', targets: [2, 3, 4, 5]},
+    {type: 'boat-num', targets: 1}
+
+  ]
+        });
+    } );
+</script>
+{% endblock %}
