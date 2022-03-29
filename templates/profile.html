@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block profile %}
+{% block profile2 %}
     <div class="emp-profile">
         <form method="post">
             <div class="row">
@@ -16,8 +16,34 @@
                     <h5>{{ user.username }}</h5>
                     <h6>Register date: <span>{{ user.register_date }}</span></h6>
                     <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/> -->
-                    <a class="btn btn-default btn-edit-profile" href="/edit_profile">Edit profile</a>
+                    <a class="btn btn-default btn-edit-profile" href="/edit_profile" >Edit profile</a>
                     <br>
+                    <!-- Форма редактирования профиля  -->
+                    <div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                    <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+                        <div class="form-popup" id="edit_form" style="z-index: 1; position: fixed">
+                            <form action="../action_page.php" class="form-container">
+                              <h1>Вход</h1>
+                          
+                              <label for="email"><b>Почта</b></label>
+                              <input type="text" placeholder="Ваша почта" name="email" required>
+                          
+                              <label for="psw"><b>Пароль</b></label>
+                              <input type="password" placeholder="Ваш пароль" name="psw" required>
+                          
+                              <button type="submit" class="btn">Вход</button>
+                              <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- Форма редактирования профиля  -->
                 </div>
                 <div class="col-md-8">
                     <div class="profile-head">
@@ -121,4 +147,62 @@
             </div>
         </form>
     </div>       
+{% endblock %}
+
+{% block profile %}
+{% from "__formhelper.html" import render_edit_form, render_field %}
+<div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-md-12 col-lg-12 col-xl-12 col-xs-12">
+    <div class="card" style="border-radius: 15px;">
+    <div class="card-body p-5">
+        <h2 class="text-uppercase text-center mb-5">Profile</h2>
+        {% set path = 'img/profile_pictures/' + user.profile_picture%}
+        <div class="row">
+            <div class="bg-image hover-overlay ripple col-md-6 col-xl-4 col-lg-4 col-xs-12 justify-content-center align-items-center" data-mdb-ripple-color="light">
+                <img src="{{url_for('static', filename=path)}}" class="img-fluid"/>
+                <div class="col-12">
+                    <h5 style="margin-top: 3%;">{{ user.username }}</h5>
+                    <h6>Register date: <span class="reg_date">{{ user.register_date }}</span></h6>
+                    <h6>Email: <span class="reg_date">{{ user.email }}</span></h6>
+                </div>
+                <div class="col-12" style="text-align: center; margin-top: 5%; margin-bottom: 5%">
+                    <!-- <button class="btn btn-default btn-edit-profile" onclick="openForm()">Edit profile</button> -->
+                    <!-- <a class="btn btn-default btn-edit-profile" href="" onclick="openForm()">Edit profile</a> -->
+                    <button class="btn btn-info open-form" onclick="openForm()">Edit profile</button>
+                </div>
+            </div>
+
+            {{ render_edit_form(form) }}
+
+
+            <div class="col-xl-8 col-lg-8 col-xs-12 col-md-6">
+                <div class="profile-head">
+                    <h5>Favourites</h5>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#caps" role="tab" aria-controls="caps" aria-selected="true">Captains</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boats" role="tab" aria-controls="boats" aria-selected="false">Boats</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        function openForm() {
+          document.getElementById("edit_form").style.display = "block";
+        }
+        
+        function closeForm() {
+          document.getElementById("edit_form").style.display = "none";
+        }
+        </script>
 {% endblock %}

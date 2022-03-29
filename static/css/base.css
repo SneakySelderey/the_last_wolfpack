@@ -5,35 +5,28 @@
     display: block;
     margin-top: 0;
 }
-.profile-img .file {
-    position: relative;
-    overflow: hidden;
-    height: 80%;
-    width: 70%;
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-}
-.profile-img .file input {
-    position: absolute;
-    opacity: 0;
-    right: 0;
-    top: 0;
-}
 a.btn-edit-profile {
     border: none;
     border-radius: 1.5rem;
     width: 70%;
     padding: 2%;
     font-weight: 600;
-    background-color: #a0a9b1;
-    color: #4b4f52;
+    background-color: #7f77e0;
+    color: #fff;
 }
 a.btn-edit-profile:hover {
-    background-color: #949aa0;
+    background-color: #746dc9;
+    color: #fff;
 }
 a.btn-edit-profile:active {
-    background-color: #858a8f;
+    background-color: #6d66bd;
+    color: #fff;
+    box-shadow:0 0 0 .2rem rgba(113,106,197,.5)
+}
+a.btn-edit-profile:focus {
+    background-color: #6d66bd;
+    color: #fff;
+    box-shadow:0 0 0 .2rem rgba(113,106,197,.5)
 }
 .profile-head .nav-tabs{
     margin-bottom:5%;
@@ -44,14 +37,18 @@ a.btn-edit-profile:active {
 }
 .profile-head .nav-tabs .nav-link.active{
     border: none;
-    border-bottom:2px solid #0062cc;
+    border-bottom:2px solid #7069c0;
+}
+.profile-head .nav-tabs .nav-link{
+    color: #968fe9;
 }
 .profile-img img{
-    width: 70%;
+    width: 80%;
     height: 100%;
 }
 .profile-head h5 {
     text-align: center;
+    letter-spacing: 1px;
     font-weight: 600;
 }
 .emp-profile{
@@ -61,8 +58,7 @@ a.btn-edit-profile:active {
     border-radius: 0.5rem;
     background: #fff;
 }
-.test{color:#fff;background-color:#7f77e0;border-color:#7f77e0}
-.test:hover{color:#fff;background-color:#7069c2;border-color:#655ead}
-.test:focus{color:#fff;background-color:#7069c2;border-color:#655ead;box-shadow:0 0 0 .2rem rgb(224, 119, 119)}
-.test:disabled{color:#fff;background-color:#7f77e0;border-color:#7f77e0}
-.test:not{color:#fff;background-color:#7f77e0;border-color:#7f77e0}
+.reg_date {
+    font-weight: 600;
+    color: #4b4f52;
+}

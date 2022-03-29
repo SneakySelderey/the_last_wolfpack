@@ -21,5 +21,6 @@ class LoginForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     picture = FileField('Profile picture')
-    username = StringField('Username', validators=[DataRequired()])
+    username = StringField('Username')
+    email = EmailField('Email')
     submit = SubmitField('Save')

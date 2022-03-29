@@ -17,7 +17,7 @@ login_manager.init_app(app)
 
 @app.route("/")
 def main_page():
-    return redirect('/test')
+    return redirect('/profile')
     return render_template('main_content.html', title='TheLastWolfpack')
 
 
@@ -43,7 +43,7 @@ def captains_list():
 
   
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
@@ -94,12 +94,19 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def user_profile():
+    form = EditProfileForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
-    return render_template('profile.html', user=user)
+    if request.method == 'GET':
+        form.username.data = user.username
+        form.email.data = user.email
+    if form.validate_on_submit():
+        print('cool')
+    return render_template('profile.html', user=user, title='Profile',
+                           form=form)
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -116,7 +123,7 @@ def edit_profile():
                 and not form.username.data == current_user.username:
             return render_template('edit_profile.html',
                                    message='Username is already taken',
-                                   form=form)
+                                   form=form, title='Edit profile')
         user.username = form.username.data
         if form.picture.data:
             image_data = request.files[form.picture.name]
@@ -127,7 +134,8 @@ def edit_profile():
             db_sess.commit()
         db_sess.commit()
         return redirect("/profile")
-    return render_template('edit_profile.html', title='Edit Profile', form=form)
+    return render_template('edit_profile.html', title='Edit Profile',
+                           form=form)
 
 
 if __name__ == '__main__':
