@@ -5,7 +5,7 @@ from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
 from flask_restful import Api
-
+from werkzeug.utils import secure_filename
 from api import users_api
 from data.user import User
 from data.captains import Captain
@@ -159,11 +159,27 @@ def user_profile():
         form.username.data = user.username
         form.email.data = user.email
     if form.validate_on_submit():
-        print('yes')
-    else:
-        print('no')
+        if db_sess.query(User).filter(
+            User.email == form.email.data).first() and not \
+                form.email.data == current_user.email:
+            return render_template('profile.html',
+                                   message='Username is already taken',
+                                   form=form, title='Profile')
+        user.username = form.username.data
+        user.email = form.email.data
+        if form.picture.data:
+            filename = secure_filename(form.picture.data.filename)
+            form.picture.data.save('static/img/profile_pictures/' + filename)
+            user.profile_picture = filename
+        db_sess.commit()
+        return redirect('/dummy')
     return render_template('profile.html', user=user, title='Profile',
                            form=form)
+
+
+@app.route('/dummy')
+def dummy():
+    return redirect('/profile')
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
