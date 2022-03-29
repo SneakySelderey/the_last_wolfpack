@@ -59,6 +59,8 @@ def historical_reference():
 @app.route("/captains")
 def captains_list():
     """Страница с капитанами"""
+    form = RegisterForm()
+
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
 
@@ -71,6 +73,10 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
+    if form.validate_on_submit():
+        return redirect('historical_reference.html',
+                        title='Историческая справка')
+
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
                            caps=caps)
 
@@ -78,8 +84,15 @@ def captains_list():
 @app.route("/uboats")
 def uboats_list():
     """Страница с лодками"""
+    form = RegisterForm()
+
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
+
+    if form.validate_on_submit():
+        return redirect('historical_reference.html',
+                        title='Историческая справка')
+
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats)
 
