@@ -16,9 +16,10 @@ def checkPassword(data, min_l=8):
 
 def checkExtension(data, *extensions):
     """Функция для проверки файла на соответствие разрещенным расширениям"""
-    if not any(data.endswith(x) for x in extensions):
-        return 'Invalid file extension. Allowed extensions: ' + ', '.join(
-            extensions)
+    if data:
+        if not any(data.endswith(x) for x in extensions):
+            return 'Invalid file extension. Allowed extensions: ' + ', '.join(
+                extensions)
     return False
 
 
@@ -63,7 +64,8 @@ class ErrorChecker:
         """Метод, проверяющий поле на валидность введенных значений (по всем 
         ранее созданных методам). Принимает поле"""
         field.setCustomValidity("")
-        self.valueMissing(field)
+        if field != picture:
+            self.valueMissing(field)
         self.typeMismatch(field)
         if field == email and field.validity.valid and (
                 password2 is not None or picture is not None):
