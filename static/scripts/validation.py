@@ -54,7 +54,8 @@ class ErrorChecker:
         field.setCustomValidity("")
         self.valueMissing(field)
         self.typeMismatch(field)
-        if field == email and field.validity.valid and password2 is not None:
+        if field == email and field.validity.valid and (
+                password2 is not None or picture is not None):
             jq.ajax('/api/users', {'success': onSuccess})
             return
         if field == password:
@@ -70,6 +71,7 @@ class ErrorChecker:
             for field in fields:
                 self.checkField(field)
             return False
+        document.getElementById('form_submit').attributes.can_close = 'true'
         return True
 
 
@@ -89,8 +91,8 @@ def onSuccess(data, status, req):
     Функция проверяет наличие почты, которую вводит пользователь в поле в
     списке почт зарегистрированных пользователей. Если она найдена, то
     вызываетяя ошибка валидации об уникальности"""
-    if email.value in [data.users[i]["email"] for i in range(
-            len(data.users))]:
+    emails = [data.users[i]["email"] for i in range(len(data.users))]
+    if email.value in emails and email.value != user_email:
         email.setCustomValidity("User with this email is already exists")
         email.validity.valid = False
         email.reportValidity()
@@ -98,10 +100,13 @@ def onSuccess(data, status, req):
 
 jq = window.jQuery
 form = document.getElementsByTagName('form')[0]
+document.getElementById('form_submit').attributes.can_close = 'false'
 name = document.getElementById('name')
 email = document.getElementById('email')
 password = document.getElementById('password')
 password2 = document.getElementById('password2')
+picture = document.getElementById('picture')
+user_email = email.value if picture is not None else None
 checker = ErrorChecker()
 if name is not None:
     name.addEventListener('input', lambda x: checker.checkField(name))

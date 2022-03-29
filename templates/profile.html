@@ -162,9 +162,9 @@
             <div class="bg-image hover-overlay ripple col-md-6 col-xl-4 col-lg-4 col-xs-12 justify-content-center align-items-center" data-mdb-ripple-color="light">
                 <img src="{{url_for('static', filename=path)}}" class="img-fluid"/>
                 <div class="col-12">
-                    <h5 style="margin-top: 3%;">{{ user.username }}</h5>
+                    <h5 style="margin-top: 3%;" id="username">{{ user.username }}</h5>
                     <h6>Register date: <span class="reg_date">{{ user.register_date }}</span></h6>
-                    <h6>Email: <span class="reg_date">{{ user.email }}</span></h6>
+                    <h6>Email: <span class="reg_date" id="user_email">{{ user.email }}</span></h6>
                 </div>
                 <div class="col-12" style="text-align: center; margin-top: 5%; margin-bottom: 5%">
                     <!-- <button class="btn btn-default btn-edit-profile" onclick="openForm()">Edit profile</button> -->
@@ -196,13 +196,20 @@
     </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/python" src="{{url_for('static', filename='scripts/validation.py')}}"></script>
     <script>
         function openForm() {
-          document.getElementById("edit_form").style.display = "block";
+            document.getElementById("edit_form").style.display = "block";
+            document.getElementById("name").value = document.getElementById("username").innerHTML;
+            document.getElementById("email").value = document.getElementById("user_email").innerHTML;
+            console.log(document.getElementById("username").innerHTML)
+            console.log(document.getElementById("user_email").innerHTML)
         }
         
         function closeForm() {
-          document.getElementById("edit_form").style.display = "none";
+            if (document.getElementById('form_submit').attributes.can_close == "true"){
+                document.getElementById("edit_form").style.display = "none";
+            }
         }
         </script>
 {% endblock %}

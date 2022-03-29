@@ -66,6 +66,6 @@ class LoginForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     """Класс формы редактирования профиля пользователя"""
     picture = FileField('Profile picture')
-    username = StringField('Username')
-    email = EmailField('Email')
+    username = StringField('Username', validators=[DataRequired()])
+    email = EmailField('Email', validators=[DataRequired()])
     submit = SubmitField('Save')

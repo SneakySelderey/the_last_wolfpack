@@ -16,7 +16,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     register_date = sqlalchemy.Column(sqlalchemy.Date, default=datetime.now)
     profile_picture = sqlalchemy.Column(sqlalchemy.String,
-                                        default='empty_pic.jpg')
+                                        default='empty_pic.png')
 
     def set_password(self, password):
         """Функция установки хешированного пароля.
