@@ -5,7 +5,7 @@
     display: block;
     margin-top: 0;
 }
-a.btn-edit-profile {
+button.btn-edit-profile {
     border: none;
     border-radius: 1.5rem;
     width: 70%;
@@ -14,16 +14,16 @@ a.btn-edit-profile {
     background-color: #7f77e0;
     color: #fff;
 }
-a.btn-edit-profile:hover {
+button.btn-edit-profile:hover {
     background-color: #746dc9;
     color: #fff;
 }
-a.btn-edit-profile:active {
+button.btn-edit-profile:active {
     background-color: #6d66bd;
     color: #fff;
     box-shadow:0 0 0 .2rem rgba(113,106,197,.5)
 }
-a.btn-edit-profile:focus {
+button.btn-edit-profile:focus {
     background-color: #6d66bd;
     color: #fff;
     box-shadow:0 0 0 .2rem rgba(113,106,197,.5)

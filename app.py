@@ -104,7 +104,7 @@ def user_profile():
         form.username.data = user.username
         form.email.data = user.email
     if form.validate_on_submit():
-        print('cool')
+        pass
     return render_template('profile.html', user=user, title='Profile',
                            form=form)
 
