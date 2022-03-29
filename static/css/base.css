@@ -1,6 +1,67 @@
 #margin_do {
     margin: 5px;
 }
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+button.btn-edit-profile {
+    border: none;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    background-color: #7f77e0;
+    color: #fff;
+}
+button.btn-edit-profile:hover {
+    background-color: #746dc9;
+    color: #fff;
+}
+button.btn-edit-profile:active {
+    background-color: #6d66bd;
+    color: #fff;
+    box-shadow:0 0 0 .2rem rgba(113,106,197,.5)
+}
+button.btn-edit-profile:focus {
+    background-color: #6d66bd;
+    color: #fff;
+    box-shadow:0 0 0 .2rem rgba(113,106,197,.5)
+}
+.profile-head .nav-tabs{
+    margin-bottom:5%;
+}
+.profile-head .nav-tabs .nav-link{
+    font-weight:600;
+    border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+    border: none;
+    border-bottom:2px solid #7069c0;
+}
+.profile-head .nav-tabs .nav-link{
+    color: #968fe9;
+}
+.profile-img img{
+    width: 80%;
+    height: 100%;
+}
+.profile-head h5 {
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+.reg_date {
+    font-weight: 600;
+    color: #4b4f52;
+}
 #profile_pic {
     border-radius: 50%;
     max-width: 300px;

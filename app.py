@@ -56,6 +56,11 @@ def historical_reference():
                            title='Историческая справка')
 
 
+@app.route("/test")
+def test():
+    return render_template('test.html')
+
+
 @app.route("/captains")
 def captains_list():
     """Страница с капитанами"""
@@ -85,7 +90,7 @@ def uboats_list():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     """Страница регистрации и обработка формы"""
     form = RegisterForm()
     if form.validate_on_submit():
@@ -148,13 +153,20 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def user_profile():
-    """Страница профиля пользователя"""
+   """Страница профиля пользователя"""
+    form = EditProfileForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
-    return render_template('profile.html', user=user)
+    if request.method == 'GET':
+        form.username.data = user.username
+        form.email.data = user.email
+    if form.validate_on_submit():
+        pass
+    return render_template('profile.html', user=user, title='Profile',
+                           form=form)
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -173,7 +185,7 @@ def edit_profile():
                 form.username.data == current_user.username:
             return render_template('edit_profile.html',
                                    message='Username is already taken',
-                                   form=form)
+                                   form=form, title='Edit profile')
         user.username = form.username.data
         if form.picture.data:
             image_data = request.files[form.picture.name]
