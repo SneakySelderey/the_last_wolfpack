@@ -1,0 +1,34 @@
+{% macro render_field(field) %}
+<div class="form-outline mb-4">
+    {{ field.label }} <br>
+    {{ field(**kwargs) | safe }} <br>
+    {% for error in field.errors %}
+        <p class="alert alert-danger" role="alert">
+            {{ error }}
+        </p>
+    {% endfor %}
+
+</div>
+{% endmacro %}
+
+{% macro render_edit_form(form) %}
+<div class="container h-100 form-popup" id="edit_form" style="z-index: 1; position: fixed; margin-top: 2.5%; margin-bottom: 2.5%">
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="col-12 col-md-9 col-lg-7 col-xl-6">
+<div class="card" style="border-radius: 15px;">
+<div class="card-body p-5">
+    <h2 class="text-uppercase text-center mb-5">Edit</h2>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        {{ render_field(form.username, class="form-control", id="name") }}
+        {{ render_field(form.email, class="form-control", id="email") }}
+        {{ render_field(form.picture, class="form-control") }}
+        <p onclick="closeForm()">{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
+        {{message}}
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endmacro %}
