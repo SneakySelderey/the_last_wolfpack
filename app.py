@@ -37,11 +37,6 @@ def main_page():
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
-
-
 @app.route("/uboat_types")
 def uboat_types():
     """Страница с типами лодок"""
@@ -156,7 +151,7 @@ def load_user(user_id):
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def user_profile():
-   """Страница профиля пользователя"""
+    """Страница профиля пользователя"""
     form = EditProfileForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
