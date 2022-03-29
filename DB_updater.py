@@ -106,6 +106,124 @@ def cap_parse():
         # logging.warning('No response from uboat.net captains page')
 
 
+def uboat_parse_cycle(number, session):
+    global count
+    parse_error = False
+    no_num = False
+    response = requests.get(f"https://uboat.net/boats/u{number}.htm")
+    soup = BeautifulSoup(response.content, 'lxml')
+
+    p = soup.find_all('p')
+
+    if "<p>Here we've created a compilation of all the 1,153* U-boats that were commissioned into the Kriegsmarine before and during World War Two. Each boat has a complete history file, including construction facts, commanders, flotillas, successes and final fates.</p>" not in p:
+        try:
+            tr = soup.find_all('tr')
+
+            tac_num = f'U-{number}'
+
+            ordered = tr[1].text[7:]
+            laid_down = tr[2].text[9:]
+            launched = tr[3].text[8:]
+            commissioned = tr[4].text[12:]
+            while True:
+                fail = False
+                try:
+                    for i in range(len(commissioned)):
+                        if commissioned[i].isdigit() and commissioned[i + 1].isalpha():
+                            fail = True
+                            commissioned = commissioned.replace(commissioned[i] + commissioned[i + 1], commissioned[i] + ' ' + commissioned[i + 1])
+                            break
+                except IndexError:
+                    pass
+                if not fail:
+                    break
+            while '\xa0' in commissioned:
+                commissioned = commissioned.replace('\xa0', ' ')
+            commanders = tr[5].text[10:]
+            while True:
+                fail = False
+                try:
+                    for i in range(len(commanders)):
+                        if commanders[i].isalpha() and commanders[i + 1].isdigit():
+                            fail = True
+                            commanders = commanders.replace(commanders[i] + commanders[i + 1], commanders[i] + '       ' + commanders[i + 1])
+                            break
+                except IndexError:
+                    pass
+                if not fail:
+                    break
+            while '\xa0' in commanders:
+                commanders = commanders.replace('\xa0', ' ')
+            commanders = commanders.replace('   ', ' ')
+            for i in range(len(tr)):
+                if 'Career' in tr[i].text:
+                    career = tr[i].text[6:]
+                elif 'Successes' in tr[i].text:
+                    successes = tr[i].text[9:]
+                elif 'Fate' in tr[i].text:
+                    fate = tr[i].text[6:-1]
+            if 'patrols' in career:
+                career = career.replace('patrols', 'patrols:   ')
+            elif 'patrol' in career:
+                career = career.replace('patrol', 'patrol:   ')
+            count_no_space = career.count(')')
+            count_with_space = career.count(') ')
+            while True:
+                career = career.replace(')', ') ')
+                count_with_space = career.count(') ')
+                if count_with_space == count_no_space:
+                    break
+            while '\xa0' in career:
+                career = career.replace('\xa0', ' ')
+            p = soup.find_all('p')
+            coords = soup.find_all('script')
+            for i in coords:
+                if 'L.marker' in i.text:
+                    index = i.text.find('L.marker([', -600)
+                    a = i.text[index:index + 22]
+                    coord2 = a.split(',')[0][-5:]
+                    coord1 = a.split(',')[1][1:]
+                    if coord1[-1] == ']':
+                        coord1 = coord1[:-1]
+                    coords = f'{coord1}, {coord2}'
+
+            boat_list = (tac_num, ordered, laid_down, launched, commissioned, commanders, career, successes, fate, coords)
+        except IndexError:
+            parse_error = True
+
+        if not parse_error:
+            if type(boat_list[-1]) == str:
+                boat = Uboat(
+                    id=count,
+                    tactical_number=boat_list[0],
+                    ordered=boat_list[1],
+                    laid_down=boat_list[2],
+                    launched=boat_list[3],
+                    commissioned=boat_list[4],
+                    commanders=boat_list[5],
+                    career=boat_list[6],
+                    successes=boat_list[7],
+                    fate=boat_list[8],
+                    coords=boat_list[9])
+                session.add(boat)
+                session.commit()
+            else:
+                boat = Uboat(
+                    id=count,
+                    tactical_number=boat_list[0],
+                    ordered=boat_list[1],
+                    laid_down=boat_list[2],
+                    launched=boat_list[3],
+                    commissioned=boat_list[4],
+                    commanders=boat_list[5],
+                    career=boat_list[6],
+                    successes=boat_list[7],
+                    fate=boat_list[8])
+                session.add(boat)
+                session.commit()
+            count += 1
+
+
 def uboat_parse():
     response = requests.get("https://uboat.net/boats/listing.html")
     soup = BeautifulSoup(response.content, 'lxml')
@@ -126,122 +244,25 @@ def uboat_parse():
         session = db_session.create_session()
         print('U-boats parse started')
 
+        global count
         count = 1
-        for number in range(4720):
-            parse_error = False
-            no_num = False
-            response = requests.get(f"https://uboat.net/boats/u{number}.htm")
-            soup = BeautifulSoup(response.content, 'lxml')
+        for number in range(1408):
+            uboat_parse_cycle(number, session)
 
-            p = soup.find_all('p')
+        for number in range(2320, 2372):
+            uboat_parse_cycle(number, session)
 
-            if "<p>Here we've created a compilation of all the 1,153* U-boats that were commissioned into the Kriegsmarine before and during World War Two. Each boat has a complete history file, including construction facts, commanders, flotillas, successes and final fates.</p>" not in p:
-                try:
-                    tr = soup.find_all('tr')
+        for number in range(2500, 2553):
+            uboat_parse_cycle(number, session)
 
-                    tac_num = f'U-{number}'
+        for number in range(3000, 3045):
+            uboat_parse_cycle(number, session)
 
-                    ordered = tr[1].text[7:]
-                    laid_down = tr[2].text[9:]
-                    launched = tr[3].text[8:]
-                    commissioned = tr[4].text[12:]
-                    while True:
-                        fail = False
-                        try:
-                            for i in range(len(commissioned)):
-                                if commissioned[i].isdigit() and commissioned[i + 1].isalpha():
-                                    fail = True
-                                    commissioned = commissioned.replace(commissioned[i] + commissioned[i + 1], commissioned[i] + ' ' + commissioned[i + 1])
-                                    break
-                        except IndexError:
-                            pass
-                        if not fail:
-                            break
-                    while '\xa0' in commissioned:
-                        commissioned = commissioned.replace('\xa0', ' ')
-                    commanders = tr[5].text[10:]
-                    while True:
-                        fail = False
-                        try:
-                            for i in range(len(commanders)):
-                                if commanders[i].isalpha() and commanders[i + 1].isdigit():
-                                    fail = True
-                                    commanders = commanders.replace(commanders[i] + commanders[i + 1], commanders[i] + '       ' + commanders[i + 1])
-                                    break
-                        except IndexError:
-                            pass
-                        if not fail:
-                            break
-                    while '\xa0' in commanders:
-                        commanders = commanders.replace('\xa0', ' ')
-                    commanders = commanders.replace('   ', ' ')
-                    for i in range(len(tr)):
-                        if 'Career' in tr[i].text:
-                            career = tr[i].text[6:]
-                        elif 'Successes' in tr[i].text:
-                            successes = tr[i].text[9:]
-                        elif 'Fate' in tr[i].text:
-                            fate = tr[i].text[6:-1]
-                    if 'patrols' in career:
-                        career = career.replace('patrols', 'patrols:   ')
-                    elif 'patrol' in career:
-                        career = career.replace('patrol', 'patrol:   ')
-                    count_no_space = career.count(')')
-                    count_with_space = career.count(') ')
-                    while True:
-                        career = career.replace(')', ') ')
-                        count_with_space = career.count(') ')
-                        if count_with_space == count_no_space:
-                            break
-                    while '\xa0' in career:
-                        career = career.replace('\xa0', ' ')
-                    p = soup.find_all('p')
-                    coords = soup.find_all('script')
-                    for i in coords:
-                        if 'L.marker' in i.text:
-                            index = i.text.find('L.marker([', -600)
-                            a = i.text[index:index + 22]
-                            coord2 = a.split(',')[0][-5:]
-                            coord1 = a.split(',')[1][1:]
-                            if coord1[-1] == ']':
-                                coord1 = coord1[:-1]
-                            coords = f'{coord1}, {coord2}'
+        for number in range(3500, 3531):
+            uboat_parse_cycle(number, session)
 
-                    boat_list = (tac_num, ordered, laid_down, launched, commissioned, commanders, career, successes, fate, coords)
-                except IndexError:
-                    parse_error = True
-
-                if not parse_error:
-                    if type(boat_list[-1]) == str:
-                        boat = Uboat(
-                            id=count,
-                            tactical_number=boat_list[0],
-                            ordered=boat_list[1],
-                            laid_down=boat_list[2],
-                            launched=boat_list[3],
-                            commissioned=boat_list[4],
-                            commanders=boat_list[5],
-                            career=boat_list[6],
-                            successes=boat_list[7],
-                            fate=boat_list[8],
-                            coords=boat_list[9])
-                        session.add(boat)
-                        session.commit()
-                    else:
-                        boat = Uboat(
-                            id=count,
-                            tactical_number=boat_list[0],
-                            ordered=boat_list[1],
-                            laid_down=boat_list[2],
-                            launched=boat_list[3],
-                            commissioned=boat_list[4],
-                            commanders=boat_list[5],
-                            career=boat_list[6],
-                            successes=boat_list[7],
-                            fate=boat_list[8])
-                        session.add(boat)
-                        session.commit()
-                    count += 1
+        for number in range(4700, 4713):
+            uboat_parse_cycle(number, session)
 
         boat = Uboat(
             id=count,
@@ -294,3 +315,6 @@ def run():
     thread_uboat_parse.start()
     thread_cap_parse.join()
     thread_uboat_parse.join()
+
+
+run()
