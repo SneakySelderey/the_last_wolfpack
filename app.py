@@ -79,7 +79,7 @@ def captains_list():
                         title='Историческая справка')
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
-                           caps=caps)
+                           caps=caps, form=form)
 
 
 @app.route("/uboats")
@@ -95,7 +95,7 @@ def uboats_list():
                         title='Историческая справка')
 
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats)
+                           uboats=uboats, form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
