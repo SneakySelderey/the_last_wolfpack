@@ -14,6 +14,14 @@ def checkPassword(data, min_l=8):
     return False
 
 
+def checkExtension(data, *extensions):
+    """Функция для проверки файла на соответствие разрещенным расширениям"""
+    if not any(data.endswith(x) for x in extensions):
+        return 'Invalid file extension. Allowed extensions: ' + ', '.join(
+            extensions)
+    return False
+
+
 class ErrorChecker:
     """Класс для проверки валидности вводимых пользователем данных"""
     def __init__(self):
@@ -43,7 +51,10 @@ class ErrorChecker:
 
     def badInput(self, field):
         """Метод, проверяющий валидность введенного пароля. Принимает поле"""
-        resp = checkPassword(field.value)
+        if field == password:
+            resp = checkPassword(field.value)
+        else:
+            resp = checkExtension(field.value, '.png', '.jpg', '.jpeg')
         if resp:
             field.setCustomValidity(resp)
             field.validity.valid = False
@@ -58,7 +69,7 @@ class ErrorChecker:
                 password2 is not None or picture is not None):
             jq.ajax('/api/users', {'success': onSuccess})
             return
-        if field == password:
+        if field == password or field == picture:
             self.badInput(field)
         if field == password2:
             self.equalsTo(field, password)
@@ -81,8 +92,10 @@ def checkValidate(event):
     Если не все поля валидны, запрещает отправку формы"""
     if password2 is not None:
         fields = [name, email, password, password2][::-1]
-    else:
+    elif picture is None:
         fields = [name, email]
+    else:
+        fields = [name, email, picture]
     if not checker.checkAll(fields):
         event.preventDefault()
 
@@ -119,4 +132,6 @@ if password is not None:
     password.addEventListener('input', lambda x: checker.checkField(password))
 if password2 is not None:
     password2.addEventListener('input', lambda x: checker.checkField(password2))
+if picture is not None:
+    picture.addEventListener('input', lambda x: checker.checkField(picture))
 form.addEventListener('submit', checkValidate)
