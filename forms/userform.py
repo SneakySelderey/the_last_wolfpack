@@ -52,9 +52,10 @@ def extension(*extensions, message=None):
         message = 'Invalid extension file'
 
     def _extension(form, field):
-        filename = secure_filename(field.data.filename)
-        if not any(filename.endswith(x) for x in extensions):
-            raise ValidationError(message)
+        if field.data is not None:
+            filename = secure_filename(field.data.filename)
+            if not any(filename.endswith(x) for x in extensions):
+                raise ValidationError(message)
 
     return _extension
 

@@ -112,6 +112,11 @@ def onSuccess(data, status, req):
         email.reportValidity()
 
 
+def close(event):
+    form_submit.attributes.can_close = 'true'
+    document.getElementById("edit_form").style.display = "none"
+
+
 jq = window.jQuery
 form = document.getElementsByTagName('form')[0]
 form_submit = document.getElementById('form_submit')
@@ -122,8 +127,11 @@ email = document.getElementById('email')
 password = document.getElementById('password')
 password2 = document.getElementById('password2')
 picture = document.getElementById('picture')
+btn_close = document.getElementById('btn_close')
 user_email = email.value if picture is not None else None
 checker = ErrorChecker()
+if btn_close is not None:
+    btn_close.addEventListener('click', close)
 if name is not None:
     name.addEventListener('input', lambda x: checker.checkField(name))
 if email is not None:

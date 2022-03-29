@@ -17,6 +17,9 @@
 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 <div class="card" style="border-radius: 15px;">
 <div class="card-body p-5">
+    <button type="button" class="close" aria-label="Close" onclick="closeForm()" id="btn_close">
+        <span aria-hidden="true">&times;</span>
+    </button>
     <h2 class="text-uppercase text-center mb-5">Edit</h2>
     <form action="" method="post" novalidate enctype="multipart/form-data">
         {{ form.hidden_tag() }}

@@ -167,7 +167,7 @@ def user_profile():
                                    form=form, title='Profile')
         user.username = form.username.data
         user.email = form.email.data
-        if form.picture.data:
+        if form.picture.data is not None:
             filename = secure_filename(form.picture.data.filename)
             form.picture.data.save('static/img/profile_pictures/' + filename)
             user.profile_picture = filename
