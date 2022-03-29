@@ -315,6 +315,3 @@ def run():
     thread_uboat_parse.start()
     thread_cap_parse.join()
     thread_uboat_parse.join()
-
-
-run()

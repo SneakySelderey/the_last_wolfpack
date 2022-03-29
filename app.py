@@ -15,7 +15,7 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import json
 # import logging
-# import schedule_parser
+import DB_updater
 
 
 app = Flask(__name__)
@@ -75,7 +75,7 @@ def captains_list():
         count += 1
 
     if form.validate_on_submit():
-        return redirect('/historical_reference')
+        DB_updater.run()
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
                            caps=caps, form=form)
@@ -90,7 +90,7 @@ def uboats_list():
     uboats = db_sess.query(Uboat).all()
 
     if form.validate_on_submit():
-        return redirect('/historical_reference')
+        DB_updater.run()
 
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats, form=form)
@@ -200,7 +200,6 @@ def edit_profile():
 
 
 if __name__ == '__main__':
-    # schedule_parser.run()
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
