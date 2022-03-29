@@ -4,7 +4,7 @@ import requests
 from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
-import threading
+from threading import Thread
 # import logging
 import sqlite3
 
@@ -13,54 +13,6 @@ import sqlite3
 #     filename='db_logs.log',
 #     format='%(asctime)s %(levelname)s %(name)s %(message)s'
 # )
-
-
-def run_continuously():
-    """Continuously run, while executing pending jobs at each
-    elapsed time interval.
-    @return cease_continuous_run: threading. Event which can
-    be set to cease continuous run. Please note that it is
-    *intended behavior that run_continuously() does not run
-    missed jobs*. For example, if you've registered a job that
-    should run every minute and you set a continuous run
-    interval of one hour then your job won't be run 60 times
-    at each interval but only once.
-    """
-    cease_continuous_run = threading.Event()
-
-    class ScheduleThread(threading.Thread):
-        @classmethod
-        def run(cls):
-            while not cease_continuous_run.is_set():
-                scheduler1.run_pending()
-
-    continuous_thread = ScheduleThread()
-    continuous_thread.start()
-    return cease_continuous_run
-
-
-def run_continuously2():
-    """Continuously run, while executing pending jobs at each
-    elapsed time interval.
-    @return cease_continuous_run: threading. Event which can
-    be set to cease continuous run. Please note that it is
-    *intended behavior that run_continuously() does not run
-    missed jobs*. For example, if you've registered a job that
-    should run every minute and you set a continuous run
-    interval of one hour then your job won't be run 60 times
-    at each interval but only once.
-    """
-    cease_continuous_run = threading.Event()
-
-    class ScheduleThread(threading.Thread):
-        @classmethod
-        def run(cls):
-            while not cease_continuous_run.is_set():
-                scheduler2.run_pending()
-
-    continuous_thread = ScheduleThread()
-    continuous_thread.start()
-    return cease_continuous_run
 
 
 def cap_parse():
@@ -332,14 +284,13 @@ def uboat_parse():
         # logging.warning('No response from uboat.net U-boats list page')
 
 
-scheduler1 = schedule.Scheduler()
-scheduler2 = schedule.Scheduler()
-
-scheduler1.every().monday.at("00:00").do(cap_parse)
-scheduler2.every().monday.at("00:00").do(uboat_parse)
+thread_cap_parse = Thread(target=cap_parse)
+thread_uboat_parse = Thread(target=uboat_parse)
 
 
 def run():
-    global stop_run_continuously
-    stop_run_continuously = run_continuously()
-    stop_run_continuously = run_continuously2()
+    global thread_cap_parse, thread_uboat_parse
+    thread_cap_parse.start()
+    thread_uboat_parse.start()
+    thread_cap_parse.join()
+    thread_uboat_parse.join()
