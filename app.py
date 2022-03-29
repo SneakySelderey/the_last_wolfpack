@@ -12,6 +12,7 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
+from forms.DB_update_form import UpdateForm
 import json
 # import logging
 # import schedule_parser
@@ -59,7 +60,7 @@ def historical_reference():
 @app.route("/captains")
 def captains_list():
     """Страница с капитанами"""
-    form = RegisterForm()
+    form = UpdateForm()
 
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
@@ -84,7 +85,7 @@ def captains_list():
 @app.route("/uboats")
 def uboats_list():
     """Страница с лодками"""
-    form = RegisterForm()
+    form = UpdateForm()
 
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
