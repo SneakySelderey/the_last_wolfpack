@@ -52,39 +52,10 @@ def historical_reference():
                            title='Историческая справка')
 
 
-def write_captains():
-    """Функция для сохранения фотографий капитанов"""
-    db_sess = db_session.create_session()
-    caps = db_sess.query(Captain).all()
-    count = 0
-    for i in caps:
-        if i.image and f'static/img/{count}.png' not in os.listdir(
-                'static/img'):
-            name = f'{count}.png'
-            with open(f'static/img/{name}', 'wb') as f:
-                f.write(i.image)
-        count += 1
-
-
-@app.route("/captains", methods=['GET', 'POST'])
+@app.route("/captains", methods=['GET', 'PUT', 'POST'])
 def captains_list():
     """Страница с капитанами"""
     form = UpdateForm()
-    db_sess = db_session.create_session()
-    caps = db_sess.query(Captain).all()
-    count = 0
-    for i in caps:
-        if i.image and f'static/img/{count}.png' not in os.listdir(
-                'static/img'):
-            name = f'{count}.png'
-            with open(f'static/img/{name}', 'wb') as f:
-                f.write(i.image)
-        count += 1
-
-
-@app.route("/captains", methods=['GET', 'PUT', 'POST])
-def captains_list():
-    """Страница с капитанами"""
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
     if current_user.is_authenticated:
@@ -98,7 +69,7 @@ def captains_list():
                            caps=caps, form=form, fav_caps=fav_caps)
 
 
-@app.route("/uboats", methods=['GET', 'POST', 'PUT])
+@app.route("/uboats", methods=['GET', 'POST', 'PUT'])
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
@@ -110,7 +81,6 @@ def uboats_list():
         fav_boats = []
     if form.validate_on_submit():
         DB_updater.run()
-    
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats, fav_boats=fav_boats, form=form)
 

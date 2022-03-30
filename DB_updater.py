@@ -7,12 +7,27 @@ from data.uboats import Uboat
 from threading import Thread
 # import logging
 import sqlite3
+import os
 
 
 # logging.basicConfig(
 #     filename='db_logs.log',
 #     format='%(asctime)s %(levelname)s %(name)s %(message)s'
 # )
+
+
+def write_captains():
+    """Функция для сохранения фотографий капитанов"""
+    db_sess = db_session.create_session()
+    caps = db_sess.query(Captain).all()
+    count_ = 0
+    for i in caps:
+        if i.image and f'static/img/{count_}.png' not in os.listdir(
+                'static/img'):
+            name = f'{count_}.png'
+            with open(f'static/img/{name}', 'wb') as f:
+                f.write(i.image)
+        count_ += 1
 
 
 def cap_parse():
@@ -100,6 +115,8 @@ def cap_parse():
             count += 1
 
         print('Captains parse finished')
+        write_captains()
+
         # logging.info('Captains parse finished')
     else:
         print('No response from uboat.net captains page')
