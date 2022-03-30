@@ -20,7 +20,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
         {% for item in caps%}
             <tr>
                 <th scope="row">{{ item.id }}</th>
-                <td id="cap_name">{{ item.name }}</td>
+                <td id="cap_name"><img src="{{url_for('static', filename='img/symbols/star.png')}}" alt="" style="display: inline;" onclick="f()"> {{ item.name }}</td>
                 {% if not item.image %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
                 {% else %}
@@ -47,5 +47,10 @@ height: 100%;">Капитаны Кригсмарине</h1>
   ]
         });
     } );
+</script>
+<script>
+    function f() {
+        console.log('a')
+    }
 </script>
 {% endblock %}
