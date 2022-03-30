@@ -12,9 +12,10 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
+from forms.DB_update_form import UpdateForm
 import json
 # import logging
-# import schedule_parser
+import DB_updater
 
 
 app = Flask(__name__)
@@ -56,9 +57,11 @@ def test():
     return render_template('test.html')
 
 
-@app.route("/captains")
+@app.route("/captains", methods=['GET', 'POST'])
 def captains_list():
     """Страница с капитанами"""
+    form = UpdateForm()
+
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
 
@@ -71,17 +74,26 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
+    if form.validate_on_submit():
+        DB_updater.run()
+
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
-                           caps=caps)
+                           caps=caps, form=form)
 
 
-@app.route("/uboats")
+@app.route("/uboats", methods=['GET', 'POST'])
 def uboats_list():
     """Страница с лодками"""
+    form = UpdateForm()
+
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
+
+    if form.validate_on_submit():
+        DB_updater.run()
+
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats)
+                           uboats=uboats, form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -195,7 +207,6 @@ def edit_profile():
 
 
 if __name__ == '__main__':
-    # schedule_parser.run()
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
