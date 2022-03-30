@@ -41,7 +41,8 @@ class UsersResource(Resource):
         user = session.query(User).get(user_id)
         # Изменение обычных значений
         changed = {j: args[j] for j in user.__dict__ if args.get(
-            j, None) is not None and j not in ['fav_caps', 'fav_boats']}
+            j, None) is not None and j not in ['fav_caps', 'fav_boats',
+                                               'add_fav']}
         for i in changed:
             setattr(user, i, changed[i])
         # Изменение (добавление или удаление) особых значений: капитанов и
@@ -50,16 +51,19 @@ class UsersResource(Resource):
         fav_boats = args.get('fav_boats', [])
         if fav_caps:
             put_caps = session.query(Captain).filter(Captain.name.in_(
-                fav_caps))
+                fav_caps.split(','))).all()
+            print(put_caps)
+            print(args.get('add_fav'))
             if args.get('add_fav'):
                 for i in put_caps:
                     user.fav_caps.append(i)
             else:
+                print('delete')
                 for i in put_caps:
                     user.fav_caps.remove(i)
         if fav_boats:
             put_boats = session.query(Uboat).filter(Uboat.tactical_number.in_(
-                fav_boats))
+                fav_boats).split(',')).all()
             if args.get('add_fav'):
                 for i in put_boats:
                     user.fav_boats.append(i)

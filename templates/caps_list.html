@@ -39,6 +39,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
             {% endfor %}
     </tbody>
 </table>
+<p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
 <script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
 <script type="text/python" src="{{url_for('static', filename='scripts/fav_list.py')}}"></script>
 <script>

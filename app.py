@@ -70,7 +70,7 @@ def write_captains():
         count += 1
 
 
-@app.route("/captains")
+@app.route("/captains", methods=['GET', 'POST'])
 def captains_list():
     """Страница с капитанами"""
     db_sess = db_session.create_session()

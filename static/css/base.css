@@ -95,3 +95,6 @@ button.btn-edit-profile:focus {
 img.star {
     display: inline;
 }
+.checked {
+    color: orange;
+}
