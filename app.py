@@ -12,9 +12,10 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
+from forms.DB_update_form import UpdateForm
 import json
 # import logging
-# import schedule_parser
+import DB_updater
 
 
 app = Flask(__name__)
@@ -35,11 +36,6 @@ def main_page():
     """Основная страница"""
     # return redirect('/test')
     return render_template('main_content.html', title='The Last Wolfpack')
-
-
-@app.route('/test')
-def test():
-    return render_template('test.html')
 
 
 @app.route("/uboat_types")
@@ -70,7 +66,23 @@ def write_captains():
         count += 1
 
 
-@app.route("/captains", methods=['GET', 'PUT'])
+@app.route("/captains", methods=['GET', 'POST'])
+def captains_list():
+    """Страница с капитанами"""
+    form = UpdateForm()
+    db_sess = db_session.create_session()
+    caps = db_sess.query(Captain).all()
+    count = 0
+    for i in caps:
+        if i.image and f'static/img/{count}.png' not in os.listdir(
+                'static/img'):
+            name = f'{count}.png'
+            with open(f'static/img/{name}', 'wb') as f:
+                f.write(i.image)
+        count += 1
+
+
+@app.route("/captains", methods=['GET', 'PUT', 'POST])
 def captains_list():
     """Страница с капитанами"""
     db_sess = db_session.create_session()
@@ -79,21 +91,28 @@ def captains_list():
         fav_caps = db_sess.query(User).get(current_user.id).fav_caps
     else:
         fav_caps = []
+    if form.validate_on_submit():
+        DB_updater.run()
+
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
-                           caps=caps, fav_caps=fav_caps)
+                           caps=caps, form=form, fav_caps=fav_caps)
 
 
-@app.route("/uboats",  methods=['GET', 'PUT'])
+@app.route("/uboats", methods=['GET', 'POST', 'PUT])
 def uboats_list():
     """Страница с лодками"""
+    form = UpdateForm()
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
     if current_user.is_authenticated:
         fav_boats = db_sess.query(User).get(current_user.id).fav_boats
     else:
         fav_boats = []
+    if form.validate_on_submit():
+        DB_updater.run()
+    
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats, fav_boats=fav_boats)
+                           uboats=uboats, fav_boats=fav_boats, form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -228,7 +247,6 @@ def edit_profile():
 
 
 if __name__ == '__main__':
-    # schedule_parser.run()
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
