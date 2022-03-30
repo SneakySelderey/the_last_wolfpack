@@ -92,3 +92,6 @@ button.btn-edit-profile:focus {
     font-weight: 400;
     font-size: xx-large;
 }
+img.star {
+    display: inline;
+}

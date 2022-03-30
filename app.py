@@ -75,8 +75,12 @@ def captains_list():
     """Страница с капитанами"""
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
+    if current_user.is_authenticated:
+        fav_caps = db_sess.query(User).get(current_user.id).fav_caps
+    else:
+        fav_caps = []
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
-                           caps=caps)
+                           caps=caps, fav_caps=fav_caps)
 
 
 @app.route("/uboats")
