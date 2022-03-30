@@ -35,3 +35,19 @@
 </div>
 </div>
 {% endmacro %}
+
+
+{% macro fav_item(data1, data2, type_) %}
+<div class="row">
+    <div class="col-6">
+        <label>{{data1}}</label>
+    </div>
+    <div class="col-6">
+        {% if type_ == 'boat'%}
+            <p>{{data2}}</p>
+        {% else %}
+            <a href="{{data2}}">{{data2}}</a>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}

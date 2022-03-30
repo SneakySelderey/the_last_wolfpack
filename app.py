@@ -167,6 +167,8 @@ def user_profile():
     form = EditProfileForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
+    fav_caps = user.fav_caps
+    fav_boats = user.fav_boats
     if request.method == 'GET':
         form.username.data = user.username
         form.email.data = user.email
@@ -174,9 +176,10 @@ def user_profile():
         if db_sess.query(User).filter(
             User.email == form.email.data).first() and not \
                 form.email.data == current_user.email:
-            return render_template('profile.html',
-                                   message='Username is already taken',
-                                   form=form, title='Profile')
+            return render_template(
+                'profile.html', message='Username is already taken',
+                form=form, title='Profile', fav_caps=fav_caps,
+                fav_boats=fav_boats)
         user.username = form.username.data
         user.email = form.email.data
         if form.picture.data is not None:
@@ -186,7 +189,7 @@ def user_profile():
         db_sess.commit()
         return redirect('/dummy')
     return render_template('profile.html', user=user, title='Profile',
-                           form=form)
+                           form=form, fav_caps=fav_caps, fav_boats=fav_boats)
 
 
 @app.route('/dummy')

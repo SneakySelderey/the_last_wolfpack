@@ -30,6 +30,8 @@
     <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain" onload="brython();">
 {% elif title == "Register" or title == "Authorization" %}
     <body class="gradient-custom" onload="brython();"></body>
+{% elif title == "Profile"%}
+    <body class="gradient-custom3" onload="brython();"></body>
 {% else %}
     <body onload="brython();">
 {% endif %}
@@ -74,7 +76,7 @@
       </nav>
 </header>
 <!-- Begin page content -->
-<main role="main" class="container-fluid" style="width: 80%;">
+<main role="main" class="container-fluid" style="width: 85%;">
     {% block content %}{% endblock %}
     {% block register %}{% endblock %}
     {% block authorization %}{% endblock %}

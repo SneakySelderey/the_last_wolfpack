@@ -86,6 +86,10 @@ button.btn-edit-profile:focus {
     background: -webkit-linear-gradient(180deg, #d9d9d9,#929292);
     background: linear-gradient(180deg, #d9d9d9,#929292);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                                               
 }
+.gradient-custom3 {
+    background: -webkit-radial-gradient(rgba(149, 152, 166, 0.5), rgba(58, 53, 77));
+    background: radial-gradient(rgba(149, 152, 166, 0.5), rgba(58, 53, 77));
+}
 .stamp {
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -97,4 +101,7 @@ img.star {
 }
 .checked {
     color: orange;
+}
+.overflow {
+    overflow-y: auto;
 }
