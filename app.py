@@ -5,7 +5,7 @@ from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
 from flask_restful import Api
-
+from werkzeug.utils import secure_filename
 from api import users_api
 from data.user import User
 from data.captains import Captain
@@ -52,19 +52,10 @@ def historical_reference():
                            title='Историческая справка')
 
 
-@app.route("/test")
-def test():
-    return render_template('test.html')
-
-
-@app.route("/captains", methods=['GET', 'POST'])
-def captains_list():
-    """Страница с капитанами"""
-    form = UpdateForm()
-
+def write_captains():
+    """Функция для сохранения фотографий капитанов"""
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
-
     count = 0
     for i in caps:
         if i.image and f'static/img/{count}.png' not in os.listdir(
@@ -74,26 +65,54 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
+
+@app.route("/captains", methods=['GET', 'POST'])
+def captains_list():
+    """Страница с капитанами"""
+    form = UpdateForm()
+    db_sess = db_session.create_session()
+    caps = db_sess.query(Captain).all()
+    count = 0
+    for i in caps:
+        if i.image and f'static/img/{count}.png' not in os.listdir(
+                'static/img'):
+            name = f'{count}.png'
+            with open(f'static/img/{name}', 'wb') as f:
+                f.write(i.image)
+        count += 1
+
+
+@app.route("/captains", methods=['GET', 'PUT', 'POST])
+def captains_list():
+    """Страница с капитанами"""
+    db_sess = db_session.create_session()
+    caps = db_sess.query(Captain).all()
+    if current_user.is_authenticated:
+        fav_caps = db_sess.query(User).get(current_user.id).fav_caps
+    else:
+        fav_caps = []
     if form.validate_on_submit():
         DB_updater.run()
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
-                           caps=caps, form=form)
+                           caps=caps, form=form, fav_caps=fav_caps)
 
 
-@app.route("/uboats", methods=['GET', 'POST'])
+@app.route("/uboats", methods=['GET', 'POST', 'PUT])
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
-
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
-
+    if current_user.is_authenticated:
+        fav_boats = db_sess.query(User).get(current_user.id).fav_boats
+    else:
+        fav_boats = []
     if form.validate_on_submit():
         DB_updater.run()
-
+    
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats, form=form)
+                           uboats=uboats, fav_boats=fav_boats, form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -167,13 +186,34 @@ def user_profile():
     form = EditProfileForm()
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
+    fav_caps = user.fav_caps
+    fav_boats = user.fav_boats
     if request.method == 'GET':
         form.username.data = user.username
         form.email.data = user.email
     if form.validate_on_submit():
-        pass
+        if db_sess.query(User).filter(
+            User.email == form.email.data).first() and not \
+                form.email.data == current_user.email:
+            return render_template(
+                'profile.html', message='Username is already taken',
+                form=form, title='Profile', fav_caps=fav_caps,
+                fav_boats=fav_boats)
+        user.username = form.username.data
+        user.email = form.email.data
+        if form.picture.data is not None:
+            filename = secure_filename(form.picture.data.filename)
+            form.picture.data.save('static/img/profile_pictures/' + filename)
+            user.profile_picture = filename
+        db_sess.commit()
+        return redirect('/dummy')
     return render_template('profile.html', user=user, title='Profile',
-                           form=form)
+                           form=form, fav_caps=fav_caps, fav_boats=fav_boats)
+
+
+@app.route('/dummy')
+def dummy():
+    return redirect('/profile')
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])

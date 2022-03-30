@@ -47,7 +47,11 @@ height: 100%;">Подлодки Кригсмарине</h1>
     <tbody>
         {% for item in uboats%}
             <tr>
-                <th scope="row">{{ item.id }}</th>
+                {% if item in fav_boats and current_user.is_authenticated%}
+                    <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                {% elif current_user.is_authenticated %}
+                    <th scope="row"><span class="fa fa-star" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                {% endif%}
                 <td>{{ item.tactical_number }}</td>
                 {% if item.ordered %}
                     <td>{{ item.ordered }}</td>
@@ -74,6 +78,8 @@ height: 100%;">Подлодки Кригсмарине</h1>
         {% endfor %}
     </tbody>
 </table>
+<p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
+<script type="text/python" src="{{url_for('static', filename='scripts/fav_list.py')}}"></script>
 <script>
     $(document).ready(function() {
         $('#boats_table').DataTable({

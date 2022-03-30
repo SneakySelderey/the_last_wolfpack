@@ -17,18 +17,37 @@
 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 <div class="card" style="border-radius: 15px;">
 <div class="card-body p-5">
+    <button type="button" class="close" aria-label="Close" onclick="closeForm()" id="btn_close">
+        <span aria-hidden="true">&times;</span>
+    </button>
     <h2 class="text-uppercase text-center mb-5">Edit</h2>
-    <form action="" method="post">
+    <form action="" method="post" novalidate enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         {{ render_field(form.username, class="form-control", id="name") }}
         {{ render_field(form.email, class="form-control", id="email") }}
-        {{ render_field(form.picture) }}
-        <p onclick="closeForm()">{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
+        {{ render_field(form.picture, id="picture") }}
+        <p onclick="closeForm()" can_close="false" id="form_submit">{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
         {{message}}
     </form>
 </div>
 </div>
 </div>
 </div>
+</div>
+{% endmacro %}
+
+
+{% macro fav_item(data1, data2, type_) %}
+<div class="row">
+    <div class="col-6">
+        <label>{{data1}}</label>
+    </div>
+    <div class="col-6">
+        {% if type_ == 'boat'%}
+            <p>{{data2}}</p>
+        {% else %}
+            <a href="{{data2}}">{{data2}}</a>
+        {% endif %}
+    </div>
 </div>
 {% endmacro %}

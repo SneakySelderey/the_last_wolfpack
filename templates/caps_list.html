@@ -42,8 +42,12 @@ height: 100%;">Капитаны Кригсмарине</h1>
     <tbody>
         {% for item in caps%}
             <tr>
-                <th scope="row">{{ item.id }}</th>
-                <td id="cap_name">{{ item.name }}</td>
+                {% if item in fav_caps and current_user.is_authenticated%}
+                    <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                {% elif current_user.is_authenticated %}
+                    <th scope="row"><span class="fa fa-star" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                {% endif%}
+                <td id="cap_name"> {{ item.name }}</td>
                 {% if not item.image %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">No photo</td>
                 {% else %}
@@ -58,7 +62,9 @@ height: 100%;">Капитаны Кригсмарине</h1>
             {% endfor %}
     </tbody>
 </table>
+<p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
 <script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
+<script type="text/python" src="{{url_for('static', filename='scripts/fav_list.py')}}"></script>
 <script>
     $(document).ready(function() {
         $('#caps_table').DataTable({
@@ -66,7 +72,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
             columnDefs: [
     {orderable: false, targets: [2, 3, 5]},
     {searchable: false, targets: [2, 5]},
-    {type: 'boat-num', targets: 4}
+    {type: 'boat-num', targets: 4},
   ]
         });
     } );

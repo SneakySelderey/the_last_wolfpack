@@ -14,6 +14,15 @@ def checkPassword(data, min_l=8):
     return False
 
 
+def checkExtension(data, *extensions):
+    """Функция для проверки файла на соответствие разрещенным расширениям"""
+    if data:
+        if not any(data.endswith(x) for x in extensions):
+            return 'Invalid file extension. Allowed extensions: ' + ', '.join(
+                extensions)
+    return False
+
+
 class ErrorChecker:
     """Класс для проверки валидности вводимых пользователем данных"""
     def __init__(self):
@@ -43,7 +52,10 @@ class ErrorChecker:
 
     def badInput(self, field):
         """Метод, проверяющий валидность введенного пароля. Принимает поле"""
-        resp = checkPassword(field.value)
+        if field == password:
+            resp = checkPassword(field.value)
+        else:
+            resp = checkExtension(field.value, '.png', '.jpg', '.jpeg')
         if resp:
             field.setCustomValidity(resp)
             field.validity.valid = False
@@ -52,12 +64,14 @@ class ErrorChecker:
         """Метод, проверяющий поле на валидность введенных значений (по всем 
         ранее созданных методам). Принимает поле"""
         field.setCustomValidity("")
-        self.valueMissing(field)
+        if field != picture:
+            self.valueMissing(field)
         self.typeMismatch(field)
-        if field == email and field.validity.valid and password2 is not None:
+        if field == email and field.validity.valid and (
+                password2 is not None or picture is not None):
             jq.ajax('/api/users', {'success': onSuccess})
             return
-        if field == password:
+        if field == password or field == picture:
             self.badInput(field)
         if field == password2:
             self.equalsTo(field, password)
@@ -70,6 +84,8 @@ class ErrorChecker:
             for field in fields:
                 self.checkField(field)
             return False
+        if form_submit is not None:
+            form_submit.attributes.can_close = 'true'
         return True
 
 
@@ -78,8 +94,10 @@ def checkValidate(event):
     Если не все поля валидны, запрещает отправку формы"""
     if password2 is not None:
         fields = [name, email, password, password2][::-1]
-    else:
+    elif picture is None:
         fields = [name, email]
+    else:
+        fields = [name, email, picture]
     if not checker.checkAll(fields):
         event.preventDefault()
 
@@ -89,20 +107,33 @@ def onSuccess(data, status, req):
     Функция проверяет наличие почты, которую вводит пользователь в поле в
     списке почт зарегистрированных пользователей. Если она найдена, то
     вызываетяя ошибка валидации об уникальности"""
-    if email.value in [data.users[i]["email"] for i in range(
-            len(data.users))]:
+    emails = [data.users[i]["email"] for i in range(len(data.users))]
+    if email.value in emails and email.value != user_email:
         email.setCustomValidity("User with this email is already exists")
         email.validity.valid = False
         email.reportValidity()
 
 
+def close(event):
+    form_submit.attributes.can_close = 'true'
+    document.getElementById("edit_form").style.display = "none"
+
+
 jq = window.jQuery
 form = document.getElementsByTagName('form')[0]
+form_submit = document.getElementById('form_submit')
+if form_submit is not None:
+    form_submit.attributes.can_close = 'false'
 name = document.getElementById('name')
 email = document.getElementById('email')
 password = document.getElementById('password')
 password2 = document.getElementById('password2')
+picture = document.getElementById('picture')
+btn_close = document.getElementById('btn_close')
+user_email = email.value if picture is not None else None
 checker = ErrorChecker()
+if btn_close is not None:
+    btn_close.addEventListener('click', close)
 if name is not None:
     name.addEventListener('input', lambda x: checker.checkField(name))
 if email is not None:
@@ -111,4 +142,6 @@ if password is not None:
     password.addEventListener('input', lambda x: checker.checkField(password))
 if password2 is not None:
     password2.addEventListener('input', lambda x: checker.checkField(password2))
+if picture is not None:
+    picture.addEventListener('input', lambda x: checker.checkField(picture))
 form.addEventListener('submit', checkValidate)

@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
+from werkzeug.utils import secure_filename
 from wtforms import PasswordField, StringField, SubmitField, \
-    EmailField, BooleanField, FileField
+    EmailField, BooleanField
+from flask_wtf.file import FileField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 
 
@@ -44,6 +46,20 @@ def digits(message=None):
     return _digits
 
 
+def extension(*extensions, message=None):
+    """Валидатор для проверки расширения файла"""
+    if not message:
+        message = 'Invalid extension file'
+
+    def _extension(form, field):
+        if field.data is not None:
+            filename = secure_filename(field.data.filename)
+            if not any(filename.endswith(x) for x in extensions):
+                raise ValidationError(message)
+
+    return _extension
+
+
 class RegisterForm(FlaskForm):
     """Класс формы регистрации нового пользователя"""
     username = StringField('Username', validators=[DataRequired()])
@@ -65,7 +81,8 @@ class LoginForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     """Класс формы редактирования профиля пользователя"""
-    picture = FileField('Profile picture')
-    username = StringField('Username')
-    email = EmailField('Email')
+    username = StringField('Username', validators=[DataRequired()])
+    email = EmailField('Email', validators=[DataRequired()])
+    picture = FileField('Profile picture', validators=[
+        extension('.png', '.jpg', '.jpeg')])
     submit = SubmitField('Save')

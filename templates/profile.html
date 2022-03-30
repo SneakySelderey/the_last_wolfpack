@@ -1,208 +1,78 @@
 {% extends "base.html" %}
 
-{% block profile2 %}
-    <div class="emp-profile">
-        <form method="post">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        {% set path = 'img/profile_pictures/' + user.profile_picture%}
-                        <img src="{{url_for('static', filename=path)}}" alt="" />
-                        <div class="file btn btn-lg btn-primary">
-                            Change Photo
-                            <input type="file" name="file"/>
-                        </div>
-                    </div>
-                    <h5>{{ user.username }}</h5>
-                    <h6>Register date: <span>{{ user.register_date }}</span></h6>
-                    <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/> -->
-                    <a class="btn btn-default btn-edit-profile" href="/edit_profile" >Edit profile</a>
-                    <br>
-                    <!-- Форма редактирования профиля  -->
-                    <div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
-                    <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
-                    <div class="card" style="border-radius: 15px;">
-                    <div class="card-body p-5">
-                        <div class="form-popup" id="edit_form" style="z-index: 1; position: fixed">
-                            <form action="../action_page.php" class="form-container">
-                              <h1>Вход</h1>
-                          
-                              <label for="email"><b>Почта</b></label>
-                              <input type="text" placeholder="Ваша почта" name="email" required>
-                          
-                              <label for="psw"><b>Пароль</b></label>
-                              <input type="password" placeholder="Ваш пароль" name="psw" required>
-                          
-                              <button type="submit" class="btn">Вход</button>
-                              <button type="button" class="btn cancel" onclick="closeForm()">Закрыть</button>
-                            </form>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    <!-- Форма редактирования профиля  -->
-                </div>
-                <div class="col-md-8">
-                    <div class="profile-head">
-                        <h5>Favourites</h5>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#caps" role="tab" aria-controls="caps" aria-selected="true">Captains</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boats" role="tab" aria-controls="boats" aria-selected="false">Boats</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="caps" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>User Id</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Kshiti123</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Name</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Kshiti Ghelani</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Email</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>kshitighelani@gmail.com</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Phone</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>123 456 7890</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Profession</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Web Developer and Designer</p>
-                                        </div>
-                                    </div>
-                        </div>
-                        <div class="tab-pane fade" id="boats" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Experience</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Expert</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Hourly Rate</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>10$/hr</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Total Projects</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>230</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>English Level</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Expert</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Availability</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>6 months</p>
-                                        </div>
-                                    </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>       
-{% endblock %}
-
 {% block profile %}
-{% from "__formhelper.html" import render_edit_form, render_field %}
+{% from "__formhelper.html" import render_edit_form, render_field, fav_item %}
 <div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-    <div class="col-md-12 col-lg-12 col-xl-12 col-xs-12">
-    <div class="card" style="border-radius: 15px;">
-    <div class="card-body p-5">
-        <h2 class="text-uppercase text-center mb-5">Profile</h2>
-        {% set path = 'img/profile_pictures/' + user.profile_picture%}
-        <div class="row">
-            <div class="bg-image hover-overlay ripple col-md-6 col-xl-4 col-lg-4 col-xs-12 justify-content-center align-items-center" data-mdb-ripple-color="light">
-                <img src="{{url_for('static', filename=path)}}" class="img-fluid"/>
-                <div class="col-12">
-                    <h5 style="margin-top: 3%;">{{ user.username }}</h5>
-                    <h6>Register date: <span class="reg_date">{{ user.register_date }}</span></h6>
-                    <h6>Email: <span class="reg_date">{{ user.email }}</span></h6>
-                </div>
-                <div class="col-12" style="text-align: center; margin-top: 5%; margin-bottom: 5%">
-                    <!-- <button class="btn btn-default btn-edit-profile" onclick="openForm()">Edit profile</button> -->
-                    <!-- <a class="btn btn-default btn-edit-profile" href="" onclick="openForm()">Edit profile</a> -->
-                    <button class="btn btn-edit-profile" onclick="openForm()">Edit profile</button>
-                </div>
+<div class="row d-flex justify-content-center align-items-center h-100">
+<div class="col-md-12 col-lg-12 col-xl-12 col-xs-12">
+<div class="card" style="border-radius: 15px;">
+<div class="card-body p-5">
+    <h2 class="text-uppercase text-center mb-5">Profile</h2>
+    {{ message }}
+    {% set path = 'img/profile_pictures/' + user.profile_picture%}
+    <div class="row">
+        <div class="bg-image hover-overlay ripple col-md-4 col-xl-3 col-lg-3 col-xs-12 justify-content-center align-items-center" data-mdb-ripple-color="light">
+            <img src="{{url_for('static', filename=path)}}" class="img-fluid"/>
+            <div class="col-12">
+                <h5 style="margin-top: 3%;" id="username">{{ user.username }}</h5>
+                <h6>Register date: <span class="reg_date">{{ user.register_date }}</span></h6>
+                <h6>Email: <span class="reg_date" id="user_email">{{ user.email }}</span></h6>
             </div>
+            <div class="col-12" style="text-align: center; margin-top: 5%; margin-bottom: 5%">
+                <!-- <button class="btn btn-default btn-edit-profile" onclick="openForm()">Edit profile</button> -->
+                <!-- <a class="btn btn-default btn-edit-profile" href="" onclick="openForm()">Edit profile</a> -->
+                <button class="btn btn-edit-profile" onclick="openForm()">Edit profile</button>
+            </div>
+        </div>
 
-            {{ render_edit_form(form) }}
+        {{ render_edit_form(form) }}
 
 
-            <div class="col-xl-8 col-lg-8 col-xs-12 col-md-6">
-                <div class="profile-head">
-                    <h5>Favourites</h5>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#caps" role="tab" aria-controls="caps" aria-selected="true">Captains</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boats" role="tab" aria-controls="boats" aria-selected="false">Boats</a>
-                        </li>
-                    </ul>
+        <div class="col-xl-9 col-lg-9 col-xs-12 col-md-8">
+            <div class="profile-head">
+                <h5>Favourites</h5>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#caps" role="tab" aria-controls="caps" aria-selected="true">Captains</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boats" role="tab" aria-controls="boats" aria-selected="false">Boats</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="caps" role="tabpanel" aria-labelledby="home-tab" style="height: 500px; overflow-y: auto; overflow-x: hidden">
+                    {% for item in fav_caps %}
+                        {{ fav_item(item.name, item.profile_link, 'cap') }}
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="boats" role="tabpanel" aria-labelledby="profile-tab" style="height: 500px; overflow-y: auto; overflow-x: hidden">
+                    {% for item in fav_boats %}
+                        {{ fav_item(item.tactical_number, item.coords, 'boat') }}
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script>
-        function openForm() {
-          document.getElementById("edit_form").style.display = "block";
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/python" src="{{url_for('static', filename='scripts/validation.py')}}"></script>
+<script>
+    function openForm() {
+        document.getElementById("edit_form").style.display = "block";
+        document.getElementById("name").value = document.getElementById("username").innerHTML;
+        document.getElementById("email").value = document.getElementById("user_email").innerHTML;
+        document.getElementById("picture").value = ""
+    }
+    
+    function closeForm() {
+        if (document.getElementById('form_submit').attributes.can_close == "true"){
+            document.getElementById("edit_form").style.display = "none";
         }
-        
-        function closeForm() {
-          document.getElementById("edit_form").style.display = "none";
-        }
-        </script>
+    }
+</script>
 {% endblock %}
