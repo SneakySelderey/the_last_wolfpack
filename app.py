@@ -56,12 +56,10 @@ def historical_reference():
                            title='Историческая справка')
 
 
-@app.route("/captains")
-def captains_list():
-    """Страница с капитанами"""
+def write_captains():
+    """Функция для сохранения фотографий капитанов"""
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
-
     count = 0
     for i in caps:
         if i.image and f'static/img/{count}.png' not in os.listdir(
@@ -71,6 +69,12 @@ def captains_list():
                 f.write(i.image)
         count += 1
 
+
+@app.route("/captains")
+def captains_list():
+    """Страница с капитанами"""
+    db_sess = db_session.create_session()
+    caps = db_sess.query(Captain).all()
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
                            caps=caps)
 
