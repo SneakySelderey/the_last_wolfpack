@@ -6,10 +6,28 @@
 align-items: center;
 justify-content: center;
 height: 100%;">Капитаны Кригсмарине</h1>
-<form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-</form>
+
+<button id="openDialog">Обновить БД</button>
+
+<dialog style="z-index: 1;">
+    <p>Операция обновления БД может занять до 20 минут. Вы уверены?</p>
+    <p><button id="closeDialog">Нет</button></p>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>{{ form.submit(type="submit", class="btn btn-primary", id="closeDialog") }}</p>
+    </form>
+</dialog>
+
+<script>
+    var dialog = document.querySelector('dialog');
+    document.querySelector('#openDialog').onclick = function() {
+     dialog.show(); // Показываем диалоговое окно
+    }
+    document.querySelector('#closeDialog').onclick = function() {
+     dialog.close(); // Прячем диалоговое окно
+    }
+</script>
+
 <table class="table table-sortable" id="caps_table">
     <thead>
         <tr>
