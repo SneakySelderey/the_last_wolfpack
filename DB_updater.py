@@ -311,7 +311,10 @@ thread_uboat_parse = Thread(target=uboat_parse)
 
 def run():
     global thread_cap_parse, thread_uboat_parse
-    thread_cap_parse.start()
-    thread_uboat_parse.start()
+    try:
+        thread_cap_parse.start()
+        thread_uboat_parse.start()
+    except RuntimeError:
+        pass
     thread_cap_parse.join()
     thread_uboat_parse.join()
