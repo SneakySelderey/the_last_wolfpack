@@ -52,18 +52,15 @@ class UsersResource(Resource):
         if fav_caps:
             put_caps = session.query(Captain).filter(Captain.name.in_(
                 fav_caps.split(','))).all()
-            print(put_caps)
-            print(args.get('add_fav'))
             if args.get('add_fav'):
                 for i in put_caps:
                     user.fav_caps.append(i)
             else:
-                print('delete')
                 for i in put_caps:
                     user.fav_caps.remove(i)
         if fav_boats:
             put_boats = session.query(Uboat).filter(Uboat.tactical_number.in_(
-                fav_boats).split(',')).all()
+                fav_boats.split(','))).all()
             if args.get('add_fav'):
                 for i in put_boats:
                     user.fav_boats.append(i)

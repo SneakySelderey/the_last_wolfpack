@@ -70,7 +70,7 @@ def write_captains():
         count += 1
 
 
-@app.route("/captains", methods=['GET', 'POST'])
+@app.route("/captains", methods=['GET', 'PUT'])
 def captains_list():
     """Страница с капитанами"""
     db_sess = db_session.create_session()
@@ -83,13 +83,17 @@ def captains_list():
                            caps=caps, fav_caps=fav_caps)
 
 
-@app.route("/uboats")
+@app.route("/uboats",  methods=['GET', 'PUT'])
 def uboats_list():
     """Страница с лодками"""
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
+    if current_user.is_authenticated:
+        fav_boats = db_sess.query(User).get(current_user.id).fav_boats
+    else:
+        fav_boats = []
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats)
+                           uboats=uboats, fav_boats=fav_boats)
 
 
 @app.route('/register', methods=['GET', 'POST'])
