@@ -51,6 +51,8 @@ height: 100%;">Подлодки Кригсмарине</h1>
                     <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
                     <th scope="row"><span class="fa fa-star" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                {% else %}
+                    <th scope="row">{{ item.id }}</th>
                 {% endif%}
                 <td>{{ item.tactical_number }}</td>
                 {% if item.ordered %}

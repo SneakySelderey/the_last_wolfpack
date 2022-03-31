@@ -46,6 +46,8 @@ height: 100%;">Капитаны Кригсмарине</h1>
                     <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
                     <th scope="row"><span class="fa fa-star" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                {% else %}
+                    <th scope="row">{{ item.id }}</th>
                 {% endif%}
                 <td id="cap_name"> {{ item.name }}</td>
                 {% if not item.image %}
@@ -63,8 +65,8 @@ height: 100%;">Капитаны Кригсмарине</h1>
     </tbody>
 </table>
 <p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
-<script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
 <script type="text/python" src="{{url_for('static', filename='scripts/fav_list.py')}}"></script>
+<script src="{{url_for('static', filename='scripts/lazy_load.js')}}"></script>
 <script>
     $(document).ready(function() {
         $('#caps_table').DataTable({
