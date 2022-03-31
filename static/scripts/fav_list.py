@@ -35,7 +35,10 @@ def make_fav(event):
     put_data(f'/api/users/{user_id}', req_dict)
 
 
-user_id = int(document.getElementById('current_user_id').innerHTML)
+if document.getElementById('current_user_id').innerHTML:
+    user_id = int(document.getElementById('current_user_id').innerHTML)
+else:
+    user_id = 0
 elements = document.querySelectorAll('.fa-star')
 caps_table = document.getElementById('caps_table')
 boats_table = document.getElementById('boats_table')
