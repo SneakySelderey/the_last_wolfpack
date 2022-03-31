@@ -105,3 +105,56 @@ img.star {
 .overflow {
     overflow-y: auto;
 }
+  
+@media screen and (max-width: 970px) {
+    .table-mob tr {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    border-bottom: 3px solid #ccc;
+    display:block;
+    width: 100%;
+    
+    }
+    .table-mob tbody td,
+    .table-mob tbody th {
+    display:flex;
+    /* -ms-flex: 1 1 auto;
+        flex: 1 1 auto; */
+    width: 100%;
+    }
+    .table-mob tehad th {
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .table-mob tr {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        border-bottom: 3px solid #ccc;
+        display:block;
+        width: 100%;
+        
+        }
+        .table-mob tbody td,
+        .table-mob tbody th {
+        display:flex;
+        /* -ms-flex: 1 1 auto;
+            flex: 1 1 auto; */
+        width: 100%;
+        }
+        .table-mob tehad th {
+            width: 100%;
+        }
+        .table-mob {
+            margin-left: -4.5%;
+        }
+}
+.dataTables_filter {
+    float: right;
+}
+  
+  

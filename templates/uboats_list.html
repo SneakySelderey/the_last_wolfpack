@@ -46,7 +46,7 @@ height: 100%;">Подлодки Кригсмарине</h1>
     </thead>
     <tbody>
         {% for item in uboats%}
-            <tr>
+            <tr id="main">
                 {% if item in fav_boats and current_user.is_authenticated%}
                     <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
