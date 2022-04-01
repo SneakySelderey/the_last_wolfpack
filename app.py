@@ -1,7 +1,7 @@
 import os
 import os.path
-from flask import Flask, request, make_response, session, abort, url_for, redirect
-from flask import render_template, redirect, jsonify
+from flask import Flask, request
+from flask import render_template, redirect
 from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
 from flask_restful import Api
@@ -13,7 +13,6 @@ from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
-import json
 # import logging
 import DB_updater
 
@@ -25,8 +24,9 @@ api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
 api.add_resource(users_api.UsersListResource, '/api/users')
 login_manager = LoginManager()
 login_manager.init_app(app)
+# logging.getLogger('werkzeug').disabled = True
 # logging.basicConfig(
-#     filename='db_logs.log',
+#     level=logging.DEBUG,
 #     format='%(asctime)s %(levelname)s %(name)s %(message)s'
 # )
 
