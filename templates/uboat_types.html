@@ -15,7 +15,7 @@
 
     {% set name = 'img/misc. pictures/uboat_type_II.jpg' %}
 
-    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="500" height="359"
+    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="500" height="359" class="img-fluid"
         alt="Иллюстрация" align="left"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодка серии IIB</figcaption></figure>
         
@@ -32,7 +32,7 @@
 
     {% set name = 'img/misc. pictures/uboat_type_VII.jpg' %}
 
-    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="260"
+    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="260" class="img-fluid"
         alt="Иллюстрация" align="right"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодка серии VIIA</figcaption></figure>
 
@@ -51,7 +51,7 @@
 
     {% set name = 'img/misc. pictures/uboat_type_IX.jpg' %}
 
-    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="390"
+    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="390" class="img-fluid"
         alt="Иллюстрация" align="left"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодки серии IX разных модификаций</figcaption></figure>
 
@@ -70,7 +70,7 @@
 
     {% set name = 'img/misc. pictures/uboat_type_XXI.jpg' %}
 
-    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="550" height="105"
+    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="550" height="105" class="img-fluid"
         alt="Иллюстрация" align="right"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодка серии XXI</figcaption></figure>
 
@@ -87,21 +87,41 @@
     <p>Конструкторские решения, заложенные немцами в XXI серию подводных лодок еще в 1943 году задали тенденцию в подводном кораблестроении, которая сохраняла актуальность вплоть до начала-середины 1960 годов, когда в строй активно стали вводиться атомные и дизель-электрические лодки с каплевидной формой прочного или легкого корпуса. Для сравнения приведены советские послевоенные проекты, а также американские лодки военной постройки, модернизированные по программе "GUPPY".</p>
 
     {% set name = 'img/misc. pictures/proj641.png' %}
+    {% set name2 = 'img/misc. pictures/proj675.png' %}
+    {% set name3 = 'img/misc. pictures/uss-clamagore.jpg' %}
 
-    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="576" height="154"
-        alt="Иллюстрация" align="left"
-        vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 641 (1960)</figcaption></figure>
+    <div class="d-flex justify-content-between">
+        <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="576" height="154" class="img-fluid"
+            alt="Иллюстрация" align="right"
+            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 641 (1960)</figcaption></figure>
+        <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name2) }} width="576" height="126" class="img-fluid"
+            alt="Иллюстрация" align="left"
+            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 675 (1960)</figcaption></figure>
+    </div>
+    <div class="d-flex justify-content-center">
+        <figure style="float: center; text-align: center"><p><img src={{ url_for(static, filename=name3) }} width="400" height="276" class="img-fluid"
+            alt="Иллюстрация"
+            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">USS Clamagore в разных модернизациях</figcaption></figure>
+    </div>
 
-    {% set name = 'img/misc. pictures/proj675.png' %}
+    
 
-    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="576" height="126"
-        alt="Иллюстрация" align="right"
-        vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 675 (1960)</figcaption></figure>
+    <!-- <div class="d-flex justify-content-start">
+        <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="576" height="154" class="img-fluid"
+            alt="Иллюстрация" align="left"
+            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 641 (1960)</figcaption></figure>
+    </div>
 
-    {% set name = 'img/misc. pictures/uss-clamagore.jpg' %}
+    <div class="d-flex justify-content-end">
+        <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name2) }} width="576" height="126" class="img-fluid"
+            alt="Иллюстрация" align="right"
+            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 675 (1960)</figcaption></figure>
+    </div>
 
-    <figure style="float: center; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="400" height="276"
-        alt="Иллюстрация" align="center"
-        vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">USS Clamagore в разных модернизациях</figcaption></figure>
+    <div class="d-flex justify-content-center">
+        <figure style="float: center; text-align: center"><p><img src={{ url_for(static, filename=name3) }} width="400" height="276" class="img-fluid"
+            alt="Иллюстрация" align="center"
+            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">USS Clamagore в разных модернизациях</figcaption></figure>
+    </div> -->
 </div>
 {% endblock %}
