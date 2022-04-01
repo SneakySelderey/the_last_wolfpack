@@ -15,8 +15,8 @@
 
     {% set name = 'img/misc. pictures/uboat_type_II.jpg' %}
 
-    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="500" height="359" class="img-fluid"
-        alt="Иллюстрация" align="left"
+    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="500" height="359" class="img-fluid center-img"
+        alt="Иллюстрация" align="left" norm_align = "left"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодка серии IIB</figcaption></figure>
         
     <p>Лодки II серии явились естественным развитием прибрежных лодок типа UB кайзеровского флота периода Первой мировой войны. Небольшие, дешевые и простые в строительстве, эти лодки можно было производить в поразительно короткие сроки. Основой конструкции лодок II серии был экспортный вариант лодки CV-707, построенной в Финляндии в период между двумя войнами. Эти лодки прекрасно подходили для тренировки подводников, обладали небольшими размерами. Отсеки были тесными, наблюдалась склонность к сильной бортовой качке в надводном положении. Тем не менее в начале войны подводные лодки этой серии удачно проявили себя в боевых и тренировочных условиях, и было выпущено четыре их модификации. На лодках имелось только три носовых торпедных аппарата, устанавливавшихся довольно необычно - в виде перевернутого треугольника, из них два были расположены по бортам лодки, а третий - вдоль осевой линии.</p>
@@ -32,8 +32,8 @@
 
     {% set name = 'img/misc. pictures/uboat_type_VII.jpg' %}
 
-    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="260" class="img-fluid"
-        alt="Иллюстрация" align="right"
+    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="260" class="img-fluid center-img"
+        alt="Иллюстрация" align="right" norm_align = "right"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодка серии VIIA</figcaption></figure>
 
     <p>Серия VII, имевшая множество модификаций, была важнейшим типом лодок, участвовавших в подводной войне. За период Второй мировой войны подлодки VII серии совершили более 2600 боевых походов, во время которых было потоплено приблизительно 1365 кораблей противника, в том числе 190 военных. Из более 700 построенных лодок VII серии свыше 400 было уничтожено, в основном вместе с экипажами.</p>
@@ -51,8 +51,8 @@
 
     {% set name = 'img/misc. pictures/uboat_type_IX.jpg' %}
 
-    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="390" class="img-fluid"
-        alt="Иллюстрация" align="left"
+    <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="450" height="390" class="img-fluid center-img"
+        alt="Иллюстрация" align="left" norm_align = "left"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодки серии IX разных модификаций</figcaption></figure>
 
     <p>Подводные лодки IX серии явились прямым развитием неудачных лодок I серии (было построено только две подлодки - U-25 и U-26). Хотя основную часть подводного флота Кригсмарине составляли лодки VII серии, все же имелась потребность в более крупных океанических (крейсерских) лодках с большим радиусом действия, рассчитанных на действия в оперативной зоне до Южной Атлантики и Индийского океана. В результате появились лодки IX серии; всего было построено 194 единицы. Это были превосходные лодки, способные действовать на большом удалении от баз; кроме того, они были просторнее и удобнее по сравнению с лодками VII серии, отличавшимися стесненностью внутреннего пространства.</p>
@@ -70,8 +70,8 @@
 
     {% set name = 'img/misc. pictures/uboat_type_XXI.jpg' %}
 
-    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="550" height="105" class="img-fluid"
-        alt="Иллюстрация" align="right"
+    <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="550" height="105" class="img-fluid center-img"
+        alt="Иллюстрация" align="right" norm_align = "right"
         vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Подлодка серии XXI</figcaption></figure>
 
     <p>Появление подводных лодок XXI серии ознаменовало рывок немцев в проектировании и строительстве. Эти сверхсовременные подлодки были первыми, при серийном производстве которых использовались девять готовых модулей. Изготовленные на разных заводах Германии секции корпусов лодок на верфях тщательно состыковывали и сваривали за минимальное время. Теоретическая оценка времени, затрачиваемого на строительство одной подводной лодки XXI серии, составляла 176 дней, при этом на сборочной верфи она должна была проводить только 30 дней.</p>
@@ -103,25 +103,21 @@
             alt="Иллюстрация"
             vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">USS Clamagore в разных модернизациях</figcaption></figure>
     </div>
-
-    
-
-    <!-- <div class="d-flex justify-content-start">
-        <figure style="float: left; text-align: center"><p><img src={{ url_for(static, filename=name) }} width="576" height="154" class="img-fluid"
-            alt="Иллюстрация" align="left"
-            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 641 (1960)</figcaption></figure>
-    </div>
-
-    <div class="d-flex justify-content-end">
-        <figure style="float: right; text-align: center"><p><img src={{ url_for(static, filename=name2) }} width="576" height="126" class="img-fluid"
-            alt="Иллюстрация" align="right"
-            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">Проект 675 (1960)</figcaption></figure>
-    </div>
-
-    <div class="d-flex justify-content-center">
-        <figure style="float: center; text-align: center"><p><img src={{ url_for(static, filename=name3) }} width="400" height="276" class="img-fluid"
-            alt="Иллюстрация" align="center"
-            vspace="10" hspace="20"></p><figcaption style="padding-bottom: 0;">USS Clamagore в разных модернизациях</figcaption></figure>
-    </div> -->
 </div>
+<script>
+    $(document).ready(function() {
+        
+     function hideTH(){
+        if ($(window).width() < 690) {
+            $(".center-img").attr('align', 'center');
+        } else {
+            $(".center-img").attr('align', $(".center-img").attr('norm_align'));
+        } 
+     }      
+     hideTH();
+     window.onresize = function(event) {
+         hideTH();
+     };
+     });
+</script>
 {% endblock %}
