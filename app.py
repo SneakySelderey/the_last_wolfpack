@@ -6,7 +6,7 @@ from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
 from flask_restful import Api
 from werkzeug.utils import secure_filename
-from api import users_api, get_cap_api, get_uboat_api, get_hist_reference_api
+from api import users_api, get_cap_api, get_uboat_api, get_hist_reference_api, get_uboat_types_api
 from data.user import User
 from data.captains import Captain
 from data.uboats import Uboat
@@ -25,6 +25,7 @@ api.add_resource(users_api.UsersListResource, '/api/users')
 api.add_resource(get_cap_api.CapResource, '/api/caps/<string:cap_name>')
 api.add_resource(get_uboat_api.UboatResource, '/api/uboats/<string:uboat_num>')
 api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
+api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
 login_manager = LoginManager()
 login_manager.init_app(app)
 # logging.getLogger('werkzeug').disabled = True
