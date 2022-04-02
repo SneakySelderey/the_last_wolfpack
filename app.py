@@ -6,7 +6,7 @@ from flask_login import LoginManager, logout_user, login_required, login_user, \
     current_user
 from flask_restful import Api
 from werkzeug.utils import secure_filename
-from api import users_api
+from api import users_api, get_cap_api
 from data.user import User
 from data.captains import Captain
 from data.uboats import Uboat
@@ -22,6 +22,7 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 api = Api(app)
 api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
 api.add_resource(users_api.UsersListResource, '/api/users')
+api.add_resource(get_cap_api.CapResource, '/api/caps/<string:cap_name>')
 login_manager = LoginManager()
 login_manager.init_app(app)
 # logging.getLogger('werkzeug').disabled = True

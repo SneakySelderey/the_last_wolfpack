@@ -10,7 +10,7 @@ class Captain(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
-    image = sqlalchemy.Column(sqlalchemy.BLOB, nullable=True)
+    image = sqlalchemy.Column(sqlalchemy.VARCHAR, nullable=True)
     name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     info = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     boats = sqlalchemy.Column(sqlalchemy.String, nullable=True)
