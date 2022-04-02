@@ -2,7 +2,6 @@ from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
 from data.captains import Captain
-from api.get_cap_parser import get_cap_parser
 
 
 def abort_if_cap_not_found(cap_name):
