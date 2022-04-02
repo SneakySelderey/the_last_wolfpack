@@ -4,7 +4,7 @@ from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
 from data.user import User
-from api.req_parsers import user_put_parser
+from api.api_parsers import user_put_parser
 
 
 def abort_if_user_not_found(user_id):
