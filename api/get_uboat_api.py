@@ -5,7 +5,7 @@ from data.uboats import Uboat
 
 
 def abort_if_uboat_not_found(uboat_num):
-    """Функция, проверяющая существование капитана с name={cap_name}"""
+    """Функция, проверяющая существование лодки с tactical_number={uboat_num}"""
     session = db_session.create_session()
     uboat = session.query(Uboat).filter(Uboat.tactical_number == uboat_num).first()
     if not uboat:
@@ -13,9 +13,9 @@ def abort_if_uboat_not_found(uboat_num):
 
 
 class UboatResource(Resource):
-    """Класс ресурса для одного капитана"""
+    """Класс ресурса для одной лодки"""
     def get(self, uboat_num):
-        """Метод получения капитана по имени"""
+        """Метод получения лодки по тактическому номеру"""
         abort_if_uboat_not_found(uboat_num)
         session = db_session.create_session()
         uboat = session.query(Uboat).filter(Uboat.tactical_number == uboat_num).first()
