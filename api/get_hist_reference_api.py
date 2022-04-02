@@ -22,4 +22,7 @@ class HistRefResource(Resource):
         text = ''
         for i in tags:
             text += i.text
-        return jsonify({'text': text})
+        return jsonify({'text': text, 'pics': ('https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/U-96.jpg',
+                        'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/Karl_Doenitz.jpg',
+                        'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/U-243_under_attack.jpg',
+                        'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/convoy.jpg')})
