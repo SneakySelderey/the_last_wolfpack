@@ -223,7 +223,7 @@ def edit_profile():
                            form=form)
 
 
-def website_run(): 
+def website_run():
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
