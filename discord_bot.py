@@ -71,12 +71,22 @@ class TheLastWolfpackAPI(commands.Cog):
         await ctx.send(f"Подлодка 675 проекта (1960) {data['pics'][5]}")
         await ctx.send(f"USS Clamagore в разных модификациях {data['pics'][6]}")
 
+    @commands.command(name='website')
+    async def website(self, ctx):
+        embedVar = discord.Embed(title="TheLastWolfack", description="[Главная страница](https://the-last-wolfpack.herokuapp.com/)", color=0x808080)
+        embedVar.add_field(name="1.", value="[Историческая справка](https://the-last-wolfpack.herokuapp.com/historical_reference)", inline=False)
+        embedVar.add_field(name="2.", value="[Типы лодок Кригсмарине](https://the-last-wolfpack.herokuapp.com/uboat_types)", inline=False)
+        embedVar.add_field(name="3.", value="[Подводные лодки Кригсмарине](https://the-last-wolfpack.herokuapp.com/uboats)", inline=False)
+        embedVar.add_field(name="4.", value="[Капитаны Кригсмарине](https://the-last-wolfpack.herokuapp.com/captains)", inline=False)
+        await ctx.send(embed=embedVar)
+
     @commands.command(name='help')
     async def help(self, ctx):
         await ctx.send(
 """```
 TheLastWolfpack Bot commands:
   /bdu/help -- показать это сообщение
+  /bdu/website -- показать ссылки на разделы сайта
   /bdu/cap_info <cap_name> <cap_surname> -- вывести информацию об определенном капитане Кригсмарине по его имени и фамилии
   /bdu/uboat_info <uboat_number> (ex.: /bdu/uboat_info U-96) -- вывести информацию об определенной подлодке Кригсмарине по ее тактическому номеру
   /bdu/hist_ref -- вывести историческую справку и Битве за Атлантику
