@@ -94,7 +94,8 @@ TheLastWolfpack Bot commands:
 ```""")
 
 
-bot = commands.Bot(command_prefix='/bdu/', intents=intents)
-bot.add_cog(TheLastWolfpackAPI(bot))
-TOKEN = config('DISCORD_TOKEN', default='not found')
-bot.run(TOKEN)
+def run():
+    bot = commands.Bot(command_prefix='/bdu/', intents=intents)
+    bot.add_cog(TheLastWolfpackAPI(bot))
+    TOKEN = config('DISCORD_TOKEN', default='not found')
+    bot.run(TOKEN)

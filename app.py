@@ -16,6 +16,8 @@ from forms.DB_update_form import UpdateForm
 # import logging
 import DB_updater
 from decouple import config
+import discord_bot
+from threading import Thread
 
 
 app = Flask(__name__)
@@ -221,7 +223,14 @@ def edit_profile():
                            form=form)
 
 
-if __name__ == '__main__':
+def website_run(): 
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
+
+if __name__ == '__main__':
+    website_thread = Thread(target=website_run)
+    website_thread.start()
+    discord_bot.run()
+    website_thread.join()
