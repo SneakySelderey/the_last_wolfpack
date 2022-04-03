@@ -1,20 +1,5 @@
 {% extends "base.html" %}
 
-{% block cringe %}
-    <h1 style="text-align: center;">Authorization</h1>
-    {% from "__formhelper.html" import render_field %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        {{ render_field(form.email, class="form-control", type="email", id="email") }}
-        {{ render_field(form.password, class="form-control", type="password", id="name") }}
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-        <div>{{ message }}</div>
-    </form>
-{% endblock %}
-
-
-
 {% block content %}
 {% from "__formhelper.html" import render_field %}
 <div class="container h-100" style="margin-top: 2.5%; margin-bottom: 2.5%">
@@ -29,7 +14,11 @@
         {{ render_field(form.password, class="form-control", type="password", id="name") }}
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
-        {{message}}
+        {% if message %}
+            <p class="alert alert-danger" role="alert">
+                {{ message }}
+            </p>
+        {% endif %}
         <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register" class="fw-bold text-body"><u>Register here</u></a></p>
     </form>
 </div>

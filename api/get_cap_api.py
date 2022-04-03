@@ -1,3 +1,4 @@
+import logging
 from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
@@ -20,6 +21,7 @@ class CapResource(Resource):
         session = db_session.create_session()
         cap = session.query(Captain).filter(Captain.name == cap_name).first()
         cap.image = f'https://the-last-wolfpack.herokuapp.com//static/img/{cap.id - 1}.png'
+        logging.info(f'GET captain {cap_name} -> success')
         return jsonify({'captain': cap.to_dict(only=('id', 'image', 'profile_link', 'name', 'info', 'boats'))})
 
 
@@ -29,6 +31,7 @@ class CapListResource(Resource):
         """Метод получения всех капитанов"""
         session = db_session.create_session()
         captains = session.query(Captain).all()
+        logging.info('GET captains -> success')
         return jsonify({'captains': [item.to_dict(only=(
             'id', 'name', 'info', 'boats', 'profile_link')) for
                 item in captains]})

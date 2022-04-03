@@ -1,4 +1,33 @@
-from browser import document, console, window
+from browser import document, console, ajax
+import json
+
+
+class Data:
+    """Класс для сохранения данных GET-запроса"""
+    def __init__(self):
+        self.data = None
+ 
+    def change(self, data):
+        """Функция для изменения данных"""
+        self.data = data
+    
+    def get_names(self):
+        """Функция для получения всех имен зарегистрировавшихся пользователей"""
+        return [i['username'] for i in self.data['users']]
+    
+    def get_emails(self):
+        """Функция для получения всех почт зарегистрировавшихся пользователей"""
+        return [i["email"] for i in self.data['users']]
+
+
+def get_data(url, req):
+    """Функция для получения списка капитанов и лодок"""
+    global users_data
+    if url is not None:
+        return ajax.get(url, oncomplete=lambda req: get_data(None, req))
+    else:
+        users_data.change(json.loads(req.text))
+        return True
 
 
 def checkPassword(data, min_l=8):
@@ -49,6 +78,15 @@ class ErrorChecker:
         if field1.value != field2.value:
             field1.setCustomValidity("Passwords do not match")
             field1.validity.valid = False
+    
+    def checkUnique(self, field):
+        """Функция, проверяющая уникальность значения поля. Принимает поле"""
+        if field == name and field.value in users_data.get_names():
+            field.setCustomValidity("User with this name is already exists")
+            field.validity.valid = False
+        if field == email and field.value in users_data.get_emails():
+            field.setCustomValidity("User with this email is already exists")
+            field.validity.valid = False
 
     def badInput(self, field):
         """Метод, проверяющий валидность введенного пароля. Принимает поле"""
@@ -67,10 +105,11 @@ class ErrorChecker:
         if field != picture:
             self.valueMissing(field)
         self.typeMismatch(field)
+        if field == name and (password2 is not None or picture is not None):
+            self.checkUnique(name)
         if field == email and field.validity.valid and (
                 password2 is not None or picture is not None):
-            jq.ajax('/api/users', {'success': onSuccess})
-            return
+            self.checkUnique(email)
         if field == password or field == picture:
             self.badInput(field)
         if field == password2:
@@ -102,24 +141,11 @@ def checkValidate(event):
         event.preventDefault()
 
 
-def onSuccess(data, status, req):
-    """Функция, которая вызывается, если ajax смог успешно выполнить запрос.
-    Функция проверяет наличие почты, которую вводит пользователь в поле в
-    списке почт зарегистрированных пользователей. Если она найдена, то
-    вызываетяя ошибка валидации об уникальности"""
-    emails = [data.users[i]["email"] for i in range(len(data.users))]
-    if email.value in emails and email.value != user_email:
-        email.setCustomValidity("User with this email is already exists")
-        email.validity.valid = False
-        email.reportValidity()
-
-
 def close(event):
     form_submit.attributes.can_close = 'true'
     document.getElementById("edit_form").style.display = "none"
 
 
-jq = window.jQuery
 form = document.getElementsByTagName('form')[0]
 form_submit = document.getElementById('form_submit')
 if form_submit is not None:
@@ -132,6 +158,8 @@ picture = document.getElementById('picture')
 btn_close = document.getElementById('btn_close')
 user_email = email.value if picture is not None else None
 checker = ErrorChecker()
+users_data = Data()
+get_data('/api/users', None)
 if btn_close is not None:
     btn_close.addEventListener('click', close)
 if name is not None:

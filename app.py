@@ -1,8 +1,7 @@
-import os
 import os.path
 from flask import Flask, request
 from flask import render_template, redirect
-from flask_login import LoginManager, logout_user, login_required, login_user, \
+from flask_login import LoginManager, logout_user, login_required, login_user,\
     current_user
 from flask_restful import Api
 from werkzeug.utils import secure_filename
@@ -13,8 +12,9 @@ from data.uboats import Uboat
 from data import db_session
 from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
-# import logging
+import logging
 import DB_updater
+from requests import put, post
 from decouple import config
 import discord_bot
 from threading import Thread
@@ -33,17 +33,16 @@ api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
 api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
 login_manager = LoginManager()
 login_manager.init_app(app)
-# logging.getLogger('werkzeug').disabled = True
-# logging.basicConfig(
-#     level=logging.DEBUG,
-#     format='%(asctime)s %(levelname)s %(name)s %(message)s'
-# )
+logging.getLogger('werkzeug').disabled = True
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s %(levelname)s %(name)s %(message)s'
+)
 
 
 @app.route("/")
 def main_page():
     """Основная страница"""
-    # return redirect('/test')
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
@@ -108,17 +107,20 @@ def register():
             return render_template('register.html', title='Register',
                                    form=form,
                                    message="User is already exists")
-        user = User()
-        user.username = form.username.data
-        user.email = form.email.data
-        user.set_password(form.password.data)
+        if db_sess.query(User).filter(
+                User.username == form.username.data).first():
+            return render_template('register.html', title='Register',
+                                   form=form,
+                                   message="User is already exists")
+        args = {'username': form.username.data, 'email': form.email.data,
+                'password': form.password.data}
         try:
-            db_sess.add(user)
-            db_sess.commit()
+            post(f'http://{request.host}/api/users', json=args)
+            app.logger.info(f'{form.username.data} registered successfully')
             return redirect('/login')
         except Exception as error:
-            # logging.error(error)
-            pass
+            app.logger.error('User could not register. Reason:',
+                             str(error).split('\n')[-1])
     return render_template('register.html', title='Register', form=form)
 
 
@@ -133,13 +135,14 @@ def login():
                 User.email == form.email.data).first()
             if user and user.check_password(form.password.data):
                 login_user(user, remember=form.remember_me.data)
+                app.logger.info(f'{user.username} logged in successfully')
                 return redirect("/profile")
             return render_template('login.html',
                                    message="Wrong login or password",
                                    form=form, title="Authorization")
         except Exception as error:
-            # logging.error(error)
-            pass
+            app.logger.fatal('User could not login. Reason:',
+                             str(error).split('\n')[-1])
     return render_template('login.html', title='Authorization', form=form)
 
 
@@ -147,6 +150,7 @@ def login():
 @login_required
 def logout():
     """Выход пользователя"""
+    app.logger.info(f'{current_user.username} logged out successfully')
     logout_user()
     return redirect("/")
 
@@ -175,17 +179,29 @@ def user_profile():
             User.email == form.email.data).first() and not \
                 form.email.data == current_user.email:
             return render_template(
+                'profile.html', message='Email is already taken',
+                form=form, title='Profile', fav_caps=fav_caps,
+                fav_boats=fav_boats)
+        if db_sess.query(User).filter(
+            User.username == form.username.data).first() and not \
+                form.username.data == current_user.username:
+            return render_template(
                 'profile.html', message='Username is already taken',
                 form=form, title='Profile', fav_caps=fav_caps,
                 fav_boats=fav_boats)
-        user.username = form.username.data
-        user.email = form.email.data
+        args = {'username': form.username.data, 'email': form.email.data}
         if form.picture.data is not None:
             filename = secure_filename(form.picture.data.filename)
             form.picture.data.save('static/img/profile_pictures/' + filename)
-            user.profile_picture = filename
-        db_sess.commit()
-        return redirect('/dummy')
+            args['picture'] = filename
+        try:
+            put(f'http://{request.host}/api/users/{current_user.id}', json=args)
+            db_sess.commit()
+            app.logger.info(f'{user.username} changed his profile successfully')
+            return redirect('/dummy')
+        except Exception as error:
+            app.logger.fatal('User could not edit profile. Reason:',
+                             str(error).split('\n')[-1])
     return render_template('profile.html', user=user, title='Profile',
                            form=form, fav_caps=fav_caps, fav_boats=fav_boats)
 
@@ -193,36 +209,6 @@ def user_profile():
 @app.route('/dummy')
 def dummy():
     return redirect('/profile')
-
-
-@app.route('/edit_profile', methods=['GET', 'POST'])
-@login_required
-def edit_profile():
-    """Страница редактирования профиля и обработка формы"""
-    form = EditProfileForm()
-    db_sess = db_session.create_session()
-    if request.method == 'GET':
-        user = db_sess.query(User).get(current_user.id)
-        form.username.data = user.username
-    if form.validate_on_submit():
-        user = db_sess.query(User).get(current_user.id)
-        if db_sess.query(User).filter(
-                User.username == form.username.data).first() and not \
-                form.username.data == current_user.username:
-            return render_template('edit_profile.html',
-                                   message='Username is already taken',
-                                   form=form, title='Edit profile')
-        user.username = form.username.data
-        if form.picture.data:
-            image_data = request.files[form.picture.name]
-            name = os.path.join('static/img/profile_pictures',
-                                current_user.username + '.png')
-            open(name, 'wb').write(image_data.read())
-            user.profile_picture = current_user.username + '.png'
-        db_sess.commit()
-        return redirect("/profile")
-    return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
 
 
 def website_run():

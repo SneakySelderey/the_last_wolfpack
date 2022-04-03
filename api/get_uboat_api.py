@@ -2,6 +2,7 @@ from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
 from data.uboats import Uboat
+import logging
 
 
 def abort_if_uboat_not_found(uboat_num):
@@ -19,6 +20,7 @@ class UboatResource(Resource):
         abort_if_uboat_not_found(uboat_num)
         session = db_session.create_session()
         uboat = session.query(Uboat).filter(Uboat.tactical_number == uboat_num).first()
+        logging.info(f'GET uboat {uboat_num} -> success')
         return jsonify({'uboat': uboat.to_dict(only=('id', 'tactical_number', 'ordered', 'launched', 'commissioned', 'commanders', 'career', 'successes', 'fate', 'coords'))})
 
 
@@ -28,6 +30,7 @@ class UboatListResource(Resource):
         """Метод получения всех лодок"""
         session = db_session.create_session()
         uboats = session.query(Uboat).all()
+        logging.info('GET uboats -> success')
         return jsonify({'uboats': [item.to_dict(only=(
             'id', 'tactical_number', 'ordered', 'launched', 'commissioned',
             'commanders', 'career', 'successes', 'fate', 'coords'))
