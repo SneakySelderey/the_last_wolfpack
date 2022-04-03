@@ -193,7 +193,7 @@ def user_profile():
         if form.picture.data is not None:
             filename = secure_filename(form.picture.data.filename)
             form.picture.data.save('static/img/profile_pictures/' + filename)
-            args['picture'] = filename
+            args['profile_picture'] = filename
         try:
             put(f'http://{request.host}/api/users/{current_user.id}', json=args)
             db_sess.commit()
