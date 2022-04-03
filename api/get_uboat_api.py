@@ -20,3 +20,15 @@ class UboatResource(Resource):
         session = db_session.create_session()
         uboat = session.query(Uboat).filter(Uboat.tactical_number == uboat_num).first()
         return jsonify({'uboat': uboat.to_dict(only=('id', 'tactical_number', 'ordered', 'launched', 'commissioned', 'commanders', 'career', 'successes', 'fate', 'coords'))})
+
+
+class UboatListResource(Resource):
+    """Класс ресурса для списка лодок"""
+    def get(self):
+        """Метод получения всех лодок"""
+        session = db_session.create_session()
+        uboats = session.query(Uboat).all()
+        return jsonify({'uboats': [item.to_dict(only=(
+            'id', 'tactical_number', 'ordered', 'launched', 'commissioned',
+            'commanders', 'career', 'successes', 'fate', 'coords'))
+            for item in uboats]})
