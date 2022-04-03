@@ -1,7 +1,7 @@
 from asyncio import tasks
 import discord
 from discord.ext import commands, tasks
-import random, logging
+import logging
 import requests
 from decouple import config
 
@@ -20,6 +20,7 @@ class TheLastWolfpackAPI(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.bot.remove_command('help')
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -69,6 +70,18 @@ class TheLastWolfpackAPI(commands.Cog):
         await ctx.send(f"Подлодка 641 проекта (1960) {data['pics'][4]}")
         await ctx.send(f"Подлодка 675 проекта (1960) {data['pics'][5]}")
         await ctx.send(f"USS Clamagore в разных модификациях {data['pics'][6]}")
+
+    @commands.command(name='help')
+    async def help(self, ctx):
+        await ctx.send(
+"""```
+TheLastWolfpack Bot commands:
+  /bdu/help -- показать это сообщение
+  /bdu/cap_info <cap_name> <cap_surname> -- вывести информацию об определенном капитане Кригсмарине по его имени и фамилии
+  /bdu/uboat_info <uboat_number> (ex.: /bdu/uboat_info U-96) -- вывести информацию об определенной подлодке Кригсмарине по ее тактическому номеру
+  /bdu/hist_ref -- вывести историческую справку и Битве за Атлантику
+  /bdu/uboat_ref -- вывести справку по основным типам подлодок Кригсмарине
+```""")
 
 
 bot = commands.Bot(command_prefix='/bdu/', intents=intents)
