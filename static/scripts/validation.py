@@ -105,7 +105,7 @@ class ErrorChecker:
         if field != picture:
             self.valueMissing(field)
         self.typeMismatch(field)
-        if field == name and password2 is not None:
+        if field == name and (password2 is not None or picture is not None):
             self.checkUnique(name)
         if field == email and field.validity.valid and (
                 password2 is not None or picture is not None):

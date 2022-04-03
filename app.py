@@ -112,14 +112,14 @@ def register():
         user.username = form.username.data
         user.email = form.email.data
         user.set_password(form.password.data)
-        # try:
-        db_sess.add(user)
-        db_sess.commit()
-        app.logger.info(f'{user.username} registered successfully')
-        return redirect('/login')
-        # except Exception as error:
-        #     app.logger.error('User could not register. Reason:',
-        #                      str(error).split('\n')[-1])
+        try:
+            db_sess.add(user)
+            db_sess.commit()
+            app.logger.info(f'{user.username} registered successfully')
+            return redirect('/login')
+        except Exception as error:
+            app.logger.error('User could not register. Reason:',
+                             str(error).split('\n')[-1])
     return render_template('register.html', title='Register', form=form)
 
 
@@ -142,7 +142,6 @@ def login():
         except Exception as error:
             app.logger.fatal('User could not login. Reason:',
                              str(error).split('\n')[-1])
-            pass
     return render_template('login.html', title='Authorization', form=form)
 
 
@@ -188,9 +187,13 @@ def user_profile():
             filename = secure_filename(form.picture.data.filename)
             form.picture.data.save('static/img/profile_pictures/' + filename)
             user.profile_picture = filename
-        db_sess.commit()
-        app.logger.info(f'{user.username} changed his profile successfully')
-        return redirect('/dummy')
+        try:
+            db_sess.commit()
+            app.logger.info(f'{user.username} changed his profile successfully')
+            return redirect('/dummy')
+        except Exception as error:
+            app.logger.fatal('User could not edit profile. Reason:',
+                             str(error).split('\n')[-1])
     return render_template('profile.html', user=user, title='Profile',
                            form=form, fav_caps=fav_caps, fav_boats=fav_boats)
 

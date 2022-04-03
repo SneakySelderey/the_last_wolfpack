@@ -5,6 +5,7 @@ from data.captains import Captain
 from data.uboats import Uboat
 from data.user import User
 from api.api_parsers import user_put_parser
+import logging
 
 
 def abort_if_user_not_found(user_id):
@@ -22,6 +23,7 @@ class UsersResource(Resource):
         abort_if_user_not_found(user_id)
         session = db_session.create_session()
         user = session.query(User).get(user_id)
+        logging.info(f'GET user {user.username} -> success')
         return jsonify({'user': user.to_dict()})
 
     def delete(self, user_id):
@@ -31,6 +33,7 @@ class UsersResource(Resource):
         user = session.query(User).get(user_id)
         session.delete(user)
         session.commit()
+        logging.info(f'DELETE user {user.username} -> success')
         return jsonify({'success': 'OK'})
 
     def put(self, user_id):
@@ -68,6 +71,7 @@ class UsersResource(Resource):
                 for i in put_boats:
                     user.fav_boats.remove(i)
         session.commit()
+        logging.info(f'PUT user {user.username} -> success')
         return jsonify({'success': 'OK'})
 
 
@@ -77,6 +81,7 @@ class UsersListResource(Resource):
         """Метод получения всех пользователей"""
         session = db_session.create_session()
         users = session.query(User).all()
+        logging.info('GET users -> success')
         return jsonify({'users': [item.to_dict(only=(
             'id', 'username', 'email', 'register_date',
             'profile_picture')) for item in users]})
