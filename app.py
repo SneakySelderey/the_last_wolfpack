@@ -192,36 +192,6 @@ def dummy():
     return redirect('/profile')
 
 
-@app.route('/edit_profile', methods=['GET', 'POST'])
-@login_required
-def edit_profile():
-    """Страница редактирования профиля и обработка формы"""
-    form = EditProfileForm()
-    db_sess = db_session.create_session()
-    if request.method == 'GET':
-        user = db_sess.query(User).get(current_user.id)
-        form.username.data = user.username
-    if form.validate_on_submit():
-        user = db_sess.query(User).get(current_user.id)
-        if db_sess.query(User).filter(
-                User.username == form.username.data).first() and not \
-                form.username.data == current_user.username:
-            return render_template('edit_profile.html',
-                                   message='Username is already taken',
-                                   form=form, title='Edit profile')
-        user.username = form.username.data
-        if form.picture.data:
-            image_data = request.files[form.picture.name]
-            name = os.path.join('static/img/profile_pictures',
-                                current_user.username + '.png')
-            open(name, 'wb').write(image_data.read())
-            user.profile_picture = current_user.username + '.png'
-        db_sess.commit()
-        return redirect("/profile")
-    return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
-
-
 if __name__ == '__main__':
     db_session.global_init("database.db")
     port = int(os.environ.get("PORT", 5000))
