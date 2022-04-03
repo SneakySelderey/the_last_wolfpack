@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands, tasks
 import random, logging
 import requests
+from decouple import config
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
@@ -40,5 +41,5 @@ class TheLastWolfpackAPI(commands.Cog):
 
 bot = commands.Bot(command_prefix='/bdu/', intents=intents)
 bot.add_cog(TheLastWolfpackAPI(bot))
-TOKEN = "OTU5OTAwMjU1NDQ3NTU2MTM2.Ykimxg.EeJyhXyqKLXSwLirkj0QkvWrxXI"
+TOKEN = config('DISCORD_TOKEN', default='not found')
 bot.run(TOKEN)
