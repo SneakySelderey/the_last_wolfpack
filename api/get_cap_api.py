@@ -21,3 +21,14 @@ class CapResource(Resource):
         cap = session.query(Captain).filter(Captain.name == cap_name).first()
         cap.image = f'https://the-last-wolfpack.herokuapp.com//static/img/{cap.id - 1}.png'
         return jsonify({'captain': cap.to_dict(only=('id', 'image', 'profile_link', 'name', 'info', 'boats'))})
+
+
+class CapListResource(Resource):
+    """Класс ресурса для списка капитанов"""
+    def get(self):
+        """Метод получения всех капитанов"""
+        session = db_session.create_session()
+        captains = session.query(Captain).all()
+        return jsonify({'captains': [item.to_dict(only=(
+            'id', 'name', 'info', 'boats', 'profile_link')) for
+                item in captains]})
