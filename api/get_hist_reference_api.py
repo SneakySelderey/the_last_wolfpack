@@ -20,7 +20,7 @@ class HistRefResource(Resource):
         soup = BeautifulSoup(response.content, 'lxml')
         tags = soup.find_all(('p', 'li'))
         text = ''
-        for i in tags:
+        for i in tags[4:]:
             text += i.text
         return jsonify({'text': text, 'pics': ('https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/U-96.jpg',
                         'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/Karl_Doenitz.jpg',
