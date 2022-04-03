@@ -14,6 +14,7 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import logging
 import DB_updater
+import requests
 
 
 app = Flask(__name__)
@@ -178,16 +179,23 @@ def user_profile():
             User.email == form.email.data).first() and not \
                 form.email.data == current_user.email:
             return render_template(
+                'profile.html', message='Email is already taken',
+                form=form, title='Profile', fav_caps=fav_caps,
+                fav_boats=fav_boats)
+        if db_sess.query(User).filter(
+            User.username == form.username.data).first() and not \
+                form.username.data == current_user.username:
+            return render_template(
                 'profile.html', message='Username is already taken',
                 form=form, title='Profile', fav_caps=fav_caps,
                 fav_boats=fav_boats)
-        user.username = form.username.data
-        user.email = form.email.data
+        args = {'username': form.username.data, 'email': form.email.data}
         if form.picture.data is not None:
             filename = secure_filename(form.picture.data.filename)
             form.picture.data.save('static/img/profile_pictures/' + filename)
-            user.profile_picture = filename
+            args['picture'] = filename
         try:
+            requests.put(f'/api/users/{current_user.id}', json=args)
             db_sess.commit()
             app.logger.info(f'{user.username} changed his profile successfully')
             return redirect('/dummy')
