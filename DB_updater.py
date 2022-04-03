@@ -1,4 +1,3 @@
-import schedule
 from bs4 import BeautifulSoup
 import requests
 from data import db_session
