@@ -14,7 +14,7 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import logging
 import DB_updater
-import requests
+from requests import put, post
 
 
 app = Flask(__name__)
@@ -109,14 +109,11 @@ def register():
             return render_template('register.html', title='Register',
                                    form=form,
                                    message="User is already exists")
-        user = User()
-        user.username = form.username.data
-        user.email = form.email.data
-        user.set_password(form.password.data)
+        args = {'username': form.username.data, 'email': form.email.data,
+                'password': form.password.data}
         try:
-            db_sess.add(user)
-            db_sess.commit()
-            app.logger.info(f'{user.username} registered successfully')
+            post(f'http://{request.host}/api/users', json=args)
+            app.logger.info(f'{form.username.data} registered successfully')
             return redirect('/login')
         except Exception as error:
             app.logger.error('User could not register. Reason:',
@@ -195,7 +192,7 @@ def user_profile():
             form.picture.data.save('static/img/profile_pictures/' + filename)
             args['picture'] = filename
         try:
-            requests.put(f'/api/users/{current_user.id}', json=args)
+            put(f'http://{request.host}/api/users/{current_user.id}', json=args)
             db_sess.commit()
             app.logger.info(f'{user.username} changed his profile successfully')
             return redirect('/dummy')

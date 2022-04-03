@@ -4,7 +4,7 @@ from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
 from data.user import User
-from api.api_parsers import user_put_parser
+from api.api_parsers import user_put_parser, user_post_parser
 import logging
 
 
@@ -85,3 +85,16 @@ class UsersListResource(Resource):
         return jsonify({'users': [item.to_dict(only=(
             'id', 'username', 'email', 'register_date',
             'profile_picture')) for item in users]})
+
+    def post(self):
+        """Метод для добавления пользователя"""
+        args = user_post_parser.parse_args()
+        session = db_session.create_session()
+        user = User()
+        user.username = args['username']
+        user.email = args['email']
+        user.set_password(args['password'])
+        session.add(user)
+        session.commit()
+        logging.info(f'POST user {user.username} -> success')
+        return jsonify({'success': 'OK'})
