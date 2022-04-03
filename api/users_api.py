@@ -77,4 +77,6 @@ class UsersListResource(Resource):
         """Метод получения всех пользователей"""
         session = db_session.create_session()
         users = session.query(User).all()
-        return jsonify({'users': [item.to_dict() for item in users]})
+        return jsonify({'users': [item.to_dict(only=(
+            'id', 'username', 'email', 'register_date',
+            'profile_picture')) for item in users]})
