@@ -4,6 +4,8 @@ from discord.ext import commands, tasks
 import logging
 import requests
 from decouple import config
+from random import choice
+from bs4 import BeautifulSoup
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.INFO)
@@ -32,6 +34,20 @@ class TheLastWolfpackAPI(commands.Cog):
         data = response.json()['captain']
         await ctx.send(f"TheLastWolfpack ID: {data['id']}. Uboat.net profile link: {data['profile_link']}. Full name: {data['name']}. Additional info: {data['info']}. U-boats under command: {data['boats']}.")
         await ctx.send(data['image'])
+
+    @commands.command(name='rand_cap_info')
+    async def rand_cap_info(self, ctx):
+        response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/caps")
+        data = choice(response.json()['captains'])
+        await ctx.send(f"TheLastWolfpack ID: {data['id']}. Uboat.net profile link: {data['profile_link']}. Full name: {data['name']}. Additional info: {data['info']}. U-boats under command: {data['boats']}.")
+        response = requests.get(data['image'])
+        soup = BeautifulSoup(response.content, 'lxml')
+        p = soup.find_all('p')
+        try:
+            if p[0].text != 'The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.':
+                await ctx.send(data['image'])
+        except IndexError:
+            await ctx.send(data['image'])
 
     @commands.command(name='uboat_info')
     async def uboat_info(self, ctx, uboat_num):
