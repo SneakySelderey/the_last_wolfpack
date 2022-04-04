@@ -14,7 +14,7 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import logging
 import DB_updater
-from requests import put, post
+from requests import put, post, get
 from decouple import config
 import discord_bot
 from threading import Thread
@@ -43,6 +43,7 @@ logging.basicConfig(
 @app.route("/")
 def main_page():
     """Основная страница"""
+    print(get(f'http://{request.host}/api/caps/Albrecht Achilles', json={'extension_data': True}).json())
     return render_template('main_content.html', title='The Last Wolfpack')
 
 

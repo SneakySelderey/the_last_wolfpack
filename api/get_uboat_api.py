@@ -21,7 +21,7 @@ class UboatResource(Resource):
         session = db_session.create_session()
         uboat = session.query(Uboat).filter(Uboat.tactical_number == uboat_num).first()
         logging.info(f'GET uboat {uboat_num} -> success')
-        return jsonify({'uboat': uboat.to_dict(only=('id', 'tactical_number', 'ordered', 'launched', 'commissioned', 'commanders', 'career', 'successes', 'fate', 'coords'))})
+        return jsonify({'uboat': uboat.to_dict()})
 
 
 class UboatListResource(Resource):

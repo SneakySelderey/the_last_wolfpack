@@ -3,6 +3,7 @@ from flask_restful import reqparse
 # парсер для получения капитана
 get_cap_parser = reqparse.RequestParser()
 get_cap_parser.add_argument('cap_name')
+get_cap_parser.add_argument('extension_data', type=bool)
 
 # парсер для получения исторической справки
 get_hist_reference_parser = reqparse.RequestParser()
