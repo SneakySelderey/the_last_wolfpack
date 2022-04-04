@@ -55,6 +55,12 @@ class TheLastWolfpackAPI(commands.Cog):
         data = response.json()['uboat']
         await ctx.send(f"""TheLastWolfpack ID: {data['id']}. Tactical number: {data['tactical_number']}. Ordered: {data['ordered']}. Launched: {data['launched']}. Commissioned: {data['commissioned']}. Commanders: {data['commanders'][1:]}. Career: {data['career']}. Successes: {data['successes']}. Fate: {data['fate']}. Coordinates of loss: {data['coords']}.""")
 
+    @commands.command(name='rand_uboat_info')
+    async def rand_uboat_info(self, ctx):
+        response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/uboats")
+        data = choice(response.json()['uboats'])
+        await ctx.send(f"""TheLastWolfpack ID: {data['id']}. Tactical number: {data['tactical_number']}. Ordered: {data['ordered']}. Launched: {data['launched']}. Commissioned: {data['commissioned']}. Commanders: {data['commanders'][1:]}. Career: {data['career']}. Successes: {data['successes']}. Fate: {data['fate']}. Coordinates of loss: {data['coords']}.""")
+
     @commands.command(name='hist_ref')
     async def hist_ref(self, ctx):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/hist_ref")
