@@ -23,7 +23,7 @@ association_table_2 = sqlalchemy.Table(
     SqlAlchemyBase.metadata,
     sqlalchemy.Column('users', sqlalchemy.Integer,
                       sqlalchemy.ForeignKey('users.id')),
-    sqlalchemy.Column('captains', sqlalchemy.Integer,
+    sqlalchemy.Column('boats', sqlalchemy.Integer,
                       sqlalchemy.ForeignKey('uboats.tactical_number'))
 )
 
