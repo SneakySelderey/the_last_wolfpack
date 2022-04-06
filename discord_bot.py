@@ -79,14 +79,24 @@ class TheLastWolfpackAPI(commands.Cog):
     async def cap_info(self, ctx, cap_name, cap_surname):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/caps/{cap_name + ' ' + cap_surname}")
         data = response.json()['captain']
-        await ctx.send(f"TheLastWolfpack ID: {data['id']}. Uboat.net profile link: {data['profile_link']}. Full name: {data['name']}. Additional info: {data['info']}. U-boats under command: {data['boats']}.")
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Uboat.net profile link: {data['profile_link']}.
+Full name: {data['name']}.
+Additional info: {data['info']}.
+U-boats under command: {data['boats']}.""")
         await ctx.send(data['image'])
 
     @commands.command(name='rand_cap_info')
     async def rand_cap_info(self, ctx):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/caps")
         data = choice(response.json()['captains'])
-        await ctx.send(f"TheLastWolfpack ID: {data['id']}. Uboat.net profile link: {data['profile_link']}. Full name: {data['name']}. Additional info: {data['info']}. U-boats under command: {data['boats']}.")
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Uboat.net profile link: {data['profile_link']}.
+Full name: {data['name']}.
+Additional info: {data['info']}.
+U-boats under command: {data['boats']}.""")
         response = requests.get(data['image'])
         soup = BeautifulSoup(response.content, 'lxml')
         p = soup.find_all('p')
@@ -100,13 +110,33 @@ class TheLastWolfpackAPI(commands.Cog):
     async def uboat_info(self, ctx, uboat_num):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/uboats/{uboat_num}")
         data = response.json()['uboat']
-        await ctx.send(f"""TheLastWolfpack ID: {data['id']}. Tactical number: {data['tactical_number']}. Ordered: {data['ordered']}. Launched: {data['launched']}. Commissioned: {data['commissioned']}. Commanders: {data['commanders'][1:]}. Career: {data['career']}. Successes: {data['successes']}. Fate: {data['fate']}. Coordinates of loss: {data['coords']}.""")
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Tactical number: {data['tactical_number']}.
+Ordered: {data['ordered']}.
+Launched: {data['launched']}.
+Commissioned: {data['commissioned']}.
+Commanders: {data['commanders'][1:]}.
+Career: {data['career']}.
+Successes: {data['successes']}.
+Fate: {data['fate']}.
+Coordinates of loss: {data['coords']}.""")
 
     @commands.command(name='rand_uboat_info')
     async def rand_uboat_info(self, ctx):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/uboats")
         data = choice(response.json()['uboats'])
-        await ctx.send(f"""TheLastWolfpack ID: {data['id']}. Tactical number: {data['tactical_number']}. Ordered: {data['ordered']}. Launched: {data['launched']}. Commissioned: {data['commissioned']}. Commanders: {data['commanders'][1:]}. Career: {data['career']}. Successes: {data['successes']}. Fate: {data['fate']}. Coordinates of loss: {data['coords']}.""")
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Tactical number: {data['tactical_number']}.
+Ordered: {data['ordered']}.
+Launched: {data['launched']}.
+Commissioned: {data['commissioned']}.
+Commanders: {data['commanders'][1:]}.
+Career: {data['career']}.
+Successes: {data['successes']}.
+Fate: {data['fate']}.
+Coordinates of loss: {data['coords']}.""")
 
     @commands.command(name='hist_ref')
     async def hist_ref(self, ctx):
