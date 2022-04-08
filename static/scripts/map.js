@@ -2,10 +2,12 @@ let center = [54.31364762674106,10.13353274609368];
 
 
 var getData = function(url) {
+    console.log('getData started')
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.responseType = 'json';
     request.onload = function() {
+        console.log('getData onloaded')
         getCoords(request.response);
     };
 
@@ -14,6 +16,7 @@ var getData = function(url) {
 
 
 function getCoords(data) {
+    console.log('getCoords started')
     for(let i = 0; i < data["uboats"].length; i++){
         let crds = data["uboats"][i]["coords"]
         if (crds){
@@ -45,6 +48,7 @@ function init() {
     map.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
     map.controls.remove('zoomControl'); // удаляем контрол зуммирования
     map.controls.remove('rulerControl'); // удаляем контрол правил
+    console.log(points.length)
     for(let i = 0; i < points.length; i++){
         var placemark = new ymaps.Placemark(points[i], {
             balloonContentHeader: points[i].join(', '),
