@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin-top: 2.5%; margin-bottom: 2.5%">
+    <h4 class="stamp mb-5 text-center">Карта</h4>
+    <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div id="map-test" class="map"></div>
+        <script src="https://api-maps.yandex.ru/2.1/?apikey=85d6700b-49e3-4254-a90c-7ea12c8d1a8f&lang=ru_RU"></script>
+        <script src="{{url_for('static', filename='scripts/map.js')}}"></script>
+    </div>
+</div>
+</div>
+{% endblock %}
