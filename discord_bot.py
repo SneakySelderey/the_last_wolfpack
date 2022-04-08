@@ -211,7 +211,7 @@ Coordinates of loss: {data['coords']}.""")
     @commands.command(name='files')
     async def files(self, ctx):
         files = os.scandir('E:/Python/TheLastWolfpack/static/sound')
-        await ctx.send(files)
+        await ctx.send(str(files))
 
     @commands.command(name='help')
     async def help(self, ctx):
