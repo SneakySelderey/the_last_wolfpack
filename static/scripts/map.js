@@ -4,11 +4,10 @@ let center = [54.31364762674106,10.13353274609368];
 var getData = function(url) {
     console.log('getData started')
     var request = new XMLHttpRequest();
-    request.open('GET', url, true);
-    request.responseType = 'json';
+    request.open('GET', url, false);
     request.onload = function() {
         console.log('getData onloaded')
-        getCoords(request.response);
+        getCoords(JSON.parse(request.response));
     };
 
     request.send();
@@ -60,7 +59,7 @@ function init() {
     }
 }
 
+var points = new Array();
+var json_data = {};
 getData('/api/uboats');
 ymaps.ready(init);
-var points = [];
-var json_data = {};
