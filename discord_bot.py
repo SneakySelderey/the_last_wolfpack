@@ -212,23 +212,23 @@ Coordinates of loss: {data['coords']}.""")
         await ctx.send(
 """```
 TheLastWolfpack Bot commands:
-  /bdu/help -- показать это сообщение
-  /bdu/website -- показать ссылки на разделы сайта
-  /bdu/cap_info <cap_name> <cap_surname> -- вывести информацию об определенном капитане Кригсмарине по его имени и фамилии
-  /bdu/rand_cap_info -- вывести информацию о случайном капитаны Кригсмарине
-  /bdu/uboat_info <uboat_number> (ex.: /bdu/uboat_info U-96) -- вывести информацию об определенной подлодке Кригсмарине по ее тактическому номеру
-  /bdu/uboat_info -- вывести информацию о случайной подлодке Кригсмарине
-  /bdu/hist_ref -- вывести историческую справку и Битве за Атлантику
-  /bdu/uboat_ref -- вывести справку по основным типам подлодок Кригсмарине
-  /bdu/join <channel> -- бот подключится к указанному каналу
-  /bdu/play_local <path> -- бот воспроизведет указанный аудиофайл
-  /bdu/play_yt <url> -- бот воспроизведет звук из видео по ссылке на YouTube
-  /bdu/stop -- бот отключится от текущего канала
+  ~help -- показать это сообщение
+  ~website -- показать ссылки на разделы сайта
+  ~cap_info <cap_name> <cap_surname> -- вывести информацию об определенном капитане Кригсмарине по его имени и фамилии
+  ~rand_cap_info -- вывести информацию о случайном капитаны Кригсмарине
+  ~uboat_info <uboat_number> (ex.: /bdu/uboat_info U-96) -- вывести информацию об определенной подлодке Кригсмарине по ее тактическому номеру
+  ~uboat_info -- вывести информацию о случайной подлодке Кригсмарине
+  ~hist_ref -- вывести историческую справку и Битве за Атлантику
+  ~uboat_ref -- вывести справку по основным типам подлодок Кригсмарине
+  ~join <channel> -- бот подключится к указанному каналу
+  ~play_local <path> -- бот воспроизведет указанный аудиофайл
+  ~play_yt <url> -- бот воспроизведет звук из видео по ссылке на YouTube
+  ~stop -- бот отключится от текущего канала
 ```""")
 
 
 def run():
-    bot = commands.Bot(command_prefix='/bdu/', intents=intents)
+    bot = commands.Bot(command_prefix='~', intents=intents)
     bot.add_cog(TheLastWolfpackAPI(bot))
     TOKEN = config('DISCORD_TOKEN', default='not found')
     bot.run(TOKEN)
