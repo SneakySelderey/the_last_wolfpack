@@ -10,9 +10,9 @@ from bs4 import BeautifulSoup
 import youtube_dl
 import os
 
-discord.opus.load_opus()
-if not discord.opus.is_loaded():
-    raise RunTimeError('Opus failed to load')
+# discord.opus.load_opus()
+# if not discord.opus.is_loaded():
+#     raise RunTimeError('Opus failed to load')
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.INFO)
