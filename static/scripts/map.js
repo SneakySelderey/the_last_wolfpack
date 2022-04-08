@@ -1,4 +1,4 @@
-let center = [50.97265436797006,9.793819812133787];
+let center = [54.31364762674106,10.13353274609368];
 
 
 var getData = function(url) {
@@ -19,8 +19,15 @@ function getCoords(data) {
         if (crds){
             crds = [parseFloat(crds.split(', ')[1]),
                     parseFloat(crds.split(', ')[0])]
-            points.push(crds);
-            json_data[crds] = data["uboats"][i]["tactical_number"]
+            if (!points.includes(crds)){
+                 points.push(crds);
+            }
+            if (json_data[crds]){
+                json_data[crds].push(data["uboats"][i]["tactical_number"]);
+            }
+            else{
+                json_data[crds] = [data["uboats"][i]["tactical_number"]];
+            }
         }
     }
 }
@@ -39,7 +46,10 @@ function init() {
     map.controls.remove('zoomControl'); // удаляем контрол зуммирования
     map.controls.remove('rulerControl'); // удаляем контрол правил
     for(let i = 0; i < points.length; i++){
-        var placemark = new ymaps.Placemark(points[i], {}, {
+        var placemark = new ymaps.Placemark(points[i], {
+            balloonContentHeader: points[i].join(', '),
+            balloonContentBody: json_data[points[i]].join(', '),
+        }, {
             preset: 'islands#redIcon'
         });
         map.geoObjects.add(placemark);
