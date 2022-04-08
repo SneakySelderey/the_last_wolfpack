@@ -62,7 +62,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
             data = data['entries'][0]
 
         filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options, executable="static/sound/FFmpeg/bin/ffmpeg.exe"))
+        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options, executable="vendor/ffmpeg/ffmpeg.exe"))
 
 
 class TheLastWolfpackAPI(commands.Cog):
@@ -190,7 +190,7 @@ Coordinates of loss: {data['coords']}.""")
     async def play_local(self, ctx, query):
         """Plays a file from the local filesystem"""
 
-        source = discord.FFmpegPCMAudio(query, **ffmpeg_options, executable="static/sound/FFmpeg/bin/ffmpeg.exe")
+        source = discord.FFmpegPCMAudio(query, **ffmpeg_options, executable="vendor/ffmpeg/ffmpeg.exe")
         ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
 
         await ctx.send('Now playing: {}'.format(query))
