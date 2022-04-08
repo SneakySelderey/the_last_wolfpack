@@ -8,6 +8,7 @@ from decouple import config
 from random import choice
 from bs4 import BeautifulSoup
 import youtube_dl
+import os
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.INFO)
@@ -207,6 +208,11 @@ Coordinates of loss: {data['coords']}.""")
 
         await ctx.voice_client.disconnect()
 
+    @commands.command(name='files')
+    async def files(self, ctx):
+        files = os.scandir('E:/Python/TheLastWolfpack/static/sound')
+        await ctx.send(files)
+
     @commands.command(name='help')
     async def help(self, ctx):
         await ctx.send(
@@ -224,6 +230,7 @@ TheLastWolfpack Bot commands:
   ~play_local <path> -- бот воспроизведет указанный аудиофайл
   ~play_yt <url> -- бот воспроизведет звук из видео по ссылке на YouTube
   ~stop -- бот отключится от текущего канала
+  ~files -- показать список аудиофайлов в папке sound
 ```""")
 
 
