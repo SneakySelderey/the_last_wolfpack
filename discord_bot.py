@@ -1,9 +1,20 @@
 from asyncio import tasks
+import asyncio
 import discord
 from discord.ext import commands, tasks
 import logging
 import requests
 from decouple import config
+from random import choice
+from bs4 import BeautifulSoup
+# import youtube_dl
+import os
+
+# для установки ffmpeg'а используй Aptfile
+
+# discord.opus.load_opus()
+# if not discord.opus.is_loaded():
+#     raise RunTimeError('Opus failed to load')
 
 logger = logging.getLogger('discord')
 logger.setLevel(logging.INFO)
@@ -14,6 +25,51 @@ logger.addHandler(handler)
 intents = discord.Intents.default()
 intents.members = True
 dashes = ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685']
+
+# Suppress noise about console usage from errors
+# youtube_dl.utils.bug_reports_message = lambda: ''
+
+# ytdl_format_options = {
+#     'format': 'bestaudio/best',
+#     'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
+#     'restrictfilenames': True,
+#     'noplaylist': True,
+#     'nocheckcertificate': True,
+#     'ignoreerrors': False,
+#     'logtostderr': False,
+#     'quiet': True,
+#     'no_warnings': True,
+#     'default_search': 'auto',
+#     'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
+# }
+
+# ffmpeg_options = {
+#     'options': '-vn'
+# }
+
+# ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
+
+
+# class YTDLSource(discord.PCMVolumeTransformer):
+#     def __init__(self, source, *, volume=0.5):
+#         super().__init__(source, volume)
+
+#         # self.data = data
+
+#         # self.title = data.get('title')
+#         # self.url = data.get('url')
+
+#     @classmethod
+#     async def from_url(cls, url, *, loop=None, stream=False):
+#         loop = loop or asyncio.get_event_loop()
+#         data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
+
+#         if 'entries' in data:
+#             # take first item from a playlist
+#             data = data['entries'][0]
+
+#         filename = data['url'] if stream else ytdl.prepare_filename(data)
+#         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options))
 
 
 class TheLastWolfpackAPI(commands.Cog):
@@ -30,14 +86,64 @@ class TheLastWolfpackAPI(commands.Cog):
     async def cap_info(self, ctx, cap_name, cap_surname):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/caps/{cap_name + ' ' + cap_surname}")
         data = response.json()['captain']
-        await ctx.send(f"TheLastWolfpack ID: {data['id']}. Uboat.net profile link: {data['profile_link']}. Full name: {data['name']}. Additional info: {data['info']}. U-boats under command: {data['boats']}.")
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Uboat.net profile link: {data['profile_link']}.
+Full name: {data['name']}.
+Additional info: {data['info']}.
+U-boats under command: {data['boats']}.""")
         await ctx.send(data['image'])
+
+    @commands.command(name='rand_cap_info')
+    async def rand_cap_info(self, ctx):
+        response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/caps")
+        data = choice(response.json()['captains'])
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Uboat.net profile link: {data['profile_link']}.
+Full name: {data['name']}.
+Additional info: {data['info']}.
+U-boats under command: {data['boats']}.""")
+        response = requests.get(data['image'])
+        soup = BeautifulSoup(response.content, 'lxml')
+        p = soup.find_all('p')
+        try:
+            if p[0].text != 'The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.':
+                await ctx.send(data['image'])
+        except IndexError:
+            await ctx.send(data['image'])
 
     @commands.command(name='uboat_info')
     async def uboat_info(self, ctx, uboat_num):
         response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/uboats/{uboat_num}")
         data = response.json()['uboat']
-        await ctx.send(f"""TheLastWolfpack ID: {data['id']}. Tactical number: {data['tactical_number']}. Ordered: {data['ordered']}. Launched: {data['launched']}. Commissioned: {data['commissioned']}. Commanders: {data['commanders'][1:]}. Career: {data['career']}. Successes: {data['successes']}. Fate: {data['fate']}. Coordinates of loss: {data['coords']}.""")
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Tactical number: {data['tactical_number']}.
+Ordered: {data['ordered']}.
+Launched: {data['launched']}.
+Commissioned: {data['commissioned']}.
+Commanders: {data['commanders'][1:]}.
+Career: {data['career']}.
+Successes: {data['successes']}.
+Fate: {data['fate']}.
+Coordinates of loss: {data['coords']}.""")
+
+    @commands.command(name='rand_uboat_info')
+    async def rand_uboat_info(self, ctx):
+        response = requests.get(f"https://the-last-wolfpack.herokuapp.com/api/uboats")
+        data = choice(response.json()['uboats'])
+        await ctx.send(f"""
+TheLastWolfpack ID: {data['id']}.
+Tactical number: {data['tactical_number']}.
+Ordered: {data['ordered']}.
+Launched: {data['launched']}.
+Commissioned: {data['commissioned']}.
+Commanders: {data['commanders'][1:]}.
+Career: {data['career']}.
+Successes: {data['successes']}.
+Fate: {data['fate']}.
+Coordinates of loss: {data['coords']}.""")
 
     @commands.command(name='hist_ref')
     async def hist_ref(self, ctx):
@@ -80,22 +186,62 @@ class TheLastWolfpackAPI(commands.Cog):
         embedVar.add_field(name="4.", value="[Капитаны Кригсмарине](https://the-last-wolfpack.herokuapp.com/captains)", inline=False)
         await ctx.send(embed=embedVar)
 
+    # @commands.command(name='join')
+    # async def join(self, ctx, channel: discord.VoiceChannel):
+    #     """Joins a voice channel"""
+    #     if ctx.voice_client is not None:
+    #         return await ctx.voice_client.move_to(channel)
+    #     await channel.connect()
+
+    # @commands.command(name='play_local')
+    # async def play_local(self, ctx, query):
+    #     """Plays a file from the local filesystem"""
+
+    #     source = discord.FFmpegPCMAudio(query, **ffmpeg_options)
+    #     ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
+
+    #     await ctx.send('Now playing: {}'.format(query))
+
+    # @commands.command(name='play_yt')
+    # async def play_yt(self, ctx, url):
+    #     player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
+    #     await ctx.send('Now playing!')
+    #     ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
+
+    # @commands.command(name='stop')
+    # async def stop(self, ctx):
+    #     """Stops and disconnects the bot from voice"""
+
+    #     await ctx.voice_client.disconnect()
+
+    # @commands.command(name='files')
+    # async def files(self, ctx):
+    #     files = os.scandir('E:/Python/TheLastWolfpack/static/sound')
+    #     await ctx.send(str(files))
+
     @commands.command(name='help')
     async def help(self, ctx):
         await ctx.send(
 """```
 TheLastWolfpack Bot commands:
-  /bdu/help -- показать это сообщение
-  /bdu/website -- показать ссылки на разделы сайта
-  /bdu/cap_info <cap_name> <cap_surname> -- вывести информацию об определенном капитане Кригсмарине по его имени и фамилии
-  /bdu/uboat_info <uboat_number> (ex.: /bdu/uboat_info U-96) -- вывести информацию об определенной подлодке Кригсмарине по ее тактическому номеру
-  /bdu/hist_ref -- вывести историческую справку и Битве за Атлантику
-  /bdu/uboat_ref -- вывести справку по основным типам подлодок Кригсмарине
+  ~help -- показать это сообщение
+  ~website -- показать ссылки на разделы сайта
+  ~cap_info <cap_name> <cap_surname> -- вывести информацию об определенном капитане Кригсмарине по его имени и фамилии
+  ~rand_cap_info -- вывести информацию о случайном капитаны Кригсмарине
+  ~uboat_info <uboat_number> (ex.: /bdu/uboat_info U-96) -- вывести информацию об определенной подлодке Кригсмарине по ее тактическому номеру
+  ~uboat_info -- вывести информацию о случайной подлодке Кригсмарине
+  ~hist_ref -- вывести историческую справку и Битве за Атлантику
+  ~uboat_ref -- вывести справку по основным типам подлодок Кригсмарине
 ```""")
+# ~join <channel> -- бот подключится к указанному каналу
+# ~play_local <path> -- бот воспроизведет указанный аудиофайл
+# ~play_yt <url> -- бот воспроизведет звук из видео по ссылке на YouTube
+# ~stop -- бот отключится от текущего канала
+# ~files -- показать список аудиофайлов в папке sound
 
 
 def run():
-    bot = commands.Bot(command_prefix='/bdu/', intents=intents)
+    bot = commands.Bot(command_prefix='~', intents=intents)
     bot.add_cog(TheLastWolfpackAPI(bot))
     TOKEN = config('DISCORD_TOKEN', default='not found')
     bot.run(TOKEN)
