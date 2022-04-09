@@ -1,4 +1,4 @@
 .env
-/static/sound/FFmpeg
+/static/sound
 __pycache__
 /documentation
