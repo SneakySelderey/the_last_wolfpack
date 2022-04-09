@@ -10,6 +10,8 @@ from bs4 import BeautifulSoup
 # import youtube_dl
 import os
 
+# для установки ffmpeg'а используй Aptfile
+
 # discord.opus.load_opus()
 # if not discord.opus.is_loaded():
 #     raise RunTimeError('Opus failed to load')
