@@ -128,6 +128,7 @@ Career: {data['career']}.
 Successes: {data['successes']}.
 Fate: {data['fate']}.
 Coordinates of loss: {data['coords']}.""")
+        await ctx.send(f"https://static-maps.yandex.ru/1.x/?l=sat&spn=15,15&pt={data['coords'].split(',')[0]},{data['coords'].split(',')[1][1:]},vkbkm")
 
     @commands.command(name='rand_uboat_info')
     async def rand_uboat_info(self, ctx):
@@ -144,6 +145,7 @@ Career: {data['career']}.
 Successes: {data['successes']}.
 Fate: {data['fate']}.
 Coordinates of loss: {data['coords']}.""")
+        await ctx.send(f"https://static-maps.yandex.ru/1.x/?l=sat&spn=15,15&pt={data['coords'].split(',')[0]},{data['coords'].split(',')[1][1:]},vkbkm")
 
     @commands.command(name='hist_ref')
     async def hist_ref(self, ctx):
