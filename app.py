@@ -18,6 +18,7 @@ from requests import put, post, get
 from decouple import config
 import discord_bot
 from threading import Thread
+import socket
 
 
 app = Flask(__name__)
@@ -214,6 +215,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
+    DB_updater.write_captains()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 

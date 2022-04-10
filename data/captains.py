@@ -16,14 +16,16 @@ class ImageColumn(VARCHAR):
         return func.HEX(col)
 
 
-association_table_3 = sqlalchemy.Table(
-    'captains_to_boats',
-    SqlAlchemyBase.metadata,
-    sqlalchemy.Column('captains', sqlalchemy.Integer,
-                      sqlalchemy.ForeignKey('caps.name')),
-    sqlalchemy.Column('uboats', sqlalchemy.Integer,
-                      sqlalchemy.ForeignKey('uboats.tactical_number'))
-)
+class CapsToBoats(SqlAlchemyBase, UserMixin, SerializerMixin):
+    __tablename__ = 'captains_to_uboats'
+    captains = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey(
+        'caps.name'), primary_key=True)
+    uboats = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey(
+        'uboats.tactical_number'), primary_key=True)
+    captain = orm.relation('Captain', back_populates='orm_boats')
+    boat = orm.relation('Uboat', back_populates="orm_captains")
+    commissioned = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    period = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
 
 class Captain(SqlAlchemyBase, UserMixin, SerializerMixin):
@@ -37,5 +39,4 @@ class Captain(SqlAlchemyBase, UserMixin, SerializerMixin):
     info = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     boats = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     profile_link = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    orm_boats = orm.relation("Uboat", secondary="captains_to_boats",
-                             backref="captains")
+    orm_boats = orm.relation("CapsToBoats", back_populates="captain")

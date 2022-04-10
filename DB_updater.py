@@ -7,12 +7,29 @@ from threading import Thread
 # import logging
 import sqlite3
 import os
+import json
+
+u = 'ü'.encode()
+U = 'Ü'.encode()
+a = 'ä'.encode()
+A = 'Ä'.encode()
+o = 'ö'.encode()
+O = 'Ö'.encode()
+ss = 'ß'.encode()
 
 
-# logging.basicConfig(
-#     filename='db_logs.log',
-#     format='%(asctime)s %(levelname)s %(name)s %(message)s'
-# )
+def remove_umlaut(string):
+    """Функция, заменяюащя специальные символы utf-8 на транслит"""
+    string = string.encode()
+    string = string.replace(u, b'ue')
+    string = string.replace(U, b'Ue')
+    string = string.replace(a, b'ae')
+    string = string.replace(A, b'Ae')
+    string = string.replace(o, b'oe')
+    string = string.replace(O, b'Oe')
+    string = string.replace(ss, b'ss')
+    string = string.decode('utf-8')
+    return string
 
 
 def write_captains():
@@ -24,8 +41,9 @@ def write_captains():
         if i.image and f'static/img/{count_}.png' not in os.listdir(
                 'static/img'):
             name = f'{count_}.png'
+            # print(i.image)
             with open(f'static/img/{name}', 'wb') as f:
-                f.write(i.image)
+                f.write(bytes.fromhex(i.image))
         count_ += 1
 
 
@@ -91,6 +109,7 @@ def cap_parse():
             info = info[:info.find('Commands:')]
 
             cap_list = (profile_link, photo_link, name, info, boats)
+            cap_list = list(map(lambda s: remove_umlaut(s), cap_list))
 
             try:
                 cap = Captain(
@@ -125,7 +144,6 @@ def cap_parse():
 def uboat_parse_cycle(number, session):
     global count
     parse_error = False
-    no_num = False
     response = requests.get(f"https://uboat.net/boats/u{number}.htm")
     soup = BeautifulSoup(response.content, 'lxml')
 
@@ -191,7 +209,6 @@ def uboat_parse_cycle(number, session):
                     break
             while '\xa0' in career:
                 career = career.replace('\xa0', ' ')
-            p = soup.find_all('p')
             coords = soup.find_all('script')
             for i in coords:
                 if 'L.marker' in i.text:
@@ -204,6 +221,8 @@ def uboat_parse_cycle(number, session):
                     coords = f'{coord1}, {coord2}'
 
             boat_list = (tac_num, ordered, laid_down, launched, commissioned, commanders, career, successes, fate, coords)
+            boat_list = list(map(lambda x: remove_umlaut(
+                x.strip()) if type(x) == str else x, boat_list))
         except IndexError:
             parse_error = True
 
@@ -221,8 +240,6 @@ def uboat_parse_cycle(number, session):
                     successes=boat_list[7],
                     fate=boat_list[8],
                     coords=boat_list[9])
-                session.add(boat)
-                session.commit()
             else:
                 boat = Uboat(
                     id=count,
@@ -235,8 +252,8 @@ def uboat_parse_cycle(number, session):
                     career=boat_list[6],
                     successes=boat_list[7],
                     fate=boat_list[8])
-                session.add(boat)
-                session.commit()
+            session.add(boat)
+            session.commit()
             count += 1
 
 
@@ -251,7 +268,7 @@ def uboat_parse():
         # Создание курсора
         cur = con.cursor()
         # Выполнение запроса и получение всех результатов
-        result = cur.execute("""DELETE from uboats""")
+        cur.execute("""DELETE from uboats""")
 
         con.commit()
         con.close()
@@ -290,7 +307,6 @@ def uboat_parse():
             successes='Sank the British steamer Primrose Hill on 29 Oct, 1942 (7,628 tons)',
             fate='Built as the Dutch submarine O 27 but had not been launched when it was captured by the Germans at the Rotterdam yard on 14 May, 1940. Launched 26, Sept 1941 and commissioned into the German Navy on 30 Jan 1942. Surrendered at Bergen, Norway on 9 May 1945. Transferred from Bergen, Norway to Britain on 31 May 1945. Returned from Dundee, Scotland to the Netherlands on 13 July, 1945 and recommissioned as the Dutch submarine O 27. Stricken 14 Nov, 1959 and broken up in 1961.')
         session.add(boat)
-        session.commit()
         boat = Uboat(
             id=count + 1,
             tactical_number='UIT-24',
@@ -301,7 +317,6 @@ def uboat_parse():
             successes='None',
             fate='Launched as the Italian submarine Comandante Capellini on 13 March, 1939. Taken over by the Germans, following the Italian capitulation, at Sabang in the Far East on 10 Sept, 1943. Taken over by Japan at Kobe and recommissioned as I-503 or I-505 on 10 May, 1945. Surrendered at Kobe, Japan. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.')
         session.add(boat)
-        session.commit()
         boat = Uboat(
             id=count + 2,
             tactical_number='UIT-25',
