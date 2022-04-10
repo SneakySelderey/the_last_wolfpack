@@ -50,27 +50,24 @@ def make_json():
         tact_num = i.tactical_number
         comm = i.commissioned
         cmds = i.commanders
-        my_dict[tact_num] = {'commanders': {}}
-        # comm_value = find_in_caps(comm, names)
-        # comm_value = comm_value[0] if comm_value else ''
-        # if tact_num == 'U-4710':
-        #     print(comm_value)
-        # my_dict[tact_num]['commissioned']['captain'] = {}
-        # if comm_value:
-        #     my_dict[tact_num]['commissioned']['text'] = comm.split(
-        #         comm_value)
-        #     cap = db_sess.query(Captain).filter(Captain.boats.like(
-        #         f'%{tact_num}%'), Captain.name == comm_value).first()
-        #     try:
-        #         my_dict[tact_num]['commissioned']['captain']['id'] = cap.id
-        #         my_dict[tact_num]['commissioned']['captain']['name'] = cap.name
-        #     except AttributeError:
-        #         cap = db_sess.query(Captain).filter(
-        #             Captain.name == comm_value).first()
-        #         my_dict[tact_num]['commissioned']['captain']['id'] = cap.id
-        #         my_dict[tact_num]['commissioned']['captain']['name'] = cap.name
-        # else:
-        #     my_dict[tact_num]['commissioned']['text'] = comm
+        my_dict[tact_num] = {'commissioned': {}, 'commanders': {}}
+        comm_value = find_in_caps(comm, names)
+        comm_value = comm_value[0] if comm_value else ''
+        my_dict[tact_num]['commissioned']['captain'] = ''
+        if comm_value:
+            my_dict[tact_num]['commissioned']['text'] = comm.split(
+                comm_value)
+            cap = db_sess.query(Captain).filter(Captain.boats.like(
+                f'%{tact_num}%'), Captain.name == comm_value).first()
+            try:
+                my_dict[tact_num]['commissioned']['captain'] = cap.id
+            except AttributeError:
+                cap = db_sess.query(Captain).filter(
+                    Captain.name == comm_value).first()
+                my_dict[tact_num]['commissioned']['captain'] = cap.id
+                print(comm_value)
+        else:
+            my_dict[tact_num]['commissioned']['text'] = comm
         cmds_value = find_in_caps(cmds, names)
         caps = db_sess.query(Captain).filter(Captain.boats.like(
             f'%{tact_num}%'), Captain.name.in_(cmds_value)).all()
@@ -107,9 +104,10 @@ def make_relations():
             for n, c in enumerate(caps):
                 association = CapsToBoats()
                 association.uboats = i.tactical_number
-                # association.captains = c.name
                 association.captain = c
                 association.boat = i
+                if boat_caps['commissioned']['captain'] == c.id:
+                    association.commissioned = True
                 # try:
                 #     if boat_caps['commissioned']['captain']['id'] == c.id:
                 #         association.commissioned = True

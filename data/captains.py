@@ -17,6 +17,7 @@ class ImageColumn(VARCHAR):
 
 
 class CapsToBoats(SqlAlchemyBase, UserMixin, SerializerMixin):
+    """Класс для вспомогателбьной таблицы между капитанами и лодками"""
     __tablename__ = 'captains_to_uboats'
     serialize_rules = ('-captain', '-boat')
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
@@ -26,7 +27,7 @@ class CapsToBoats(SqlAlchemyBase, UserMixin, SerializerMixin):
         'uboats.tactical_number'))
     captain = orm.relation('Captain', back_populates='orm_boats')
     boat = orm.relation('Uboat', back_populates="orm_captains")
-    # commissioned = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
+    commissioned = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     period = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
 

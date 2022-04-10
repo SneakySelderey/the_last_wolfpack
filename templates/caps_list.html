@@ -62,7 +62,13 @@ height: 100%;">Капитаны Кригсмарине</h1>
                     <td><img data-src="{{ url_for(static, filename=name) }}" src="{{url_for('static', filename='img/dummy.gif')}}" class="img-fluid img-thumbnail" id="cap_image"> </td>
                 {% endif %}
                 <td>{{ item.info }}</td>
-                <td>{{ item.boats }}</td>
+                <td>
+                    {% for i in item.boats.split(', ') %}
+                        {% set my_href = '/uboats#' + i %}
+                        <a href="{{my_href}}" id="i">{{i}}</a>
+                        {% if loop.index != item.boats.split(', ') | length %},{% endif %}
+                    {% endfor %}
+                </td>
                 <td> <a href={{ item.profile_link }} target="_blank">{{ item.profile_link }}</a> </td>
             </tr>
             {% endfor %}
