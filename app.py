@@ -14,7 +14,7 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import logging
 import DB_updater
-from requests import put, post, get
+from requests import put, post, get, session
 from decouple import config
 import discord_bot
 from threading import Thread
@@ -78,11 +78,16 @@ def captains_list():
                            caps=caps, form=form, fav_caps=fav_caps)
 
 
+def get_data():
+    with get('https://tlw-api.herokuapp.com/api/rel', stream=True) as f:
+        return f.json()
+
+
 @app.route("/uboats", methods=['GET', 'POST', 'PUT'])
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
-    data = get(f'http://tlw-api/api/rel').json()
+    data = get_data()
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
     caps = get(f'http://{request.host}/api/caps').json()
@@ -218,7 +223,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
-    DB_updater.make_json()
+    DB_updater.make_relations()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 
