@@ -215,7 +215,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
-    DB_updater.make_json()
+    # DB_updater.make_relations()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 

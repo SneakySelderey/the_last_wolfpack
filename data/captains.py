@@ -18,14 +18,15 @@ class ImageColumn(VARCHAR):
 
 class CapsToBoats(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'captains_to_uboats'
+    serialize_rules = ('-captain', '-boat')
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     captains = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey(
-        'caps.name'))
+        'caps.id'))
     uboats = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey(
         'uboats.tactical_number'))
     captain = orm.relation('Captain', back_populates='orm_boats')
     boat = orm.relation('Uboat', back_populates="orm_captains")
-    commissioned = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
+    # commissioned = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     period = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
 
