@@ -35,7 +35,7 @@ api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
 api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
 login_manager = LoginManager()
 login_manager.init_app(app)
-# logging.getLogger('werkzeug').disabled = True
+logging.getLogger('werkzeug').disabled = True
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s %(levelname)s %(name)s %(message)s'

@@ -32,7 +32,7 @@ height: 100%;">Подлодки Кригсмарине</h1>
     }
 </script>
 
-<table class="table table-sm table-mob" style="width: 100%" id="boats_table">
+<table class="table table-sm table-mob table-bordered" style="width: 100%" id="boats_table">
     <thead>
         <tr>
             <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%">ID</th>
@@ -78,7 +78,7 @@ height: 100%;">Подлодки Кригсмарине</h1>
                     {% set my_href = '/captains#' + cap | string %}
                     <td>{{comm['text'][0]}} <a href="{{my_href}}">{{cap}}</a> {{comm['text'][1]}}</td>
                 {% endif %}
-                <td class="can_hide">
+                <td>
                     {% set cmds = rel[item.tactical_number]['commanders'] %}
                     <dl>
                         {% for i in range(cmds['captains'] | length) %}
