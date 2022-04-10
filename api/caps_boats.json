@@ -21320,8 +21320,11 @@
     },
     "U-3037": {
         "commissioned": {
-            "captain": "",
-            "text": "3 Mar 1945 Korvkpt. Carl Emmermann. (Knights Cross)"
+            "captain": "Carl Emmermann",
+            "text": [
+                "3 Mar 1945 Korvkpt. ",
+                ". (Knights Cross)"
+            ]
         },
         "commanders": {
             "captains": [
@@ -22167,10 +22170,14 @@
         },
         "commanders": {
             "captains": [
-                "Hans-Ulrich Scheltz"
+                "Bruno Mahn",
+                "Hans-Ulrich Scheltz",
+                "Horst-Tessen von Kameke"
             ],
             "text": [
-                "11.41 - 01.43 KptzS. Bruno Mahn, 12.42 - 01.43 Oblt. Klaus-Dietrich Konig (in deputize), 01.43 - 02.43 Kptlt. Horst-Tessen von Kameke, 02.43 - 05.45 Kptlt. ",
+                "11.41 - 01.43 KptzS. ",
+                ", 12.42 - 01.43 Oblt. Klaus-Dietrich Konig (in deputize), 01.43 - 02.43 Kptlt. ",
+                ", 02.43 - 05.45 Kptlt. ",
                 ""
             ]
         }
@@ -22203,10 +22210,12 @@
         },
         "commanders": {
             "captains": [
+                "Werner Striegler",
                 "Alfred Meier"
             ],
             "text": [
-                "12.43 - 08.44 Frgkpt. Werner Striegler, 09.44 - 02.45 Oblt. Herbert Schrein (in deputize), 02.45 - 05.45 Oblt. ",
+                "12.43 - 08.44 Frgkpt. ",
+                ", 09.44 - 02.45 Oblt. Herbert Schrein (in deputize), 02.45 - 05.45 Oblt. ",
                 ""
             ]
         }

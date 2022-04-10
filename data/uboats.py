@@ -12,7 +12,7 @@ class Uboat(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
-    tactical_number = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    tactical_number = sqlalchemy.Column(sqlalchemy.String)
     ordered = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     laid_down = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     launched = sqlalchemy.Column(sqlalchemy.String, nullable=True)

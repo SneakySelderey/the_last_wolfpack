@@ -18,13 +18,14 @@ class ImageColumn(VARCHAR):
 
 class CapsToBoats(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'captains_to_uboats'
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     captains = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey(
-        'caps.name'), primary_key=True)
+        'caps.name'))
     uboats = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey(
-        'uboats.tactical_number'), primary_key=True)
+        'uboats.tactical_number'))
     captain = orm.relation('Captain', back_populates='orm_boats')
     boat = orm.relation('Uboat', back_populates="orm_captains")
-    commissioned = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    commissioned = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     period = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
 
@@ -35,7 +36,7 @@ class Captain(SqlAlchemyBase, UserMixin, SerializerMixin):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
     image = sqlalchemy.Column(ImageColumn, nullable=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String)
     info = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     boats = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     profile_link = sqlalchemy.Column(sqlalchemy.String, nullable=True)

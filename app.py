@@ -92,7 +92,6 @@ def uboats_list():
         fav_boats = []
     if form.validate_on_submit():
         DB_updater.run()
-    print(uboats[0].commanders)
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats, fav_boats=fav_boats, form=form)
 
@@ -217,7 +216,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
-    DB_updater.write_captains()
+    DB_updater.make_relations()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 
