@@ -79,9 +79,12 @@ height: 100%;">Подлодки Кригсмарине</h1>
                     <td>{{comm['text'][0]}} <a href="{{my_href}}">{{cap}}</a> {{comm['text'][1]}}</td>
                 {% endif %}
                 <td class="can_hide">
+                    {% set cmds = rel[item.tactical_number]['commanders'] %}
                     <dl>
-                        {% for comm in item.commanders.split('\n') %}
-                            <dd>{{comm}}</dd>
+                        {% for i in range(cmds['captains'] | length) %}
+                            {% set cap = caps[cmds['captains'][i]] %}
+                            {% set my_href = '/captains#' + cap | string %}
+                        <dd>{{cmds['text'][i]}} <a href="{{my_href}}">{{cap}}</a></dd>
                         {% endfor %}
                     </dl>
                 </td>

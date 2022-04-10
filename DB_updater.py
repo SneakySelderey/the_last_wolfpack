@@ -109,13 +109,6 @@ def make_relations():
                 association.boat = i
                 if boat_caps['commissioned']['captain'] == c.id:
                     association.commissioned = True
-                # try:
-                #     if boat_caps['commissioned']['captain']['id'] == c.id:
-                #         association.commissioned = True
-                # except:
-                #     print(i.tactical_number)
-                #     print(boat_caps['commissioned'])
-                #     print()
                 period = text[n].replace('\n', ' ').strip(string.punctuation)
                 lx = rx = -1
                 for j, x in enumerate(period.split()):
@@ -299,24 +292,8 @@ def uboat_parse_cycle(number, session):
                     break
             while '\xa0' in commissioned:
                 commissioned = commissioned.replace('\xa0', ' ')
-            # commanders = tr[5].text[10:]
             commanders = tr[5].findChildren('tr')
             commanders = '\n'.join([' '.join([j for j in i.text.replace('\xa0', ' ').split(' ') if j]) for i in commanders])
-            # while True:
-            #     fail = False
-            #     try:
-            #         for i in range(len(commanders)):
-            #             if commanders[i].isalpha() and commanders[i + 1].isdigit():
-            #                 fail = True
-            #                 commanders = commanders.replace(commanders[i] + commanders[i + 1], commanders[i] + '       ' + commanders[i + 1])
-            #                 break
-            #     except IndexError:
-            #         pass
-            #     if not fail:
-            #         break
-            # while '\xa0' in commanders:
-            #     commanders = commanders.replace('\xa0', ' ')
-            # commanders = commanders.replace('   ', ' ')
             for i in range(len(tr)):
                 if 'Career' in tr[i].text:
                     career = tr[i].text[6:]
