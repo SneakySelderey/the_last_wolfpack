@@ -4,12 +4,14 @@ from data import db_session
 from data.captains import Captain, CapsToBoats
 from data.uboats import Uboat
 from threading import Thread
+from decouple import config
 import string
 # import logging
 import sqlite3
 import os
 import json
 import re
+from requests import get, post
 
 u = 'ü'.encode()
 U = 'Ü'.encode()
@@ -80,14 +82,14 @@ def make_json():
             my_dict[tact_num]['commanders']['text'] = cmds.split('TO_SPLIT')
         else:
             my_dict[tact_num]['commanders']['text'] = cmds
-    with open('api/caps_boats.json', 'w') as file:
-        json.dump(my_dict, file, ensure_ascii=False, indent=4)
+    post('https://tlw-api.herokuapp.com/api/rel', json={'token': config(
+        'REL_TOKEN', default='not found'), 'data': json.dumps(my_dict)})
 
 
 def make_relations():
     """Функция для заполнения таблицы связей между капитаанми и лодками"""
     make_json()
-    data = json.load(open('api/caps_boats.json', encoding='utf8'))
+    data = get('https://tlw-api.herokuapp.com/api/rel').json()
     con = sqlite3.connect("db/database.db")
     cur = con.cursor()
     cur.execute("""DELETE from captains_to_uboats""")

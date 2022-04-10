@@ -30,7 +30,6 @@ api.add_resource(get_cap_api.CapResource, '/api/caps/<string:cap_name>')
 api.add_resource(get_cap_api.CapListResource, '/api/caps')
 api.add_resource(get_uboat_api.UboatResource, '/api/uboats/<string:uboat_num>')
 api.add_resource(get_uboat_api.UboatListResource, '/api/uboats')
-api.add_resource(get_uboat_api.CapsBoatsRelationship, '/api/rel')
 api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
 api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
 login_manager = LoginManager()
@@ -83,7 +82,7 @@ def captains_list():
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
-    data = get(f'http://{request.host}/api/rel').json()
+    data = get(f'http://tlw-api/api/rel').json()
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
     caps = get(f'http://{request.host}/api/caps').json()
@@ -219,7 +218,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
-    # DB_updater.make_relations()
+    DB_updater.make_json()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 
