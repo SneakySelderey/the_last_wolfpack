@@ -35,24 +35,24 @@ height: 100%;">Подлодки Кригсмарине</h1>
 <table class="table table-sm table-mob" style="width: 100%" id="boats_table">
     <thead>
         <tr>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Тактический номер</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)" class="can_hide">Заказана</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)" class="can_hide">Заложена</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Спуск на воду</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Прошла испытания</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)" class="can_hide">Капитаны</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)" class="can_hide">Боевой путь</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Успехи</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)" class="can_hide">Судьба</th>
-            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">Координаты гибели</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%">ID</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 3%">Тактический номер</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%" class="can_hide">Заказана</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%" class="can_hide">Заложена</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%">Спуск на воду</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%">Прошла испытания</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 22%" class="can_hide">Капитаны</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 20%" class="can_hide">Боевой путь</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%">Успехи</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 20%" class="can_hide">Судьба</th>
+            <th scope="col" style="background-color:rgba(192, 192, 192, 0.5); width: 5%">Координаты гибели</th>
         </tr>
     </thead>
     <tbody>
         {% for item in uboats%}
             <tr>
                 {% if item in fav_boats and current_user.is_authenticated%}
-                    <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
+                    <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
                     <th scope="row"><span class="fa fa-star" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% else %}
@@ -71,7 +71,13 @@ height: 100%;">Подлодки Кригсмарине</h1>
                     <td style="background-color:rgba(231, 98, 98, 0.3)">None</td>
                 {% endif %}
                 <td>{{ item.commissioned }}</td>
-                <td class="can_hide">{{ item.commanders }}</td>
+                <td class="can_hide">
+                    <dl>
+                        {% for comm in item.commanders.split('\n') %}
+                            <dd>{{comm}}</dd>
+                        {% endfor %}
+                    </dl>
+                </td>
                 <td class="can_hide">{{ item.career }}</td>
                 <td>{{ item.successes }}</td>
                 <td class="can_hide">{{ item.fate }}</td>

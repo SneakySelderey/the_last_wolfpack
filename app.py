@@ -92,6 +92,7 @@ def uboats_list():
         fav_boats = []
     if form.validate_on_submit():
         DB_updater.run()
+    print(uboats[0].commanders)
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats, fav_boats=fav_boats, form=form)
 
