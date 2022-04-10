@@ -9,6 +9,7 @@ import string
 import sqlite3
 import os
 import json
+import re
 
 u = 'ü'.encode()
 U = 'Ü'.encode()
@@ -119,12 +120,14 @@ def make_relations():
                 lx = rx = -1
                 for j, x in enumerate(period.split()):
                     if x.strip(string.punctuation).isdigit() or x.strip(
-                                    string.punctuation) in MONTHS:
+                                    string.punctuation) in MONTHS or re.match(
+                            '^\d{4}/\d{2}$', x.strip(string.punctuation)):
                         lx = j
                         break
                 for j, x in enumerate(period.split()[::-1]):
                     if x.strip(string.punctuation).isdigit() or x.strip(
-                                    string.punctuation) in MONTHS:
+                                    string.punctuation) in MONTHS or re.match(
+                            '^\d{4}/\d{2}$', x.strip(string.punctuation)):
                         rx = -j - 1
                         break
                 if rx != -1:
