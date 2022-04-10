@@ -52,15 +52,26 @@ def make_json():
         cmds = i.commanders
         my_dict[tact_num] = {'commissioned': {}, 'commanders': {}}
         comm_value = find_in_caps(comm, names)
-        my_dict[tact_num]['commissioned']['captain'] = comm_value[
-            0] if comm_value else ''
+        comm_value = comm_value[0] if comm_value else ''
+        my_dict[tact_num]['commissioned']['captain'] = {}
         if comm_value:
             my_dict[tact_num]['commissioned']['text'] = comm.split(
-                comm_value[0])
+                comm_value)
+            cap = db_sess.query(Captain).filter(Captain.boats.like(
+                f'%{tact_num}%'), Captain.name == comm_value).first()
+            try:
+                my_dict[tact_num]['commissioned']['captain'] = {
+                    'id': cap.id, 'name': cap.name}
+            except AttributeError:
+                cap = db_sess.query(Captain).filter(
+                    Captain.name == comm_value).first()
+                my_dict[tact_num]['commissioned']['captain'] = {
+                    'id': cap.id, 'name': cap.name}
         else:
             my_dict[tact_num]['commissioned']['text'] = comm
         cmds_value = find_in_caps(cmds, names)
-        my_dict[tact_num]['commanders']['captains'] = cmds_value
+        caps = db_sess.query(Captain).filter(Captain.boats.like(f'%{tact_num}%'), Captain.name.in_(cmds_value)).all()
+        my_dict[tact_num]['commanders']['captains'] = [i.id for i in caps]
         if cmds_value:
             for x in cmds_value:
                 cmds = cmds.replace(x, 'TO_SPLIT')
@@ -87,24 +98,36 @@ def make_relations():
         cmds = boat_caps['commanders']['captains']
         text = boat_caps['commanders']['text']
         if cmds:
-            caps = db_sess.query(Captain).filter(Captain.name.in_(cmds))
+            caps = db_sess.query(Captain).filter(Captain.name.in_(cmds)).all()
+            if i.tactical_number == 'U-1279':
+                print(len(caps))
             for n, c in enumerate(caps):
                 association = CapsToBoats()
                 association.uboats = i.tactical_number
                 association.captains = c.name
                 association.captain = c
+                association.boat = i
                 if boat_caps['commissioned']['captain'] == c.name:
                     association.commissioned = True
+                if i.tactical_number == 'U-1279':
+                    print(text)
                 name_idx = text[n]
                 try:
-                    if name_idx.split()[-1].isdigit():
-                        period = name_idx
-                    else:
-                        period = ' '.join(name_idx.split()[:-1])
-                    for j, x in enumerate(period.split()):
-                        if x.isdigit() or x.strip(string.punctuation) in MONTHS:
-                            period = ' '.join(period.split()[j:])
-                            break
+                    # if name_idx.split()[-1].isdigit():
+                    #     period = name_idx
+                    # else:
+                    #     period = ' '.join(name_idx.split()[:-1])
+                    period = name_idx.strip(string.punctuation)
+                    # for j, x in enumerate(period.split()):
+                    #     if x.strip(string.punctuation) or x.strip(
+                    #             string.punctuation) in MONTHS:
+                    #         period = ' '.join(period.split()[j:])
+                    #         break
+                    # for j, x in enumerate(period.split()[::-1], 1):
+                    #     if x.strip(string.punctuation).isdigit() or x.strip(
+                    #             string.punctuation) in MONTHS:
+                    #         period = ' '.join(period.split()[:-j + 1])
+                    #         break
                     association.period = period
                     i.orm_captains.append(association)
                 except Exception:

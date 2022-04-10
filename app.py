@@ -35,7 +35,7 @@ api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
 api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
 login_manager = LoginManager()
 login_manager.init_app(app)
-logging.getLogger('werkzeug').disabled = True
+# logging.getLogger('werkzeug').disabled = True
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s %(levelname)s %(name)s %(message)s'
@@ -45,7 +45,6 @@ logging.basicConfig(
 @app.route("/")
 def main_page():
     """Основная страница"""
-    print(get(f'http://{request.host}/api/caps/Albrecht Achilles', json={'extension_data': True}).json())
     return render_template('main_content.html', title='The Last Wolfpack')
 
 
@@ -216,7 +215,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
-    DB_updater.make_relations()
+    DB_updater.make_json()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 

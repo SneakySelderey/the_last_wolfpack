@@ -32,7 +32,7 @@ class CapsToBoats(SqlAlchemyBase, UserMixin, SerializerMixin):
 class Captain(SqlAlchemyBase, UserMixin, SerializerMixin):
     """Класс таблицы для капитана в БД"""
     __tablename__ = 'caps'
-
+    serialize_rules = ('-orm_boats',)
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
     image = sqlalchemy.Column(ImageColumn, nullable=True)
