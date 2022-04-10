@@ -83,8 +83,11 @@ def captains_list():
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
+    data = get(f'http://{request.host}/api/rel').json()
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
+    caps = get(f'http://{request.host}/api/caps').json()
+    caps_id_name = {i['id']: i['name'] for i in caps['captains']}
     if current_user.is_authenticated:
         fav_boats = db_sess.query(User).get(current_user.id).fav_boats
     else:
@@ -92,7 +95,8 @@ def uboats_list():
     if form.validate_on_submit():
         DB_updater.run()
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats, fav_boats=fav_boats, form=form)
+                           uboats=uboats, fav_boats=fav_boats, form=form,
+                           rel=data, caps=caps_id_name)
 
 
 @app.route('/register', methods=['GET', 'POST'])

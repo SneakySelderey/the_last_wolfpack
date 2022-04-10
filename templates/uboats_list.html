@@ -70,7 +70,14 @@ height: 100%;">Подлодки Кригсмарине</h1>
                 {% else %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">None</td>
                 {% endif %}
-                <td>{{ item.commissioned }}</td>
+                {% set comm = rel[item.tactical_number]['commissioned'] %}
+                {% if not comm['captain'] %}
+                    <td>{{comm['text']}}</td>
+                {% else %}
+                    {% set cap = caps[comm['captain']] %}
+                    {% set my_href = '/captains#' + cap | string %}
+                    <td>{{comm['text'][0]}} <a href="{{my_href}}">{{cap}}</a> {{comm['text'][1]}}</td>
+                {% endif %}
                 <td class="can_hide">
                     <dl>
                         {% for comm in item.commanders.split('\n') %}

@@ -45,7 +45,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
     </thead>
     <tbody>
         {% for item in caps%}
-            <tr>
+            <tr id="{{item.name}}">
                 {% if item in fav_caps and current_user.is_authenticated%}
                     <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
