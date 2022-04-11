@@ -37,16 +37,19 @@
 {% endmacro %}
 
 
-{% macro fav_item(data1, data2, type_) %}
+{% macro fav_item(data1, data2, type_, idx) %}
 <div class="row">
-    <div class="col-6">
+    <div class="col-6 {{type_}}">
         <label>{{data1}}</label>
     </div>
     <div class="col-6">
+        <button type="button" class="close to_del {{idx}} {{type_}}-{{idx}}" aria-label="Close" onclick="to_delete({{idx}}, '{{type_}}')" id="btn_close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         {% if type_ == 'boat'%}
-            <p>{{data2}}</p>
+            <p class="sec-data-{{type_}}">{{data2}}</p>
         {% else %}
-            <a href="{{data2}}">{{data2}}</a>
+            <a href="{{data2}}" class="sec-data-{{type_}}">{{data2}}</a>
         {% endif %}
     </div>
 </div>

@@ -43,12 +43,12 @@
             <div class="tab-content profile-tab" id="myTabContent">
                 <div class="tab-pane fade show active" id="caps" role="tabpanel" aria-labelledby="home-tab" style="height: 500px; overflow-y: auto; overflow-x: hidden">
                     {% for item in fav_caps %}
-                        {{ fav_item(item.name, item.profile_link, 'cap') }}
+                        {{ fav_item(item.name, item.profile_link, 'cap', loop.index0) }}
                     {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="boats" role="tabpanel" aria-labelledby="profile-tab" style="height: 500px; overflow-y: auto; overflow-x: hidden">
                     {% for item in fav_boats %}
-                        {{ fav_item(item.tactical_number, item.coords, 'boat') }}
+                        {{ fav_item(item.tactical_number, item.coords, 'boat', loop.index0) }}
                     {% endfor %}
                 </div>
             </div>
@@ -74,5 +74,28 @@
             document.getElementById("edit_form").style.display = "none";
         }
     }
+    function to_delete(idx, type_){
+        var request = new XMLHttpRequest();
+        var url = '/api/users/{{user.id}}'
+        let args = {'add_fav': 0}
+        if (type_ == 'boat'){
+            var el = document.getElementsByClassName('boat')[idx]
+            args['fav_boats'] = el.textContent.trim();
+        }
+        else{
+            var el = document.getElementsByClassName('cap')[idx]
+            args['fav_caps'] = el.textContent.trim();
+        }
+        el.style.display = 'none';
+        document.getElementsByClassName('sec-data-' + type_)[idx].style.display = 'none';
+        document.getElementsByClassName(type_ + '-' + idx.toString())[0].style.display = 'none';
+        fetch(url,{
+            method:'PUT',
+            headers:{
+            'Content-Type':'application/json'
+            },
+            body:JSON.stringify(args)
+        })
+    };
 </script>
 {% endblock %}
