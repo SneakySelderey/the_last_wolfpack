@@ -107,6 +107,11 @@ $('.main_menu a' ).on( 'click', function () {
 <script>
     $(document).ready(function () {
         var location = window.location.href.split('/').slice(-1)[0];
+        console.log(location);
+        if(location == 'profile' || location == 'register' || location == 'login'){
+            location = '';
+        }
+        console.log(location);
         if(location){
             $('.main_menu li a').each(function(){
                 if(this.href.indexOf(location)>-1) {
