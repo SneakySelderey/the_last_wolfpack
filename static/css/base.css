@@ -164,3 +164,8 @@ img.star {
   height: 4px;
   background: #7f77e0;
  }
+.map {
+	width: 700px;
+	height: 700px;
+	background-color: #333;
+}

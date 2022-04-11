@@ -40,6 +40,9 @@ class CapListResource(Resource):
         session = db_session.create_session()
         captains = session.query(Captain).all()
         logging.info('GET captains -> success')
-        return jsonify({'captains': [item.to_dict(only=(
-            'id', 'name', 'info', 'boats', 'profile_link')) for
-                item in captains]})
+        caps = []
+        for item in captains:
+            item.image = f'https://the-last-wolfpack.herokuapp.com//static/img/{item.id - 1}.png'
+            caps.append(item.to_dict(only=('id', 'image', 'name',
+                                               'info', 'boats', 'profile_link')))
+        return jsonify({'captains': caps})

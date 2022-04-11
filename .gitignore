@@ -1,1 +1,4 @@
 .env
+/static/sound
+__pycache__
+/documentation
