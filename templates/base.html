@@ -38,9 +38,9 @@
 {% endif %}
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <ul class="nav navbar-nav ml-auto">
-            <li>
-                <a class="navbar-brand capt" href="/">The Last Wolfpack</a>
+        <ul class="nav navbar-nav main_menu">
+            <li class="m_capt">
+                <a class="navbar-brand" href="/">The Last Wolfpack</a>
             </li>
         </ul>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -107,15 +107,23 @@ $('.main_menu a' ).on( 'click', function () {
 <script>
     $(document).ready(function () {
         var location = window.location.href.split('/').slice(-1)[0];
-        $('.main_menu li a').each(function(){
-            if(this.href.indexOf(location)>-1 && location) {
-                $(this).parent().addClass('active');
-                $(this).addClass('active')
-            }});
+        if(location){
+            $('.main_menu li a').each(function(){
+                if(this.href.indexOf(location)>-1) {
+                    $(this).parent().addClass('active');
+                    $(this).addClass('active')
+                }});
+        }
+        else{
+            var capt = $('.main_menu .m_capt a')
+            capt.addClass('active')
+            capt.parent().addClass('active')
+
+        }
         var $el,
             leftPos,
             newWidth,
-            $mainNav = $(".navbar-nav");
+            $mainNav = $(".main_menu").first();
 
           $mainNav.append("<li id='magic-line'></li>");
           var $magicLine = $("#magic-line");
@@ -128,20 +136,31 @@ $('.main_menu a' ).on( 'click', function () {
 
           $(".main_menu li a").hover(
             function() {
-              $el = $(this);
-              leftPos = $el.position().left;
-              newWidth = $el.parent().width();
-              $magicLine.stop().animate({
+                $el = $(this);
+                leftPos = $el.position().left;
+                newWidth = $el.parent().width();
+                $magicLine.stop().animate({
                 left: leftPos,
                 width: newWidth
               }, 200);
             },
             function() {
-              $magicLine.stop().animate({
+                $magicLine.stop().animate({
                 left: $magicLine.data("origLeft"),
                 width: $magicLine.data("origWidth")
-              }, 200);
+                }, 200);
             });
+
+          function hideLine(){
+            if ($(window).width() < 970) {
+                $magicLine.hide()
+            } else {
+                $magicLine.show()
+            }
+           }
+           window.onresize = function(event) {
+                hideLine();
+           }
     });
 </script>
 </html>
