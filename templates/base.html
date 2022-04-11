@@ -96,6 +96,10 @@
     {% block edit_profile %}{% endblock %}
 </main>
 </body>
+{% from "__formhelper.html" import footer %}
+{% if title == "The Last Wolfpack" %}
+{{footer()}}
+{% endif %}
 <script>
 $('.main_menu a' ).on( 'click', function () {
 	$('.main_menu' ).find( 'li.active' ).removeClass( 'active' );
