@@ -38,14 +38,12 @@
 {% endif %}
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">The Last Wolfpack</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarNav" role="navigation">
-          <ul class="navbar-nav" id="main_menu">
-            <li class="nav-item">
-                <a class="navbar-brand nav-link" href="/" aria-current="page">The Last Wolfpack</a>
-            </li>
-<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--              <span class="navbar-toggler-icon"></span>-->
-<!--            </button>-->
+          <ul class="navbar-nav main_menu">
             <li class="nav-item">
                 <a class="nav-link" href="/historical_reference" aria-current="page">Историческая справка<span class="sr-only"></span></a>
             </li>
@@ -90,60 +88,4 @@
     {% block edit_profile %}{% endblock %}
 </main>
 </body>
-<script>
-$('.navbar-nav a' ).on( 'click', function () {
-	$('.navbar-nav' ).find( 'li.active' ).removeClass( 'active' );
-	$( this ).parent( 'li' ).addClass( 'active' );
-	$('.navbar-nav' ).find( 'a.active' ).removeClass( 'active' );
-	$( this ).addClass( 'active' );
-});
-</script>
-<script>
-    $(document).ready(function () {
-        var location = window.location.href.split('/').slice(-1)[0];
-        if(!location){
-            $('a.navbar-brand').each(function(){
-            $(this).addClass('active');
-            $(this).parent().addClass('active');
-            })
-        }
-        else{
-            $('#main_menu li a').each(function(){
-                if(this.href.indexOf(location)>-1) {
-                    $(this).parent().addClass('active');
-                    $(this).addClass('active')
-                }});
-        };
-        var $el,
-            leftPos,
-            newWidth,
-            $mainNav = $(".navbar-nav");
-
-          $mainNav.append("<li id='magic-line'></li>");
-          var $magicLine = $("#magic-line");
-
-          $magicLine
-            .width($(".active").width())
-            .css("left", $(".active a").position().left)
-            .data("origLeft", $magicLine.position().left)
-            .data("origWidth", $magicLine.width());
-
-          $(".navbar-nav li a").hover(
-            function() {
-              $el = $(this);
-              leftPos = $el.position().left;
-              newWidth = $el.parent().width();
-              $magicLine.stop().animate({
-                left: leftPos,
-                width: newWidth
-              }, 200);
-            },
-            function() {
-              $magicLine.stop().animate({
-                left: $magicLine.data("origLeft"),
-                width: $magicLine.data("origWidth")
-              }, 200);
-            });
-    });
-</script>
 </html>
