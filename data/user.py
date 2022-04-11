@@ -23,7 +23,7 @@ association_table_2 = sqlalchemy.Table(
     SqlAlchemyBase.metadata,
     sqlalchemy.Column('users', sqlalchemy.Integer,
                       sqlalchemy.ForeignKey('users.id')),
-    sqlalchemy.Column('captains', sqlalchemy.Integer,
+    sqlalchemy.Column('boats', sqlalchemy.Integer,
                       sqlalchemy.ForeignKey('uboats.tactical_number'))
 )
 
@@ -31,6 +31,7 @@ association_table_2 = sqlalchemy.Table(
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     """Класс таблицы для пользователя в БД"""
     __tablename__ = 'users'
+    serialize_rules = ('-fav_caps', '-fav_boats')
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
     username = sqlalchemy.Column(sqlalchemy.String, unique=True)

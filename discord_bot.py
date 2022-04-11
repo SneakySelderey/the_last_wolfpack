@@ -16,11 +16,11 @@ import os
 # if not discord.opus.is_loaded():
 #     raise RunTimeError('Opus failed to load')
 
-logger = logging.getLogger('discord')
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+# logger = logging.getLogger('discord')
+# logger.setLevel(logging.INFO)
+# handler = logging.StreamHandler()
+# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+# logger.addHandler(handler)
 
 intents = discord.Intents.default()
 intents.members = True

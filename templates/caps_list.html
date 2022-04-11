@@ -5,7 +5,7 @@
 <h1 style="display: flex;
 align-items: center;
 justify-content: center;
-height: 100%;">Капитаны Кригсмарине</h1>
+height: 100%; margin-top: 1%" class="stamp mb-5">Капитаны Кригсмарине</h1>
 
 <div class="row" style="margin-bottom: 2%; margin-top: 2%; float: inline-end;">
     <div class="col-12">
@@ -32,7 +32,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
 </script>
 
 
-<table class="table table-sortable table-sm table-mob" id="caps_table">
+<table class="table table-sortable table-sm table-mob table-bordered" id="caps_table">
     <thead>
         <tr>
             <th scope="col" style="background-color:rgba(192, 192, 192, 0.5)">ID</th>
@@ -45,7 +45,7 @@ height: 100%;">Капитаны Кригсмарине</h1>
     </thead>
     <tbody>
         {% for item in caps%}
-            <tr>
+            <tr id="{{item.name}}">
                 {% if item in fav_caps and current_user.is_authenticated%}
                     <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
@@ -62,7 +62,13 @@ height: 100%;">Капитаны Кригсмарине</h1>
                     <td><img data-src="{{ url_for(static, filename=name) }}" src="{{url_for('static', filename='img/dummy.gif')}}" class="img-fluid img-thumbnail" id="cap_image"> </td>
                 {% endif %}
                 <td>{{ item.info }}</td>
-                <td>{{ item.boats }}</td>
+                <td>
+                    {% for i in item.boats.split(', ') %}
+                        {% set my_href = '/uboats#' + i %}
+                        <a href="{{my_href}}" id="i">{{i}}</a>
+                        {% if loop.index != item.boats.split(', ') | length %},{% endif %}
+                    {% endfor %}
+                </td>
                 <td> <a href={{ item.profile_link }} target="_blank">{{ item.profile_link }}</a> </td>
             </tr>
             {% endfor %}

@@ -3,6 +3,7 @@ from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
 from data.captains import Captain
+from api.api_parsers import get_cap_parser
 
 
 def abort_if_cap_not_found(cap_name):
@@ -18,11 +19,18 @@ class CapResource(Resource):
     def get(self, cap_name):
         """Метод получения капитана по имени"""
         abort_if_cap_not_found(cap_name)
+        args = get_cap_parser.parse_args()
         session = db_session.create_session()
         cap = session.query(Captain).filter(Captain.name == cap_name).first()
-        cap.image = f'https://the-last-wolfpack.herokuapp.com//static/img/{cap.id - 1}.png'
         logging.info(f'GET captain {cap_name} -> success')
-        return jsonify({'captain': cap.to_dict(only=('id', 'image', 'profile_link', 'name', 'info', 'boats'))})
+        if args.get('extension_data', False):
+            data = {'captain': cap.to_dict(
+                only=('id', 'profile_link', 'name', 'info', 'boats', 'users',
+                      'orm_boats'))}
+        else:
+            data = {'captain': cap.to_dict(only=('id', 'profile_link', 'name', 'info', 'boats'))}
+        data['captain']['image'] = f'https://the-last-wolfpack.herokuapp.com//static/img/{cap.id - 1}.png'
+        return jsonify(data)
 
 
 class CapListResource(Resource):

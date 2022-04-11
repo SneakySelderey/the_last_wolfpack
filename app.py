@@ -14,10 +14,11 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import logging
 import DB_updater
-from requests import put, post
+from requests import put, post, get, session
 from decouple import config
 import discord_bot
 from threading import Thread
+import socket
 
 
 app = Flask(__name__)
@@ -29,6 +30,7 @@ api.add_resource(get_cap_api.CapResource, '/api/caps/<string:cap_name>')
 api.add_resource(get_cap_api.CapListResource, '/api/caps')
 api.add_resource(get_uboat_api.UboatResource, '/api/uboats/<string:uboat_num>')
 api.add_resource(get_uboat_api.UboatListResource, '/api/uboats')
+api.add_resource(get_uboat_api.CapsBoatsRelationship, '/api/rel')
 api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
 api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
 login_manager = LoginManager()
@@ -83,12 +85,21 @@ def captains_list():
                            caps=caps, form=form, fav_caps=fav_caps)
 
 
+# def get_data():
+#     with get('https://tlw-api.herokuapp.com/api/rel', stream=True) as f:
+#         return f.json()
+
+
 @app.route("/uboats", methods=['GET', 'POST', 'PUT'])
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
+    data = get(f'http://{request.host}/api/rel').json()
+    # data = get_data()
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
+    caps = get(f'http://{request.host}/api/caps').json()
+    caps_id_name = {i['id']: i['name'] for i in caps['captains']}
     if current_user.is_authenticated:
         fav_boats = db_sess.query(User).get(current_user.id).fav_boats
     else:
@@ -96,7 +107,8 @@ def uboats_list():
     if form.validate_on_submit():
         DB_updater.run()
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
-                           uboats=uboats, fav_boats=fav_boats, form=form)
+                           uboats=uboats, fav_boats=fav_boats, form=form,
+                           rel=data, caps=caps_id_name)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -219,6 +231,7 @@ def dummy():
 
 def website_run():
     db_session.global_init("database.db")
+    # DB_updater.make_relations()
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 

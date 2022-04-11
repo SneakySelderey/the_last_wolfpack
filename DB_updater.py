@@ -1,18 +1,154 @@
 from bs4 import BeautifulSoup
 import requests
 from data import db_session
-from data.captains import Captain
+from data.captains import Captain, CapsToBoats
 from data.uboats import Uboat
 from threading import Thread
+from decouple import config
+import string
 # import logging
 import sqlite3
 import os
+import json
+import re
+from requests import get, post
+
+u = 'ü'.encode()
+U = 'Ü'.encode()
+a = 'ä'.encode()
+A = 'Ä'.encode()
+o = 'ö'.encode()
+O = 'Ö'.encode()
+ss = 'ß'.encode()
+
+MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+          'Oct', 'Nov', 'Dec']
+CAPS_PARSE = BOATS_PARSE = False
 
 
-# logging.basicConfig(
-#     filename='db_logs.log',
-#     format='%(asctime)s %(levelname)s %(name)s %(message)s'
-# )
+def find_in_caps(text, caps_names):
+    """Функция для поиска существующих капитанов в тексте"""
+    cur_names = []
+    num = 2
+    words = text.split()
+    len_w = len(words)
+    max_num = min(9, len_w)
+    while num != max_num:
+        for i in range(0, len_w - num + 1):
+            v = ' '.join(words[i: i + num]).strip(string.punctuation)
+            if v in caps_names:
+                cur_names.append(v)
+        num += 1
+    return cur_names
+
+
+def make_json():
+    """Функция для создания json-файла с зависимостями капитанов и лодок"""
+    db_sess = db_session.create_session()
+    boats = db_sess.query(Uboat).all()
+    captains = db_sess.query(Captain).all()
+    names = [i.name for i in captains]
+    my_dict = {}
+    for i in boats:
+        tact_num = i.tactical_number
+        comm = i.commissioned
+        cmds = i.commanders
+        my_dict[tact_num] = {'commissioned': {}, 'commanders': {}}
+        comm_value = find_in_caps(comm, names)
+        comm_value = comm_value[0] if comm_value else ''
+        my_dict[tact_num]['commissioned']['captain'] = ''
+        if comm_value:
+            my_dict[tact_num]['commissioned']['text'] = comm.split(
+                comm_value)
+            cap = db_sess.query(Captain).filter(Captain.boats.like(
+                f'%{tact_num}%'), Captain.name == comm_value).first()
+            try:
+                my_dict[tact_num]['commissioned']['captain'] = cap.id
+            except AttributeError:
+                cap = db_sess.query(Captain).filter(
+                    Captain.name == comm_value).first()
+                my_dict[tact_num]['commissioned']['captain'] = cap.id
+                print(comm_value)
+        else:
+            my_dict[tact_num]['commissioned']['text'] = comm
+        cmds_value = find_in_caps(cmds, names)
+        caps = db_sess.query(Captain).filter(Captain.boats.like(
+            f'%{tact_num}%'), Captain.name.in_(cmds_value)).all()
+        sorted_caps = sorted(caps, key=lambda cap: cmds.find(cap.name))
+        my_dict[tact_num]['commanders']['captains'] = [i.id for i in sorted_caps]
+        if cmds_value:
+            for x in cmds_value:
+                cmds = cmds.replace(x, 'TO_SPLIT')
+            my_dict[tact_num]['commanders']['text'] = cmds.split('TO_SPLIT')
+        else:
+            my_dict[tact_num]['commanders']['text'] = cmds
+    with open('api/caps_boats.json', 'w') as file:
+        json.dump(my_dict, file, ensure_ascii=False, indent=4)
+    # post('https://tlw-api.herokuapp.com/api/rel', json={'token': config(
+    #     'REL_TOKEN', default='not found'), 'data': json.dumps(my_dict)})
+
+
+def make_relations():
+    """Функция для заполнения таблицы связей между капитаанми и лодками"""
+    make_json()
+    data = json.load(open('api/caps_boats.json', encoding='utf8'))
+    # data = get('https://tlw-api.herokuapp.com/api/rel').json()
+    con = sqlite3.connect("db/database.db")
+    cur = con.cursor()
+    cur.execute("""DELETE from captains_to_uboats""")
+    con.commit()
+    con.close()
+    db_sess = db_session.create_session()
+    boats = db_sess.query(Uboat).all()
+    for i in boats:
+        boat_caps = data[i.tactical_number]
+        cmds = boat_caps['commanders']['captains']
+        text = boat_caps['commanders']['text']
+        if cmds:
+            caps = db_sess.query(Captain).filter(Captain.id.in_(cmds)).all()
+            caps.sort(key=lambda cap: i.commanders.find(cap.name))
+            for n, c in enumerate(caps):
+                association = CapsToBoats()
+                association.uboats = i.tactical_number
+                association.captain = c
+                association.boat = i
+                if boat_caps['commissioned']['captain'] == c.id:
+                    association.commissioned = True
+                period = text[n].replace('\n', ' ').strip(string.punctuation)
+                lx = rx = -1
+                for j, x in enumerate(period.split()):
+                    if x.strip(string.punctuation).isdigit() or x.strip(
+                                    string.punctuation) in MONTHS or re.match(
+                            '^\d{4}/\d{2}$', x.strip(string.punctuation)):
+                        lx = j
+                        break
+                for j, x in enumerate(period.split()[::-1]):
+                    if x.strip(string.punctuation).isdigit() or x.strip(
+                                    string.punctuation) in MONTHS or re.match(
+                            '^\d{4}/\d{2}$', x.strip(string.punctuation)):
+                        rx = -j - 1
+                        break
+                if rx != -1:
+                    period = ' '.join(period.split()[lx:rx + 1])
+                else:
+                    period = ' '.join(period.split()[lx:])
+                association.period = period
+                i.orm_captains.append(association)
+    db_sess.commit()
+
+
+def remove_umlaut(s):
+    """Функция, заменяюащя специальные символы utf-8 на транслит"""
+    s = s.encode()
+    s = s.replace(u, b'ue')
+    s = s.replace(U, b'Ue')
+    s = s.replace(a, b'ae')
+    s = s.replace(A, b'Ae')
+    s = s.replace(o, b'oe')
+    s = s.replace(O, b'Oe')
+    s = s.replace(ss, b'ss')
+    s = s.decode('utf-8')
+    return s
 
 
 def write_captains():
@@ -24,13 +160,15 @@ def write_captains():
         if i.image and f'static/img/{count_}.png' not in os.listdir(
                 'static/img'):
             name = f'{count_}.png'
+            # print(i.image)
             with open(f'static/img/{name}', 'wb') as f:
-                f.write(i.image)
+                f.write(bytes.fromhex(i.image))
         count_ += 1
 
 
 def cap_parse():
     """Функция парсинга капитанов"""
+    global CAPS_PARSE, BOATS_PARSE
     response = requests.get("https://uboat.net/men/commanders/")
     soup = BeautifulSoup(response.content, 'lxml')
 
@@ -91,6 +229,7 @@ def cap_parse():
             info = info[:info.find('Commands:')]
 
             cap_list = (profile_link, photo_link, name, info, boats)
+            cap_list = list(map(lambda s: remove_umlaut(s), cap_list))
 
             try:
                 cap = Captain(
@@ -115,6 +254,10 @@ def cap_parse():
 
         print('Captains parse finished')
         write_captains()
+        CAPS_PARSE = True
+        if BOATS_PARSE and CAPS_PARSE:
+            make_relations()
+            CAPS_PARSE = BOATS_PARSE = False
 
         # logging.info('Captains parse finished')
     else:
@@ -125,7 +268,6 @@ def cap_parse():
 def uboat_parse_cycle(number, session):
     global count
     parse_error = False
-    no_num = False
     response = requests.get(f"https://uboat.net/boats/u{number}.htm")
     soup = BeautifulSoup(response.content, 'lxml')
 
@@ -155,22 +297,8 @@ def uboat_parse_cycle(number, session):
                     break
             while '\xa0' in commissioned:
                 commissioned = commissioned.replace('\xa0', ' ')
-            commanders = tr[5].text[10:]
-            while True:
-                fail = False
-                try:
-                    for i in range(len(commanders)):
-                        if commanders[i].isalpha() and commanders[i + 1].isdigit():
-                            fail = True
-                            commanders = commanders.replace(commanders[i] + commanders[i + 1], commanders[i] + '       ' + commanders[i + 1])
-                            break
-                except IndexError:
-                    pass
-                if not fail:
-                    break
-            while '\xa0' in commanders:
-                commanders = commanders.replace('\xa0', ' ')
-            commanders = commanders.replace('   ', ' ')
+            commanders = tr[5].findChildren('tr')
+            commanders = '\n'.join([' '.join([j for j in i.text.replace('\xa0', ' ').split(' ') if j]) for i in commanders])
             for i in range(len(tr)):
                 if 'Career' in tr[i].text:
                     career = tr[i].text[6:]
@@ -191,7 +319,6 @@ def uboat_parse_cycle(number, session):
                     break
             while '\xa0' in career:
                 career = career.replace('\xa0', ' ')
-            p = soup.find_all('p')
             coords = soup.find_all('script')
             for i in coords:
                 if 'L.marker' in i.text:
@@ -204,6 +331,8 @@ def uboat_parse_cycle(number, session):
                     coords = f'{coord1}, {coord2}'
 
             boat_list = (tac_num, ordered, laid_down, launched, commissioned, commanders, career, successes, fate, coords)
+            boat_list = list(map(lambda x: remove_umlaut(
+                x.strip()) if type(x) == str else x, boat_list))
         except IndexError:
             parse_error = True
 
@@ -221,8 +350,6 @@ def uboat_parse_cycle(number, session):
                     successes=boat_list[7],
                     fate=boat_list[8],
                     coords=boat_list[9])
-                session.add(boat)
-                session.commit()
             else:
                 boat = Uboat(
                     id=count,
@@ -235,12 +362,13 @@ def uboat_parse_cycle(number, session):
                     career=boat_list[6],
                     successes=boat_list[7],
                     fate=boat_list[8])
-                session.add(boat)
-                session.commit()
+            session.add(boat)
+            session.commit()
             count += 1
 
 
 def uboat_parse():
+    global BOATS_PARSE, CAPS_PARSE
     response = requests.get("https://uboat.net/boats/listing.html")
     soup = BeautifulSoup(response.content, 'lxml')
     a = soup.find_all('a')
@@ -251,7 +379,7 @@ def uboat_parse():
         # Создание курсора
         cur = con.cursor()
         # Выполнение запроса и получение всех результатов
-        result = cur.execute("""DELETE from uboats""")
+        cur.execute("""DELETE from uboats""")
 
         con.commit()
         con.close()
@@ -290,7 +418,6 @@ def uboat_parse():
             successes='Sank the British steamer Primrose Hill on 29 Oct, 1942 (7,628 tons)',
             fate='Built as the Dutch submarine O 27 but had not been launched when it was captured by the Germans at the Rotterdam yard on 14 May, 1940. Launched 26, Sept 1941 and commissioned into the German Navy on 30 Jan 1942. Surrendered at Bergen, Norway on 9 May 1945. Transferred from Bergen, Norway to Britain on 31 May 1945. Returned from Dundee, Scotland to the Netherlands on 13 July, 1945 and recommissioned as the Dutch submarine O 27. Stricken 14 Nov, 1959 and broken up in 1961.')
         session.add(boat)
-        session.commit()
         boat = Uboat(
             id=count + 1,
             tactical_number='UIT-24',
@@ -301,7 +428,6 @@ def uboat_parse():
             successes='None',
             fate='Launched as the Italian submarine Comandante Capellini on 13 March, 1939. Taken over by the Germans, following the Italian capitulation, at Sabang in the Far East on 10 Sept, 1943. Taken over by Japan at Kobe and recommissioned as I-503 or I-505 on 10 May, 1945. Surrendered at Kobe, Japan. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.')
         session.add(boat)
-        session.commit()
         boat = Uboat(
             id=count + 2,
             tactical_number='UIT-25',
@@ -315,6 +441,10 @@ def uboat_parse():
         session.commit()
 
         print('U-boats parse finished')
+        BOATS_PARSE = True
+        if BOATS_PARSE and CAPS_PARSE:
+            make_relations()
+            BOATS_PARSE = CAPS_PARSE = False
         # logging.info('U-boats parse finished')
     else:
         print('No response from uboat.net U-boats list page')

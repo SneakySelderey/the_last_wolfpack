@@ -81,10 +81,10 @@ class ErrorChecker:
     
     def checkUnique(self, field):
         """Функция, проверяющая уникальность значения поля. Принимает поле"""
-        if field == name and field.value in users_data.get_names():
+        if field == name and field.value in users_data.get_names() and field.value != user_name:
             field.setCustomValidity("User with this name is already exists")
             field.validity.valid = False
-        if field == email and field.value in users_data.get_emails():
+        if field == email and field.value in users_data.get_emails() and field.value != user_email:
             field.setCustomValidity("User with this email is already exists")
             field.validity.valid = False
 
@@ -156,6 +156,7 @@ password = document.getElementById('password')
 password2 = document.getElementById('password2')
 picture = document.getElementById('picture')
 btn_close = document.getElementById('btn_close')
+user_name = name.value if picture is not None else None
 user_email = email.value if picture is not None else None
 checker = ErrorChecker()
 users_data = Data()

@@ -22,4 +22,7 @@ function main() {
   
 }
 
-main();
+
+$(document).ready(function(){
+        main();
+})
