@@ -82,14 +82,17 @@ def make_json():
             my_dict[tact_num]['commanders']['text'] = cmds.split('TO_SPLIT')
         else:
             my_dict[tact_num]['commanders']['text'] = cmds
-    post('https://tlw-api.herokuapp.com/api/rel', json={'token': config(
-        'REL_TOKEN', default='not found'), 'data': json.dumps(my_dict)})
+    with open('api/caps_boats.json', 'w') as file:
+        json.dump(my_dict, file, ensure_ascii=False, indent=4)
+    # post('https://tlw-api.herokuapp.com/api/rel', json={'token': config(
+    #     'REL_TOKEN', default='not found'), 'data': json.dumps(my_dict)})
 
 
 def make_relations():
     """Функция для заполнения таблицы связей между капитаанми и лодками"""
     make_json()
-    data = get('https://tlw-api.herokuapp.com/api/rel').json()
+    data = json.load(open('api/caps_boats.json', encoding='utf8'))
+    # data = get('https://tlw-api.herokuapp.com/api/rel').json()
     con = sqlite3.connect("db/database.db")
     cur = con.cursor()
     cur.execute("""DELETE from captains_to_uboats""")

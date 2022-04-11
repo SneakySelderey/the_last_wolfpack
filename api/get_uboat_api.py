@@ -44,3 +44,11 @@ class UboatListResource(Resource):
             'id', 'tactical_number', 'ordered', 'launched', 'commissioned',
             'commanders', 'career', 'successes', 'fate', 'coords'))
             for item in uboats]})
+
+
+class CapsBoatsRelationship(Resource):
+    """Класс ресурса для json-файла, в котором записаны отношения капитанов и
+    лодок"""
+    def get(self):
+        with open('api/caps_boats.json') as file:
+            return jsonify(json.load(file))
