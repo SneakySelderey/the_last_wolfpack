@@ -74,6 +74,8 @@ def captains_list():
     form = UpdateForm()
     db_sess = db_session.create_session()
     caps = db_sess.query(Captain).all()
+    boats = get(f'http://{request.host}/api/uboats').json()["uboats"]
+    numbers = [i['tactical_number'] for i in boats]
     if current_user.is_authenticated:
         fav_caps = db_sess.query(User).get(current_user.id).fav_caps
     else:
@@ -82,7 +84,8 @@ def captains_list():
         DB_updater.run()
 
     return render_template('caps_list.html', title='Капитаны Кригсмарине',
-                           caps=caps, form=form, fav_caps=fav_caps)
+                           caps=caps, form=form, fav_caps=fav_caps,
+                           boats=numbers)
 
 
 # def get_data():
