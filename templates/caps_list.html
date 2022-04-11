@@ -65,7 +65,11 @@ height: 100%; margin-top: 1%" class="stamp mb-5">Капитаны Кригсма
                 <td>
                     {% for i in item.boats.split(', ') %}
                         {% set my_href = '/uboats#' + i %}
-                        <a href="{{my_href}}" id="i">{{i}}</a>
+                        {% if i in boats %}
+                            <a href="{{my_href}}" id="i">{{i}}</a>
+                        {% else %}
+                            {{i}}
+                        {% endif %}
                         {% if loop.index != item.boats.split(', ') | length %},{% endif %}
                     {% endfor %}
                 </td>

@@ -51,8 +51,8 @@ height: 100%; margin-top: 1%" class="stamp mb-5">Подлодки Кригсма
     <tbody>
         {% for item in uboats%}
             <tr id="{{item.tactical_number}}">
-                {% if item in fav_boats and current_user.is_authenticated%}
-                    <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;></span>{{ item.id }}</th>
+                {% if item in fav_boats and current_user.is_authenticated %}
+                    <th scope="row"><span class="fa fa-star checked" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% elif current_user.is_authenticated %}
                     <th scope="row"><span class="fa fa-star" id="{{loop.index | string}}" style="display: inline;"></span>{{ item.id }}</th>
                 {% else %}

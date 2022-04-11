@@ -1,96 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% from "__formhelper.html" import card %}
 <section class="text-center">
     <br>
     <h4 class="stamp mb-5">Разделы</h4>
     <div class="row">
       <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-4">
-        <div class="card">
-          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <a href="/historical_reference">
-                <img src="static/img/main_page_pictures/hist.jpg" class="img-fluid"/>
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Историческая справка</h5>
-            <p class="card-text">
-              Краткая справка об одной из самых интересных кампаний Второй мировой войны - Битве за Атлантику
-            </p>
-            <a href="/historical_reference" class="btn btn-outline-dark">Перейти</a>
-          </div>
-        </div>
+        {{ card('hist.jpg', 'Историческая справка', 'Краткая справка об одной из самых интересных кампаний Второй мировой войны - Битве за Атлантику', '/historical_reference') }}
       </div>
 
       <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-4">
-        <div class="card">
-          <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-            <a href="/map">
-                <img src="static/img/main_page_pictures/map.jpg" class="img-fluid" />
-            </a>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Карта</h5>
-            <p class="card-text">
-              Интерактивная карта с местами гибели подводных лодок и дополнительной информацией о них
-            </p>
-            <a href="/map" class="btn btn-outline-dark">Перейти</a>
-          </div>
-        </div>
+        {{ card('map.jpg', 'Карта', 'Интерактивная карта с местами гибели подводных лодок Кригсмарине и дополнительной информацией о них', '/map') }}
       </div>
     </div>
 
     <div class="row">
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-4">
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <a href="/captains">
-                    <img src="static/img/main_page_pictures/caps.jpg" class="img-fluid"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Капитаны Кригсмарине</h5>
-                <p class="card-text">
-                  Список всех капитанов Кригсмарине с информацией о рождении, смерти и лодках, которыми они командовали
-                </p>
-                <a href="/captains" class="btn btn-outline-dark">Перейти</a>
-              </div>
-            </div>
+          {{ card('caps.jpg', 'Капитаны Кригсмарине', 'Список всех капитанов Кригсмарине с информацией о рождении, смерти и лодках, которыми они командовали', '/captains') }}
         </div>
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-4">
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <a href="/uboats">
-                    <img src="static/img/main_page_pictures/boats.jpg" class="img-fluid"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Подводные лодки</h5>
-                <p class="card-text">
-                  Список подводных лодок с исчерпывающей информацией о боевом пути, судьбе, успехах и координатах гибели
-                </p>
-                <a href="/uboats" class="btn btn-outline-dark">Перейти</a>
-              </div>
-            </div>
+          {{ card('boats.jpg', 'Подводные лодки', 'Список подводных лодок с исчерпывающей информацией о боевом пути, судьбе, успехах и координатах гибели', '/uboats') }}
         </div>
 
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-4">
-            <div class="card">
-              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <a href="/uboat_types">
-                    <img src="static/img/main_page_pictures/types.png" class="img-fluid"/>
-                </a>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Типы лодок Кригсмарине</h5>
-                <p class="card-text">
-                  История основных серий подводных лодок: II, VII, IX, XXI (с иллюстрациями)
-                </p>
-                <!-- <button class="btn">GHBDTN</button> -->
-                <a href="/uboat_types" class="btn btn-outline-dark">Перейти</a>
-              </div>
-            </div>
+          {{ card('types.png', 'Типы лодок Кригсмарине', 'История основных серий подводных лодок: II, VII, IX, XXI (с иллюстрациями)', '/uboat_types') }}
         </div>
 
     </div>
