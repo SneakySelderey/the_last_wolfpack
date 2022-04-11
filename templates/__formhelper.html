@@ -51,3 +51,20 @@
     </div>
 </div>
 {% endmacro %}
+
+
+{% macro card(img, text1, text2, link) %}
+<div class="card">
+    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+      <a href="{{link}}">
+          {% set path = 'img/main_page_pictures/' + img %}
+          <img src="{{url_for('static', filename=path)}}" class="img-fluid"/>
+      </a>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ text1 }}</h5>
+      <p class="card-text">{{ text2 }}</p>
+      <a href="{{link}}" class="btn btn-outline-dark">Перейти</a>
+    </div>
+  </div>
+{% endmacro %}
