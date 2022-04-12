@@ -73,6 +73,10 @@ function init() {
     // Добавляем контрол в верхний правый угол,
     map.controls
         .add(mySearchControl, { float: 'right' });
+    
+    if (uboat != "all_boats") { 
+        mySearchControl.search(uboat);
+    }
 }
 
 function CustomSearchProvider(points) {
@@ -129,7 +133,6 @@ CustomSearchProvider.prototype.geocode = function (request, options) {
             }
         }
     });
-
     // Возвращаем объект-обещание.
     return deferred.promise();
 };
