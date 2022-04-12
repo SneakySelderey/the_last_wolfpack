@@ -92,7 +92,8 @@ height: 100%; margin-top: 1%" class="stamp mb-5">Подлодки Кригсма
                 <td>{{ item.successes }}</td>
                 <td class="can_hide">{{ item.fate }}</td>
                 {% if item.coords %}
-                    <td>{{ item.coords }}</td>
+                    {% set my_href = '/map' | string %}
+                    <td><a href="{{my_href}}">{{ item.coords }}</a></td>
                 {% else %}
                     <td style="background-color:rgba(231, 98, 98, 0.3)">None</td>
                 {% endif %}
