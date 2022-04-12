@@ -51,7 +51,7 @@ function init() {
     console.log(points.length)
     for(let i = 0; i < points.length; i++){
         var placemark = new ymaps.Placemark(points[i]["coords"], {
-            balloonContentHeader: points[i]["text"],
+            balloonContentHeader: points[i]["coords"],
             balloonContentBody: json_data[points[i]["coords"]].join(', '),
         }, {
             preset: 'islands#redIcon'
