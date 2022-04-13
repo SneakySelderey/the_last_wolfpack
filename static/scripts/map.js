@@ -55,7 +55,7 @@ function init() {
             balloonContentBody: json_data[points[i]["coords"]].join(', '),
         }, {
             iconLayout: 'default#image',
-            iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/U-96.jpg',
+            iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark.png',
             iconImageSize: [30, 38],
             iconImageOffset: [0, 0]
         });
