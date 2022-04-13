@@ -110,17 +110,17 @@ $('.main_menu a' ).on( 'click', function () {
 </script>
 <script>
     $(document).ready(function () {
-        if(window.location.href.split('/').slice(-2)[0] != "map"){
-            var location = window.location.href.split('/').slice(-1)[0];
+        var location = window.location.href.split('/')
+        if(location.slice(-2)[0] != "map"){
+            var location = location.slice(-1)[0].split('#').slice(0)[0];
         }
         else{
-            var location = window.location.href.split('/').slice(-2)[0];
+            var location = location.slice(-2)[0];
         }
         console.log(location);
         if(location == 'profile' || location == 'register' || location == 'login'){
             location = '';
         }
-        console.log(location);
         if(location){
             $('.main_menu li a').each(function(){
                 if(this.href.indexOf(location)>-1) {
@@ -167,9 +167,9 @@ $('.main_menu a' ).on( 'click', function () {
 
           function hideLine(){
             if ($(window).width() < 970) {
-                $magicLine.hide()
+                $magicLine.css('background', '#7f77e000')
             } else {
-                $magicLine.show()
+                $magicLine.css('background', '#7f77e0')
             }
            }
            window.onresize = function(event) {
