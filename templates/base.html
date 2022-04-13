@@ -52,7 +52,7 @@
                     <a class="nav-link capt" href="/historical_reference" aria-current="page">Историческая справка<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link capt" href="/map" aria-current="page">Карта мест гибели подлодок<span class="sr-only"></span></a>
+                    <a class="nav-link capt" href="/map/all_boats" aria-current="page">Карта мест гибели подлодок<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link capt" href="/uboat_types" aria-current="page">Типы лодок Кригсмарине<span class="sr-only"></span></a>
@@ -110,7 +110,12 @@ $('.main_menu a' ).on( 'click', function () {
 </script>
 <script>
     $(document).ready(function () {
-        var location = window.location.href.split('/').slice(-1)[0];
+        if(window.location.href.split('/').slice(-2)[0] != "map"){
+            var location = window.location.href.split('/').slice(-1)[0];
+        }
+        else{
+            var location = window.location.href.split('/').slice(-2)[0];
+        }
         console.log(location);
         if(location == 'profile' || location == 'register' || location == 'login'){
             location = '';

@@ -22,7 +22,7 @@ function getCoords(data) {
             crds = [parseFloat(crds.split(', ')[1]),
                     parseFloat(crds.split(', ')[0])]
             if (!points.includes(crds)){
-                 points.push(crds);
+                 points.push({"coords": crds, "text": data["uboats"][i]["tactical_number"]});
             }
             if (json_data[crds]){
                 json_data[crds].push(data["uboats"][i]["tactical_number"]);
@@ -47,17 +47,96 @@ function init() {
     map.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
     map.controls.remove('zoomControl'); // удаляем контрол зуммирования
     map.controls.remove('rulerControl'); // удаляем контрол правил
+
     console.log(points.length)
     for(let i = 0; i < points.length; i++){
-        var placemark = new ymaps.Placemark(points[i], {
-            balloonContentHeader: points[i].join(', '),
-            balloonContentBody: json_data[points[i]].join(', '),
+        var placemark = new ymaps.Placemark(points[i]["coords"], {
+            balloonContentHeader: points[i]["coords"],
+            balloonContentBody: json_data[points[i]["coords"]].join(', '),
         }, {
             preset: 'islands#redIcon'
         });
         map.geoObjects.add(placemark);
     }
+
+    // Создаем экземпляр класса ymaps.control.SearchControl
+    var mySearchControl = new ymaps.control.SearchControl({
+        options: {
+            // Заменяем стандартный провайдер данных (геокодер) нашим собственным.
+            provider: new CustomSearchProvider(points),
+            // Не будем показывать еще одну метку при выборе результата поиска,
+            // т.к. метки коллекции myCollection уже добавлены на карту.
+            noPlacemark: true,
+            resultsPerPage: 5
+        }});
+
+    // Добавляем контрол в верхний правый угол,
+    map.controls
+        .add(mySearchControl, { float: 'right' });
+    
+    if (uboat != "all_boats") { 
+        mySearchControl.search(uboat);
+    }
 }
+
+function CustomSearchProvider(points) {
+    this.points = points;
+}
+
+// Провайдер ищет по полю text стандартным методом String.ptototype.indexOf.
+CustomSearchProvider.prototype.geocode = function (request, options) {
+    var deferred = new ymaps.vow.defer(),
+        geoObjects = new ymaps.GeoObjectCollection(),
+    // Сколько результатов нужно пропустить.
+        offset = options.skip || 0,
+    // Количество возвращаемых результатов.
+        limit = options.results || 20;
+        
+    var points = [];
+    // Ищем в свойстве text каждого элемента массива.
+    for (var i = 0, l = this.points.length; i < l; i++) {
+        var point = this.points[i];
+        if (point.text.toLowerCase().indexOf(request.toLowerCase()) != -1) {
+            points.push(point);
+        }
+    }
+    // При формировании ответа можно учитывать offset и limit.
+    points = points.splice(offset, limit);
+    // Добавляем точки в результирующую коллекцию.
+    for (var i = 0, l = points.length; i < l; i++) {
+        var point = points[i],
+            coords = point.coords,
+                    text = point.text;
+
+        geoObjects.add(new ymaps.Placemark(coords, {
+            name: text,
+            description: coords,
+            balloonContentBody: '<p>' + text + '</p>',
+            boundedBy: [coords, coords]
+        }));
+    }
+
+    deferred.resolve({
+        // Геообъекты поисковой выдачи.
+        geoObjects: geoObjects,
+        // Метаинформация ответа.
+        metaData: {
+            geocoder: {
+                // Строка обработанного запроса.
+                request: request,
+                // Количество найденных результатов.
+                found: geoObjects.getLength(),
+                // Количество возвращенных результатов.
+                results: limit,
+                // Количество пропущенных результатов.
+                skip: offset
+            }
+        }
+    });
+    // Возвращаем объект-обещание.
+    return deferred.promise();
+};
+
 
 var points = new Array();
 var json_data = {};

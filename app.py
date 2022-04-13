@@ -55,10 +55,10 @@ def uboat_types():
                            title='Типы подводных лодок Кригсмарине')
 
 
-@app.route('/map')
-def boats_map():
+@app.route('/map/<uboat>')
+def boats_map(uboat):
     """Страницы с картой"""
-    return render_template("map.html", title='Карта')
+    return render_template("map.html", title='Карта', uboat=uboat)
 
 
 @app.route("/historical_reference")
