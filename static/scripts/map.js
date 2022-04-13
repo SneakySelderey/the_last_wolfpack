@@ -54,7 +54,10 @@ function init() {
             balloonContentHeader: points[i]["coords"],
             balloonContentBody: json_data[points[i]["coords"]].join(', '),
         }, {
-            preset: 'islands#redIcon'
+            iconLayout: 'default#image',
+            iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark.png',
+            iconImageSize: [15, 19],
+            iconImageOffset: [0, 0]
         });
         map.geoObjects.add(placemark);
     }
