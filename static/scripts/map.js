@@ -56,7 +56,7 @@ function init() {
         }, {
             iconLayout: 'default#image',
             iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark.png',
-            iconImageSize: [30, 38],
+            iconImageSize: [15, 19],
             iconImageOffset: [0, 0]
         });
         map.geoObjects.add(placemark);
