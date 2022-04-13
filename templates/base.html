@@ -110,7 +110,12 @@ $('.main_menu a' ).on( 'click', function () {
 </script>
 <script>
     $(document).ready(function () {
-        var location = window.location.href.split('/').slice(-1)[0];
+        if(window.location.href.split('/').slice(-2)[0] != "map"){
+            var location = window.location.href.split('/').slice(-1)[0];
+        }
+        else{
+            var location = window.location.href.split('/').slice(-2)[0];
+        }
         console.log(location);
         if(location == 'profile' || location == 'register' || location == 'login'){
             location = '';
