@@ -23,6 +23,7 @@ from threading import Thread
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('FLASK_SECRET_KEY', default='not found')
+app.config['JSON_AS_ASCII'] = False
 api = Api(app)
 api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
 api.add_resource(users_api.UsersListResource, '/api/users')

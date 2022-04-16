@@ -25,7 +25,9 @@ class UsersResource(Resource):
         session = db_session.create_session()
         user = session.query(User).get(user_id)
         logging.info(f'GET user {user.username} -> success')
-        return jsonify({'user': user.to_dict()})
+        return jsonify({'user': user.to_dict(only=(
+            'id', 'username', 'email', 'register_date',
+            'profile_picture'))})
 
     def delete(self, user_id):
         """Метод удаления польователя по id"""
