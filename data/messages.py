@@ -1,15 +1,9 @@
 import sqlalchemy
 from datetime import datetime
-
 from sqlalchemy import orm
-
 from .db_session import SqlAlchemyBase
 from flask_login import UserMixin
 from sqlalchemy_serializer import SerializerMixin
-
-
-def get_time():
-    return datetime.now().strftime('%d %b')
 
 
 class Message(SqlAlchemyBase, UserMixin, SerializerMixin):
@@ -21,5 +15,5 @@ class Message(SqlAlchemyBase, UserMixin, SerializerMixin):
     from_user = sqlalchemy.Column(sqlalchemy.Integer,
                                   sqlalchemy.ForeignKey('users.id'))
     text = sqlalchemy.Column(sqlalchemy.String, nullable=False)
-    time = sqlalchemy.Column(sqlalchemy.Date, default=get_time)
+    time = sqlalchemy.Column(sqlalchemy.Date, default=datetime.now)
     user = orm.relation('User')

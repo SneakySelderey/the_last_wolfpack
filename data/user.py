@@ -44,7 +44,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
                             secondary="users_to_captains", backref="users")
     fav_boats = orm.relation("Uboat", secondary="users_to_boats",
                              backref="users")
-    news = orm.relation("Message", back_populates='user')
+    messages = orm.relation("Message", back_populates='user')
 
     def set_password(self, password):
         """Функция установки хешированного пароля.

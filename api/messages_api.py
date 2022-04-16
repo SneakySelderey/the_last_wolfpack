@@ -2,7 +2,6 @@ from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
 from data.messages import Message
-from data.user import User
 from api.api_parsers import msg_parser
 import logging
 
