@@ -31,6 +31,7 @@ user_post_parser = reqparse.RequestParser()
 user_post_parser.add_argument('username', required=True)
 user_post_parser.add_argument('email', required=True)
 user_post_parser.add_argument('password', required=True)
+user_post_parser.add_argument('role', required=True)
 
 # пасрер для создания сообщения
 msg_parser = reqparse.RequestParser()

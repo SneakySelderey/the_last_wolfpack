@@ -40,6 +40,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     register_date = sqlalchemy.Column(sqlalchemy.Date, default=datetime.now)
     profile_picture = sqlalchemy.Column(sqlalchemy.String,
                                         default='empty_pic.png')
+    role = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     fav_caps = orm.relation("Captain",
                             secondary="users_to_captains", backref="users")
     fav_boats = orm.relation("Uboat", secondary="users_to_boats",

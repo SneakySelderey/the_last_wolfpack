@@ -101,6 +101,7 @@ class UsersListResource(Resource):
         user = User()
         user.username = args['username']
         user.email = args['email']
+        user.role = args['role']
         user.set_password(args['password'])
         session.add(user)
         session.commit()
