@@ -103,6 +103,8 @@
 {% if title == "The Last Wolfpack" %}
 {{footer()}}
 {% endif %}
+<p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
+<script type="text/python" src="{{url_for('static', filename='scripts/update_msgs.py')}}"></script>
 <script>
 $('.main_menu a' ).on( 'click', function () {
 	$('.main_menu' ).find( 'li.active' ).removeClass( 'active' );
