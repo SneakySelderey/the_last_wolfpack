@@ -31,10 +31,11 @@ function getCoords(data) {
                 json_data[crds] = [data["uboats"][i]["tactical_number"]];
             }
         }
+        json_fate.push([data["uboats"][i]["fate"]]);
     }
 }
 
-function placeMark(points, json_data, map, colour) { 
+function placeMark(points, json_data, map, colour, i) { 
     var placemark = new ymaps.Placemark(points[i]["coords"], {
         balloonContentHeader: points[i]["coords"],
         balloonContentBody: json_data[points[i]["coords"]].join(', '),
@@ -63,29 +64,27 @@ function init() {
 
     console.log(points.length)
     for(let i = 0; i < points.length; i++){
-        sentences = data["uboats"][i]["fate"];
-        for(let x = 0; x < sentences.length; x++) { 
-            if(sentences[x].includes('1939')) { 
-                placeMark(points, json_data, map, 'red')
-            }
-            if(sentences[x].includes('1940')) { 
-                placeMark(points, json_data, map, 'yellow')
-            }
-            if(sentences[x].includes('1941')) { 
-                placeMark(points, json_data, map, 'green')
-            }
-            if(sentences[x].includes('1942')) { 
-                placeMark(points, json_data, map, 'orange')
-            }
-            if(sentences[x].includes('1943')) { 
-                placeMark(points, json_data, map, 'black')
-            }
-            if(sentences[x].includes('1944')) { 
-                placeMark(points, json_data, map, 'purple')
-            }
-            if(sentences[x].includes('1945')) { 
-                placeMark(points, json_data, map, 'white')
-            }
+        sentence = json_fate[i];
+        if(sentence[0].includes('1939')) { 
+            placeMark(points, json_data, map, 'red', i)
+        }
+        if(sentence[0].includes('1940')) { 
+            placeMark(points, json_data, map, 'yellow', i)
+        }
+        if(sentence[0].includes('1941')) { 
+            placeMark(points, json_data, map, 'green', i)
+        }
+        if(sentence[0].includes('1942')) { 
+            placeMark(points, json_data, map, 'orange', i)
+        }
+        if(sentence[0].includes('1943')) { 
+            placeMark(points, json_data, map, 'black', i)
+        }
+        if(sentence[0].includes('1944')) { 
+            placeMark(points, json_data, map, 'purple', i)
+        }
+        if(sentence[0].includes('1945')) { 
+            placeMark(points, json_data, map, 'white', i)
         }
     }
 
@@ -170,5 +169,6 @@ CustomSearchProvider.prototype.geocode = function (request, options) {
 
 var points = new Array();
 var json_data = {};
+var json_fate = new Array();
 getData('/api/uboats');
 ymaps.ready(init);
