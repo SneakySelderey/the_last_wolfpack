@@ -5,23 +5,25 @@
 <div class="container py-5 px-4">
   <div class="row rounded-lg overflow-hidden shadow">
       <div class="col-12 px-0">
-          <div class="px-4 py-5 chat-box bg-white" id="chatbox" style="height: 700px; overflow-y: auto; overflow-x: hidden">
-          </div>
-
-          {% if current_user.is_authenticated %}
-            <div class="input-group">
-                <input type="text" placeholder="Напишите сообщение..." aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light ml-1" id="msg_input">
-                <div class="input-group-append">
-                    <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" style="color: #7f77e0;"></i></button>
+          <div class="px-4 py-5 chat-box bg-white">
+              <div id="chatbox" style="height: 700px; overflow-y: auto; overflow-x: hidden">
+              </div>
+              {% if current_user.is_authenticated %}
+                <div class="input-group">
+                  <input type="text" placeholder="Напишите сообщение..." aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light ml-1 mt-2" id="msg_input">
+                  <div class="input-group-append">
+                      <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" style="color: #7f77e0;"></i></button>
+                  </div>
                 </div>
-            </div>
-          {% else %}
-            <p class="text-small mb-0 text-muted text-center">Вы не можете писать сообщения, пока не выполните вход в аккаунт</p>
-          {% endif %}
+              {% else %}
+                <p class="text-small mb-0 text-muted text-center">Вы не можете писать сообщения, пока не выполните вход в аккаунт</p>
+              {% endif %}
+          </div>
 
       </div>
   </div>
 </div>
 <p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
 <script type="text/python" src="{{url_for('static', filename='scripts/chat.py')}}"></script>
+<script type="text/python" src="{{url_for('static', filename='scripts/update_msgs.py')}}"></script>
 {% endblock %}

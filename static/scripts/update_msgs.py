@@ -26,8 +26,8 @@ def get_data(url, req, first=False):
                     if msg['user']['id'] == user_id:
                         new_div.html = f"""<div class="media w-50 ml-auto mb-3">
     <div class="media-body">
-        <div class="bg-primary rounded py-2 px-3 mb-2">
-            <p class="text-small mb-0 text-white">{msg['text']}</p>
+        <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap">
+            <p class="text-small mb-0 text-white text-break">{msg['text']}</p>
         </div>
         <p class="small text-muted text-right">{msg['time']}</p>
     </div>
@@ -39,9 +39,9 @@ def get_data(url, req, first=False):
                 <img src="{path}" alt="user" width="50" class="rounded-circle">
                 <figcaption class="mt-1 text-center" style="font-size: 11px;">{msg['user']['username']}</figcaption>
             </figure>
-            <div class="media-body ml-3">
+            <div class="media-body ml-3 text-wrap">
                 <div class="bg-light rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-muted">{msg['text']}</p>
+                    <p class="text-small mb-0 text-muted text-break">{msg['text']}</p>
                 </div>
                 <p class="small text-muted">{msg['time']}</p>
             </div>

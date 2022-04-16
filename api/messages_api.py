@@ -53,7 +53,6 @@ class MessagesListResource(Resource):
                 'id', 'username', 'email', 'register_date',
                 'profile_picture'))
             to_ret.append(value)
-        logging.info('GET messages -> success')
         return jsonify({'messages': to_ret})
 
     def post(self):

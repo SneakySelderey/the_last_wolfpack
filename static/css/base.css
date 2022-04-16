@@ -169,6 +169,16 @@ img.star {
 	height: 700px;
 	background-color: #333;
 }
+.bg-dark-purple {
+    background-color: #544d6d;
+}
+::-webkit-scrollbar {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(77, 72, 134, 0.3);
+}
 /* .btn-purple{
     color:#fff;
     background-color:#7f77e0;

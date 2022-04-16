@@ -31,7 +31,7 @@
     <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain" onload="brython();">
 {% elif title == "Register" or title == "Authorization" %}
     <body class="gradient-custom" onload="brython();"></body>
-{% elif title == "Profile"%}
+{% elif title == "Profile" or title == "Чат" %}
     <body class="gradient-custom3" onload="brython();"></body>
 {% else %}
     <body onload="brython();">
@@ -103,8 +103,7 @@
 {% if title == "The Last Wolfpack" %}
 {{footer()}}
 {% endif %}
-<p style="visibility: hidden;" id="current_user_id">{{current_user.id}}</p>
-<script type="text/python" src="{{url_for('static', filename='scripts/update_msgs.py')}}"></script>
+<p style="visibility: hidden; display: none" id="current_user_id">{{current_user.id}}</p>
 <script>
 $('.main_menu a' ).on( 'click', function () {
 	$('.main_menu' ).find( 'li.active' ).removeClass( 'active' );
