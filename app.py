@@ -5,7 +5,9 @@ from flask_login import LoginManager, logout_user, login_required, login_user,\
     current_user
 from flask_restful import Api
 from werkzeug.utils import secure_filename
-from api import users_api, get_cap_api, get_uboat_api, get_hist_reference_api, get_uboat_types_api
+from api import users_api, get_cap_api, get_uboat_api, get_hist_reference_api,\
+    get_uboat_types_api, messages_api
+from data.messages import Message
 from data.user import User
 from data.captains import Captain
 from data.uboats import Uboat
@@ -14,15 +16,15 @@ from forms.userform import LoginForm, RegisterForm, EditProfileForm
 from forms.DB_update_form import UpdateForm
 import logging
 import DB_updater
-from requests import put, post, get, session
+from requests import put, post, get
 from decouple import config
 import discord_bot
 from threading import Thread
-import socket
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('FLASK_SECRET_KEY', default='not found')
+app.config['JSON_AS_ASCII'] = False
 api = Api(app)
 api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
 api.add_resource(users_api.UsersListResource, '/api/users')
@@ -33,6 +35,8 @@ api.add_resource(get_uboat_api.UboatListResource, '/api/uboats')
 api.add_resource(get_uboat_api.CapsBoatsRelationship, '/api/rel')
 api.add_resource(get_hist_reference_api.HistRefResource, '/api/hist_ref')
 api.add_resource(get_uboat_types_api.UboatTypesResource, '/api/uboat_types')
+api.add_resource(messages_api.MessagesListResource, '/api/messages')
+api.add_resource(messages_api.MessagesResource, '/api/messages/<int:msg_id>')
 login_manager = LoginManager()
 login_manager.init_app(app)
 logging.getLogger('werkzeug').disabled = True
@@ -88,17 +92,11 @@ def captains_list():
                            boats=numbers)
 
 
-# def get_data():
-#     with get('https://tlw-api.herokuapp.com/api/rel', stream=True) as f:
-#         return f.json()
-
-
 @app.route("/uboats", methods=['GET', 'POST', 'PUT'])
 def uboats_list():
     """Страница с лодками"""
     form = UpdateForm()
     data = get(f'http://{request.host}/api/rel').json()
-    # data = get_data()
     db_sess = db_session.create_session()
     uboats = db_sess.query(Uboat).all()
     caps = get(f'http://{request.host}/api/caps').json()
@@ -112,6 +110,13 @@ def uboats_list():
     return render_template('uboats_list.html', title='Подлодки Кригсмарине',
                            uboats=uboats, fav_boats=fav_boats, form=form,
                            rel=data, caps=caps_id_name)
+
+
+@app.route('/chat')
+def chat():
+    """Страница с чатом"""
+    messages = get(f'http://{request.host}/api/messages').json()['messages']
+    return render_template('chat.html', title='Чат', messages=messages)
 
 
 @app.route('/register', methods=['GET', 'POST'])

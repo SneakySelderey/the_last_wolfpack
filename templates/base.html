@@ -31,7 +31,7 @@
     <body style="background-image: url(static/img/background/uboat_type_VII_sheme3.png); background-size: contain" onload="brython();">
 {% elif title == "Register" or title == "Authorization" %}
     <body class="gradient-custom" onload="brython();"></body>
-{% elif title == "Profile"%}
+{% elif title == "Profile" or title == "Чат" %}
     <body class="gradient-custom3" onload="brython();"></body>
 {% else %}
     <body onload="brython();">
@@ -62,6 +62,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link capt" href="/captains" aria-current="page">Капитаны Кригсмарине<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link capt" href="/chat" aria-current="page">Чат</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav ml-auto">
@@ -100,6 +103,7 @@
 {% if title == "The Last Wolfpack" %}
 {{footer()}}
 {% endif %}
+<p style="visibility: hidden; display: none" id="current_user_id">{{current_user.id}}</p>
 <script>
 $('.main_menu a' ).on( 'click', function () {
 	$('.main_menu' ).find( 'li.active' ).removeClass( 'active' );
@@ -110,17 +114,17 @@ $('.main_menu a' ).on( 'click', function () {
 </script>
 <script>
     $(document).ready(function () {
-        if(window.location.href.split('/').slice(-2)[0] != "map"){
-            var location = window.location.href.split('/').slice(-1)[0];
+        var location = window.location.href.split('/')
+        if(location.slice(-2)[0] != "map"){
+            var location = location.slice(-1)[0].split('#').slice(0)[0];
         }
         else{
-            var location = window.location.href.split('/').slice(-2)[0];
+            var location = location.slice(-2)[0];
         }
         console.log(location);
         if(location == 'profile' || location == 'register' || location == 'login'){
             location = '';
         }
-        console.log(location);
         if(location){
             $('.main_menu li a').each(function(){
                 if(this.href.indexOf(location)>-1) {
@@ -167,9 +171,9 @@ $('.main_menu a' ).on( 'click', function () {
 
           function hideLine(){
             if ($(window).width() < 970) {
-                $magicLine.hide()
+                $magicLine.css('background', '#7f77e000')
             } else {
-                $magicLine.show()
+                $magicLine.css('background', '#7f77e0')
             }
            }
            window.onresize = function(event) {

@@ -31,7 +31,7 @@ association_table_2 = sqlalchemy.Table(
 class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     """Класс таблицы для пользователя в БД"""
     __tablename__ = 'users'
-    serialize_rules = ('-fav_caps', '-fav_boats')
+    serialize_rules = ('-fav_caps', '-fav_boats', '-messages')
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True,
                            autoincrement=True)
     username = sqlalchemy.Column(sqlalchemy.String, unique=True)
@@ -45,6 +45,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
                             secondary="users_to_captains", backref="users")
     fav_boats = orm.relation("Uboat", secondary="users_to_boats",
                              backref="users")
+    messages = orm.relation("Message", back_populates='user')
 
     def set_password(self, password):
         """Функция установки хешированного пароля.

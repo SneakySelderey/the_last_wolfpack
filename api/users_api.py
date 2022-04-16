@@ -4,6 +4,7 @@ from data import db_session
 from data.captains import Captain
 from data.uboats import Uboat
 from data.user import User
+from data.messages import Message
 from api.api_parsers import user_put_parser, user_post_parser
 import logging
 
@@ -24,7 +25,9 @@ class UsersResource(Resource):
         session = db_session.create_session()
         user = session.query(User).get(user_id)
         logging.info(f'GET user {user.username} -> success')
-        return jsonify({'user': user.to_dict()})
+        return jsonify({'user': user.to_dict(only=(
+            'id', 'username', 'email', 'register_date',
+            'profile_picture'))})
 
     def delete(self, user_id):
         """Метод удаления польователя по id"""
@@ -45,7 +48,7 @@ class UsersResource(Resource):
         # Изменение обычных значений
         changed = {j: args[j] for j in user.__dict__ if args.get(
             j, None) is not None and j not in ['fav_caps', 'fav_boats',
-                                               'add_fav']}
+                                               'add_fav', 'msg']}
         for i in changed:
             setattr(user, i, changed[i])
         # Изменение (добавление или удаление) особых значений: капитанов и
@@ -70,6 +73,11 @@ class UsersResource(Resource):
             else:
                 for i in put_boats:
                     user.fav_boats.remove(i)
+        if args.get('msg', False):
+            # Добавление сообщения
+            msg = Message()
+            msg.text = args['msg']
+            user.messages.append(msg)
         session.commit()
         logging.info(f'PUT user {user.username} -> success')
         return jsonify({'success': 'OK'})
