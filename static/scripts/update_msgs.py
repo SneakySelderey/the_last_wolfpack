@@ -47,12 +47,13 @@ def get_data(url, req, first=False):
             </div>
         </div>"""
                     chatbox <= new_div
+                    chatbox.scrollTop = chatbox.scrollHeight
         return True
 
 
 async def main():
     """Функция устанновки таймера для периодического обновления сообщений"""
-    timer.set_interval(update, 1000)
+    timer.set_interval(update, 500)
 
 
 def update():
