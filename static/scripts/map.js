@@ -34,6 +34,19 @@ function getCoords(data) {
     }
 }
 
+function placeMark(points, json_data, map, colour) { 
+    var placemark = new ymaps.Placemark(points[i]["coords"], {
+        balloonContentHeader: points[i]["coords"],
+        balloonContentBody: json_data[points[i]["coords"]].join(', '),
+    }, {
+        iconLayout: 'default#image',
+        iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_' + colour + '.png',
+        iconImageSize: [15, 19],
+        iconImageOffset: [0, 0]
+    });
+    map.geoObjects.add(placemark);
+}
+
 function init() {
 	let map = new ymaps.Map('map-test', {
 		center: center,
@@ -50,16 +63,30 @@ function init() {
 
     console.log(points.length)
     for(let i = 0; i < points.length; i++){
-        var placemark = new ymaps.Placemark(points[i]["coords"], {
-            balloonContentHeader: points[i]["coords"],
-            balloonContentBody: json_data[points[i]["coords"]].join(', '),
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark.png',
-            iconImageSize: [15, 19],
-            iconImageOffset: [0, 0]
-        });
-        map.geoObjects.add(placemark);
+        sentences = data["uboats"][i]["fate"];
+        for(let x = 0; x < sentences.length; x++) { 
+            if(sentences[x].includes('1939')) { 
+                placeMark(points, json_data, map, 'red')
+            }
+            if(sentences[x].includes('1940')) { 
+                placeMark(points, json_data, map, 'yellow')
+            }
+            if(sentences[x].includes('1941')) { 
+                placeMark(points, json_data, map, 'green')
+            }
+            if(sentences[x].includes('1942')) { 
+                placeMark(points, json_data, map, 'orange')
+            }
+            if(sentences[x].includes('1943')) { 
+                placeMark(points, json_data, map, 'black')
+            }
+            if(sentences[x].includes('1944')) { 
+                placeMark(points, json_data, map, 'purple')
+            }
+            if(sentences[x].includes('1945')) { 
+                placeMark(points, json_data, map, 'white')
+            }
+        }
     }
 
     // Создаем экземпляр класса ymaps.control.SearchControl
