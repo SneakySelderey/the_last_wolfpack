@@ -26,7 +26,7 @@ user_put_parser.add_argument('fav_boats')
 user_put_parser.add_argument('msg')
 user_put_parser.add_argument('add_fav', type=int)
 
-# парсер для созданяи пользователя
+# парсер для создания пользователя
 user_post_parser = reqparse.RequestParser()
 user_post_parser.add_argument('username', required=True)
 user_post_parser.add_argument('email', required=True)
@@ -36,4 +36,3 @@ user_post_parser.add_argument('role', required=True)
 # пасрер для создания сообщения
 msg_parser = reqparse.RequestParser()
 msg_parser.add_argument('text', required=True)
-

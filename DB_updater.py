@@ -328,6 +328,12 @@ def uboat_parse_cycle(number, session):
                     coord1 = a.split(',')[1][1:]
                     if coord1[-1] == ']':
                         coord1 = coord1[:-1]
+                    if coord1[0] == '[':
+                        coord1 = coord1[1:]
+                    if coord2[-1] == ']':
+                        coord2 = coord2[:-1]
+                    if coord2[0] == '[':
+                        coord2 = coord2[1:]
                     coords = f'{coord1}, {coord2}'
 
             boat_list = (tac_num, ordered, laid_down, launched, commissioned, commanders, career, successes, fate, coords)

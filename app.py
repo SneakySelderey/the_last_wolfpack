@@ -139,7 +139,7 @@ def register():
                                    form=form,
                                    message="User is already exists")
         args = {'username': form.username.data, 'email': form.email.data,
-                'password': form.password.data}
+                'password': form.password.data, 'role': 'user'}
         try:
             post(f'http://{request.host}/api/users', json=args)
             app.logger.info(f'{form.username.data} registered successfully')

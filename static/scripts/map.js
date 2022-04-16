@@ -31,7 +31,21 @@ function getCoords(data) {
                 json_data[crds] = [data["uboats"][i]["tactical_number"]];
             }
         }
+        json_fate.push([data["uboats"][i]["fate"]]);
     }
+}
+
+function placeMark(points, json_data, map, colour, i) { 
+    var placemark = new ymaps.Placemark(points[i]["coords"], {
+        balloonContentHeader: points[i]["coords"],
+        balloonContentBody: json_data[points[i]["coords"]].join(', '),
+    }, {
+        iconLayout: 'default#image',
+        iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_' + colour + '.png',
+        iconImageSize: [15, 19],
+        iconImageOffset: [0, 0]
+    });
+    map.geoObjects.add(placemark);
 }
 
 function init() {
@@ -48,19 +62,47 @@ function init() {
     map.controls.remove('zoomControl'); // удаляем контрол зуммирования
     map.controls.remove('rulerControl'); // удаляем контрол правил
 
+    globalThis.count39 = 0
+    globalThis.count40 = 0
+    globalThis.count41 = 0
+    globalThis.count42 = 0
+    globalThis.count43 = 0
+    globalThis.count44 = 0
+    globalThis.count45 = 0
+
     console.log(points.length)
     for(let i = 0; i < points.length; i++){
-        var placemark = new ymaps.Placemark(points[i]["coords"], {
-            balloonContentHeader: points[i]["coords"],
-            balloonContentBody: json_data[points[i]["coords"]].join(', '),
-        }, {
-            iconLayout: 'default#image',
-            iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark.png',
-            iconImageSize: [15, 19],
-            iconImageOffset: [0, 0]
-        });
-        map.geoObjects.add(placemark);
+        sentence = json_fate[i];
+        if(sentence[0].includes('1939')) { 
+            placeMark(points, json_data, map, 'red', i)
+            globalThis.count39 += 1
+        }
+        if(sentence[0].includes('1940')) { 
+            placeMark(points, json_data, map, 'yellow', i)
+            globalThis.count40 += 1
+        }
+        if(sentence[0].includes('1941')) { 
+            placeMark(points, json_data, map, 'green', i)
+            globalThis.count41 += 1
+        }
+        if(sentence[0].includes('1942')) { 
+            placeMark(points, json_data, map, 'orange', i)
+            globalThis.count42 += 1
+        }
+        if(sentence[0].includes('1943')) { 
+            placeMark(points, json_data, map, 'black', i)
+            globalThis.count43 += 1
+        }
+        if(sentence[0].includes('1944')) { 
+            placeMark(points, json_data, map, 'purple', i)
+            globalThis.count44 += 1
+        }
+        if(sentence[0].includes('1945')) { 
+            placeMark(points, json_data, map, 'blue', i)
+            globalThis.count45 += 1
+        }
     }
+    console.log(count39, count40, count41, count42, count43, count44, count45)
 
     // Создаем экземпляр класса ymaps.control.SearchControl
     var mySearchControl = new ymaps.control.SearchControl({
@@ -143,5 +185,6 @@ CustomSearchProvider.prototype.geocode = function (request, options) {
 
 var points = new Array();
 var json_data = {};
+var json_fate = new Array();
 getData('/api/uboats');
 ymaps.ready(init);
