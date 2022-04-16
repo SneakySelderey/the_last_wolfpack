@@ -10,9 +10,9 @@ def length(min_l=-1, max_l=-1, message=None):
     """Валидатор для проверки длины пароля"""
     if not message:
         if max_l != -1:
-            message = f'Must be between {min_l} and {max_l} characters long.'
+            message = f'Длина пароля должна быть между {min_l} и {max_l} символами'
         else:
-            message = f'Must be at least {min_l} characters'
+            message = f'Пароль должен состоять как минимум из {min_l} символов'
 
     def _length(form, field):
         len_s = field.data and len(field.data) or 0
@@ -25,7 +25,7 @@ def length(min_l=-1, max_l=-1, message=None):
 def letters(message=None):
     """Валидатор для проверки наличия букв в пароле"""
     if not message:
-        message = 'Must be at least one letter'
+        message = 'Должна быть как минимум одна буква'
 
     def _letters(form, field):
         if not any(x.isalpha() for x in field.data):
@@ -37,7 +37,7 @@ def letters(message=None):
 def digits(message=None):
     """Валидатор для проверки наличия цифр в пароле"""
     if not message:
-        message = 'Must be at least one digit'
+        message = 'Должна быть как минимум одна цифра'
 
     def _digits(form, field):
         if not any(x.isdigit() for x in field.data):
@@ -49,7 +49,7 @@ def digits(message=None):
 def extension(*extensions, message=None):
     """Валидатор для проверки расширения файла"""
     if not message:
-        message = 'Invalid extension file'
+        message = 'Недопустимое расширение файла'
 
     def _extension(form, field):
         if field.data is not None:
@@ -62,27 +62,27 @@ def extension(*extensions, message=None):
 
 class RegisterForm(FlaskForm):
     """Класс формы регистрации нового пользователя"""
-    username = StringField('Username', validators=[DataRequired()])
-    email = EmailField('Login / Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[
+    username = StringField('Имя пользователя', validators=[DataRequired()])
+    email = EmailField('Логин (почта)', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[
         DataRequired(), length(min_l=8), letters(), digits()])
-    password_again = PasswordField('Password again', validators=[
-        DataRequired(), EqualTo('password', message='Passwords must match')])
-    submit = SubmitField('Submit')
+    password_again = PasswordField('Повторите пароль', validators=[
+        DataRequired(), EqualTo('password', message='Пароли на совпадают')])
+    submit = SubmitField('Зарегистрироваться')
 
 
 class LoginForm(FlaskForm):
     """Класс формы авторизации пользователя"""
-    email = EmailField('Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember me')
-    submit = SubmitField('Submit')
+    email = EmailField('Логин', validators=[DataRequired()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    remember_me = BooleanField('Запомнить')
+    submit = SubmitField('Войти')
 
 
 class EditProfileForm(FlaskForm):
     """Класс формы редактирования профиля пользователя"""
-    username = StringField('Username', validators=[DataRequired()])
-    email = EmailField('Email', validators=[DataRequired()])
-    picture = FileField('Profile picture', validators=[
+    username = StringField('Имя пользователя', validators=[DataRequired()])
+    email = EmailField('Почта', validators=[DataRequired()])
+    picture = FileField('Фото профиля', validators=[
         extension('.png', '.jpg', '.jpeg')])
-    submit = SubmitField('Save')
+    submit = SubmitField('Сохранить')

@@ -7,7 +7,7 @@
 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 <div class="card" style="border-radius: 15px;">
 <div class="card-body p-5">
-    <h2 class="text-uppercase text-center mb-5">Login</h2>
+    <h2 class="text-uppercase text-center mb-5">Войти</h2>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         {{ render_field(form.email, class="form-control", type="email", id="email") }}
@@ -19,7 +19,7 @@
                 {{ message }}
             </p>
         {% endif %}
-        <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/register" class="fw-bold text-body"><u>Register here</u></a></p>
+        <p class="text-center text-muted mt-5 mb-0">Нет аккаунта? <a href="/register" class="fw-bold text-body"><u>Зарегистрироваться</u></a></p>
     </form>
 </div>
 </div>

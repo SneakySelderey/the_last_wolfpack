@@ -7,7 +7,7 @@
 <div class="col-md-12 col-lg-12 col-xl-12 col-xs-12">
 <div class="card" style="border-radius: 15px;">
 <div class="card-body p-5">
-    <h2 class="text-uppercase text-center mb-5">Profile</h2>
+    <h2 class="text-uppercase text-center mb-5">Профиль</h2>
     {{ message }}
     {% set path = 'img/profile_pictures/' + user.profile_picture%}
     <div class="row">
@@ -15,13 +15,13 @@
             <img src="{{url_for('static', filename=path)}}" class="img-fluid"/>
             <div class="col-12">
                 <h5 style="margin-top: 3%;" id="username">{{ user.username }}</h5>
-                <h6>Register date: <span class="reg_date">{{ user.register_date }}</span></h6>
-                <h6>Email: <span class="reg_date" id="user_email">{{ user.email }}</span></h6>
+                <h6>Регистрация: <span class="reg_date">{{ user.register_date }}</span></h6>
+                <h6>Эл. почта: <span class="reg_date" id="user_email">{{ user.email }}</span></h6>
             </div>
             <div class="col-12" style="text-align: center; margin-top: 5%; margin-bottom: 5%">
                 <!-- <button class="btn btn-default btn-edit-profile" onclick="openForm()">Edit profile</button> -->
                 <!-- <a class="btn btn-default btn-edit-profile" href="" onclick="openForm()">Edit profile</a> -->
-                <button class="btn btn-edit-profile" onclick="openForm()">Edit profile</button>
+                <button class="btn btn-edit-profile" onclick="openForm()">Редактировать</button>
             </div>
         </div>
 
@@ -30,13 +30,13 @@
 
         <div class="col-xl-9 col-lg-9 col-xs-12 col-md-8">
             <div class="profile-head">
-                <h5>Favourites</h5>
+                <h5>Избранное</h5>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#caps" role="tab" aria-controls="caps" aria-selected="true">Captains</a>
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#caps" role="tab" aria-controls="caps" aria-selected="true">Капитаны</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boats" role="tab" aria-controls="boats" aria-selected="false">Boats</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#boats" role="tab" aria-controls="boats" aria-selected="false">Лодки</a>
                     </li>
                 </ul>
             </div>
