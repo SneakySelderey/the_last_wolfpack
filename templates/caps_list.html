@@ -7,19 +7,21 @@ align-items: center;
 justify-content: center;
 height: 100%; margin-top: 1%" class="stamp mb-5">Капитаны Кригсмарине</h1>
 
-<div class="row" style="margin-bottom: 2%; margin-top: 2%; float: inline-end;">
-    <div class="col-12">
-        <button id="openDialog" class="btn btn-warning">Обновить БД</button>
-        <dialog style="z-index: 1;">
-            <p>Операция обновления БД может занять до 20 минут. Вы уверены?</p>
-            <p><button id="closeDialog" class="btn btn-default">Нет</button></p>
-            <form action="" method="post">
-                {{ form.hidden_tag() }}
-                <p>{{ form.submit(type="submit", class="btn btn-primary", id="closeDialog") }}</p>
-            </form>
-        </dialog>
+{% if current_user.is_authenticated and current_user.role == 'admin' %}
+    <div class="row" style="margin-bottom: 2%; margin-top: 2%; float: inline-end;">
+        <div class="col-12">
+            <button id="openDialog" class="btn btn-warning">Обновить БД</button>
+            <dialog style="z-index: 1;">
+                <p>Операция обновления БД может занять до 20 минут. Вы уверены?</p>
+                <p><button id="closeDialog" class="btn btn-default">Нет</button></p>
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <p>{{ form.submit(type="submit", class="btn btn-primary", id="closeDialog") }}</p>
+                </form>
+            </dialog>
+        </div>
     </div>
-</div>
+{% endif %}
 
 <script>
     var dialog = document.querySelector('dialog');
