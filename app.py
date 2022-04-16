@@ -7,6 +7,7 @@ from flask_restful import Api
 from werkzeug.utils import secure_filename
 from api import users_api, get_cap_api, get_uboat_api, get_hist_reference_api,\
     get_uboat_types_api, messages_api
+from data.messages import Message
 from data.user import User
 from data.captains import Captain
 from data.uboats import Uboat
@@ -114,7 +115,7 @@ def uboats_list():
 @app.route('/chat')
 def chat():
     """Страница с чатом"""
-    messages = get(f'http://{request.host}/api/messages').json()
+    messages = get(f'http://{request.host}/api/messages').json()['messages']
     return render_template('chat.html', title='Чат', messages=messages)
 
 

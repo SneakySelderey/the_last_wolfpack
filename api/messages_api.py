@@ -46,8 +46,15 @@ class MessagesListResource(Resource):
         """Метод получения всех сообщений"""
         session = db_session.create_session()
         messages = session.query(Message).all()
+        to_ret = []
+        for i in messages:
+            value = i.to_dict()
+            value['user'] = i.user.to_dict(only=(
+                'id', 'username', 'email', 'register_date',
+                'profile_picture'))
+            to_ret.append(value)
         logging.info('GET messages -> success')
-        return jsonify({'messages': [item.to_dict() for item in messages]})
+        return jsonify({'messages': to_ret})
 
     def post(self):
         """Метод для добавления сообщения"""

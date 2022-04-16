@@ -95,11 +95,14 @@
 </footer>
 {% endmacro %}
 
-{% macro render_msg(img, text, time) %}
+{% macro render_msg(img, text, time, username=None) %}
 {% if img %}
     {% set path = 'img/profile_pictures/' + img | string %}
     <div class="media w-50 mb-3">
-        <img src="{{url_for('static', filename=path)}}" alt="user" width="50" class="rounded-circle">
+        <figure>
+            <img src="{{url_for('static', filename=path)}}" alt="user" width="50" class="rounded-circle">
+            <figcaption class="mt-1 text-center" style="font-size: 11px;">{{username}}</figcaption>
+        </figure>
         <div class="media-body ml-3">
             <div class="bg-light rounded py-2 px-3 mb-2">
                 <p class="text-small mb-0 text-muted">{{text}}</p>
@@ -113,7 +116,7 @@
             <div class="bg-primary rounded py-2 px-3 mb-2">
                 <p class="text-small mb-0 text-white">{{text}}</p>
             </div>
-            <p class="small text-muted">{{time}}</p>
+            <p class="small text-muted text-right">{{time}}</p>
         </div>
     </div>
 {% endif %}
