@@ -84,6 +84,7 @@ def make_json():
             my_dict[tact_num]['commanders']['text'] = cmds
     with open('api/caps_boats.json', 'w') as file:
         json.dump(my_dict, file, ensure_ascii=False, indent=4)
+        print('json created')
     # post('https://tlw-api.herokuapp.com/api/rel', json={'token': config(
     #     'REL_TOKEN', default='not found'), 'data': json.dumps(my_dict)})
 
@@ -134,6 +135,7 @@ def make_relations():
                     period = ' '.join(period.split()[lx:])
                 association.period = period
                 i.orm_captains.append(association)
+    print('rels created')
     db_sess.commit()
 
 
