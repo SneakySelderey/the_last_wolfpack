@@ -114,6 +114,11 @@ def uboats_list():
                            rel=data, caps=caps_id_name)
 
 
+@app.route('/chat')
+def chat():
+    return render_template('chat.html', title='Чат')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """Страница регистрации и обработка формы"""
