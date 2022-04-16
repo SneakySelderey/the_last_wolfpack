@@ -84,7 +84,7 @@ function init() {
             placeMark(points, json_data, map, 'purple', i)
         }
         if(sentence[0].includes('1945')) { 
-            placeMark(points, json_data, map, 'white', i)
+            placeMark(points, json_data, map, 'blue', i)
         }
     }
 
