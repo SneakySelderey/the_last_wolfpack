@@ -64,9 +64,6 @@ def get_data(url, req):
         </div>"""
                     chatbox <= new_div
                     chatbox.scrollTop = chatbox.scrollHeight
-            else:
-                el = document.getElementById('liveToast')
-                el.classList.remove('hide')
         return True
 
 
