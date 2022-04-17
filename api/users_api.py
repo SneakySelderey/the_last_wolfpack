@@ -7,6 +7,7 @@ from data.user import User
 from data.messages import Message
 from api.api_parsers import user_put_parser, user_post_parser
 import logging
+import base64
 
 
 def abort_if_user_not_found(user_id):
@@ -48,7 +49,8 @@ class UsersResource(Resource):
         # Изменение обычных значений
         changed = {j: args[j] for j in user.__dict__ if args.get(
             j, None) is not None and j not in ['fav_caps', 'fav_boats',
-                                               'add_fav', 'msg']}
+                                               'add_fav', 'msg', 'attachment',
+                                               'att_extension']}
         for i in changed:
             setattr(user, i, changed[i])
         # Изменение (добавление или удаление) особых значений: капитанов и
@@ -77,6 +79,11 @@ class UsersResource(Resource):
             # Добавление сообщения
             msg = Message()
             msg.text = args['msg']
+            if args.get('attachment', False):
+                msg.set_secret_hash(args['att_extension'])
+                with open("static/img/msg_att/" + msg.attachment, 'wb') as file:
+                    data = args['attachment']
+                    file.write(base64.b64decode(data))
             user.messages.append(msg)
         session.commit()
         logging.info(f'PUT user {user.username} -> success')

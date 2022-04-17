@@ -10,6 +10,14 @@
               </div>
               {% if current_user.is_authenticated %}
                 <div class="input-group">
+                  <div class="input-group-append">
+                      <div class="mt-3 ml-1 mr-2 mb-2">
+                          <label for="pic_add">
+                              <i class="fa fa-paperclip align-bottom" style="color: black;"></i>
+                          </label>
+                          <input name="myFile" type="file" style="display: none;" id="pic_add" accept="image/png, image/gif, image/jpeg, image/jpg">
+                      </div>
+                  </div>
                   <input type="text" placeholder="Напишите сообщение..." aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light ml-1 mt-2" id="msg_input">
                   <div class="input-group-append">
                       <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane" style="color: #7f77e0;"></i></button>
@@ -31,5 +39,27 @@
         $("#button-addon2").click();
     }
 });
+  function updateValue(e) {
+    file = e.target.files[0];
+    ext = file.name.split('.').slice(-1)
+    reader.readAsBinaryString(file);
+  }
+  var reader = new FileReader(),
+    binary, base64;
+  input = document.getElementById('pic_add')
+  input.addEventListener('input', updateValue);
+  reader.addEventListener('loadend', function () {
+    binary = reader.result; // binary data (stored as string), unsafe for most actions
+    base64 = btoa(binary); // base64 data, safer but takes up more memory
+    args = {'msg': ' ', 'attachment': base64, 'att_extension': ext}
+    fetch('/api/users/{{current_user.id}}',{
+      method:'PUT',
+      headers:{
+      'Content-Type':'application/json'
+      },
+      body:JSON.stringify(args)
+    })
+}, false);
+
 </script>
 {% endblock %}

@@ -33,10 +33,14 @@ def get_data(url, req):
                             new_text.append(i)
                     new_text = ' '.join(new_text)
                     if msg['user']['id'] == user_id:
+                        v = '<p class="text-small mb-0 text-white text-break mb-link">{new_text}</p>'
+                        if msg['attachment']:
+                            att_path = 'static/img/msg_att/' + msg['attachment']
+                            v = '<img src="' + att_path + '" class="img-fluid"></img>'
                         new_div.html = f"""<div class="media w-50 ml-auto mb-3">
     <div class="media-body">
         <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap">
-            <p class="text-small mb-0 text-white text-break mb-link">{new_text}</p>
+            {v}
         </div>
         <p class="small text-muted text-right">{msg['time']}</p>
     </div>
@@ -50,14 +54,13 @@ def get_data(url, req):
             </figure>
             <div class="media-body ml-3 text-wrap">
                 <div class="bg-light rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-muted text-break mb-link">{new_text}</p>
+                    {v}
                 </div>
                 <p class="small text-muted">{msg['time']}</p>
             </div>
         </div>"""
                     chatbox <= new_div
                     chatbox.scrollTop = chatbox.scrollHeight
-        console.log('b')
         return True
 
 
