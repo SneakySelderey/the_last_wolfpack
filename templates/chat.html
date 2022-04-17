@@ -35,6 +35,7 @@
 <p style="visibility: hidden; display: none" id="current_user_id">{{current_user.id}}</p>
 <script type="text/python" src="{{url_for('static', filename='scripts/chat.py')}}"></script>
 <script>
+  chatbox = document.getElementById('chatbox');
   $(document).keypress(function(e){
     if (e.which == 13){
         $("#button-addon2").click();
@@ -60,8 +61,13 @@
       },
       body:JSON.stringify(args)
     })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      chatbox.scrollTop = chatbox.scrollHeigth
+    });
 }, false);
-
 
 
 </script>

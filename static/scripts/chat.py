@@ -1,4 +1,4 @@
-from browser import document, aio, timer, ajax, html, console
+from browser import document, aio, timer, ajax, html, console, window
 import re
 
 
@@ -64,6 +64,9 @@ def get_data(url, req):
         </div>"""
                     chatbox <= new_div
                     chatbox.scrollTop = chatbox.scrollHeight
+            else:
+                el = document.getElementById('liveToast')
+                el.classList.remove('hide')
         return True
 
 
