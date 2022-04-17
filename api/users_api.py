@@ -83,7 +83,6 @@ class UsersResource(Resource):
             if args.get('attachment', False):
                 msg.set_secret_hash(args['att_extension'])
                 print('attachment exists')
-                print(os.listdir())
                 with open("static/img/msg_att/" + msg.attachment, 'wb') as file:
                     data = args['attachment']
                     file.write(base64.b64decode(data))
