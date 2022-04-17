@@ -1,4 +1,5 @@
 from browser import document, aio, timer, ajax, html, console
+import re
 
 
 class Data:
@@ -23,11 +24,19 @@ def get_data(url, req):
             if chatbox is not None:
                 for msg in my_data.data[msg_count:]:
                     new_div = html.DIV()
+                    links = re.findall("(?P<url>https?://[^\s]+)", msg['text'])
+                    new_text = []
+                    for i in msg['text'].split():
+                        if i in links:
+                            new_text.append(f'<a href="{i}" class="link-light">' + i + '</a>')
+                        else:
+                            new_text.append(i)
+                    new_text = ' '.join(new_text)
                     if msg['user']['id'] == user_id:
                         new_div.html = f"""<div class="media w-50 ml-auto mb-3">
     <div class="media-body">
         <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap">
-            <p class="text-small mb-0 text-white text-break">{msg['text']}</p>
+            <p class="text-small mb-0 text-white text-break mb-link">{new_text}</p>
         </div>
         <p class="small text-muted text-right">{msg['time']}</p>
     </div>
@@ -41,13 +50,14 @@ def get_data(url, req):
             </figure>
             <div class="media-body ml-3 text-wrap">
                 <div class="bg-light rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-muted text-break">{msg['text']}</p>
+                    <p class="text-small mb-0 text-muted text-break mb-link">{new_text}</p>
                 </div>
                 <p class="small text-muted">{msg['time']}</p>
             </div>
         </div>"""
                     chatbox <= new_div
                     chatbox.scrollTop = chatbox.scrollHeight
+        console.log('b')
         return True
 
 
