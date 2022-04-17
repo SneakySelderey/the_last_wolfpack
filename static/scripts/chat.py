@@ -32,11 +32,11 @@ def get_data(url, req):
                         else:
                             new_text.append(i)
                     new_text = ' '.join(new_text)
+                    v = '<p class="text-small mb-0 text-white text-break mb-link">' + new_text + '</p>'
+                    if msg['attachment']:
+                        att_path = 'static/img/msg_att/' + msg['attachment']
+                        v = '<img src="' + att_path + '" class="img-fluid"></img>'
                     if msg['user']['id'] == user_id:
-                        v = '<p class="text-small mb-0 text-white text-break mb-link">{new_text}</p>'
-                        if msg['attachment']:
-                            att_path = 'static/img/msg_att/' + msg['attachment']
-                            v = '<img src="' + att_path + '" class="img-fluid"></img>'
                         new_div.html = f"""<div class="media w-50 ml-auto mb-3">
     <div class="media-body">
         <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap">
@@ -81,7 +81,7 @@ def put_data(url, args):
 
 def send_message(event):
     """Функция для отправки сообщения"""
-    if field.value:
+    if field.value != ' ' * len(field.value):
         put_data(f'/api/users/{user_id}', {'msg': field.value})
         field.value = ''
 
