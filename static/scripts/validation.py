@@ -34,12 +34,12 @@ def checkPassword(data, min_l=8):
     """Функция для проверки пароля на надежность. Пароль считаестя надежным,
     если его длина не менее min_l символов и есть как минимум одна буква и
     одна цифра"""
-    if len(data) < min_l:
-        return f'Must be at least {min_l} characters'
     if not any(x.isalpha() for x in data):
-        return 'Must be at least one letter'
+        return 'Должна быть как минимум одна буква'
     if not any(x.isdigit() for x in data):
-        return 'Must be at least one digit'
+        return 'Должна быть как минимум одна цифра'
+    if len(data) < min_l:
+        return f'Должно быть как минимум {min_l} символов'
     return False
 
 
@@ -47,8 +47,8 @@ def checkExtension(data, *extensions):
     """Функция для проверки файла на соответствие разрещенным расширениям"""
     if data:
         if not any(data.endswith(x) for x in extensions):
-            return 'Invalid file extension. Allowed extensions: ' + ', '.join(
-                extensions)
+            return 'Недопустимое расширение файла. ' \
+                   'Возможные расширения: ' + ', '.join(extensions)
     return False
 
 
@@ -61,31 +61,31 @@ class ErrorChecker:
         """Метод, проверяющий наличие введенных данных в поле.
         Принимает поле"""
         if field.validity.valueMissing or not field.value:
-            field.setCustomValidity("This field is requiered")
+            field.setCustomValidity("Это поле обязательно для заполнения")
             field.validity.valid = False
 
     def typeMismatch(self, field):
         """Метод, проверяющий совпадение введенных данных с нужным типом.
         Принимает поле"""
         if field.validity.typeMismatch:
-            field.setCustomValidity("Entered value needs to be an email "
-                                    "address")
+            field.setCustomValidity("Вводимое значение должно быть "
+                                    "адресом эл. почты")
             field.validity.valid = False
     
     def equalsTo(self, field1, field2):
         """Метод, проверяющий совпадение данных двух полей.
         Принимает два поля, значения которых необходимо сравнить"""
         if field1.value != field2.value:
-            field1.setCustomValidity("Passwords do not match")
+            field1.setCustomValidity("Пароли не совпадают")
             field1.validity.valid = False
     
     def checkUnique(self, field):
         """Функция, проверяющая уникальность значения поля. Принимает поле"""
         if field == name and field.value in users_data.get_names() and field.value != user_name:
-            field.setCustomValidity("User with this name is already exists")
+            field.setCustomValidity("Пользователь с этим именем уже существует")
             field.validity.valid = False
         if field == email and field.value in users_data.get_emails() and field.value != user_email:
-            field.setCustomValidity("User with this email is already exists")
+            field.setCustomValidity("Пользователь с этой почтой уже существует")
             field.validity.valid = False
 
     def badInput(self, field):

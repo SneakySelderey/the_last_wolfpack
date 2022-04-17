@@ -126,18 +126,20 @@ def register():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         if form.password.data != form.password_again.data:
-            return render_template('register.html', title='Register',
+            return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="Passwords don't match")
+                                   message="Пароли не совпадают")
         if db_sess.query(User).filter(User.email == form.email.data).first():
-            return render_template('register.html', title='Register',
+            return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="User is already exists")
+                                   message="Пользователь с такой почтой "
+                                           "уже существует")
         if db_sess.query(User).filter(
                 User.username == form.username.data).first():
-            return render_template('register.html', title='Register',
+            return render_template('register.html', title='Регистрация',
                                    form=form,
-                                   message="User is already exists")
+                                   message="Пользователь с таким именем "
+                                           "уже существует")
         args = {'username': form.username.data, 'email': form.email.data,
                 'password': form.password.data, 'role': 'user'}
         try:
@@ -147,7 +149,7 @@ def register():
         except Exception as error:
             app.logger.error('User could not register. Reason:',
                              str(error).split('\n')[-1])
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Регистрация', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -164,12 +166,12 @@ def login():
                 app.logger.info(f'{user.username} logged in successfully')
                 return redirect("/profile")
             return render_template('login.html',
-                                   message="Wrong login or password",
-                                   form=form, title="Authorization")
+                                   message="Неверный логин или пароль",
+                                   form=form, title="Авторизация")
         except Exception as error:
             app.logger.fatal('User could not login. Reason:',
                              str(error).split('\n')[-1])
-    return render_template('login.html', title='Authorization', form=form)
+    return render_template('login.html', title='Авторизация', form=form)
 
 
 @app.route('/logout')
@@ -205,15 +207,15 @@ def user_profile():
             User.email == form.email.data).first() and not \
                 form.email.data == current_user.email:
             return render_template(
-                'profile.html', message='Email is already taken',
-                form=form, title='Profile', fav_caps=fav_caps,
+                'profile.html', message='Эта почта уже занята',
+                form=form, title='Профиль', fav_caps=fav_caps,
                 fav_boats=fav_boats)
         if db_sess.query(User).filter(
             User.username == form.username.data).first() and not \
                 form.username.data == current_user.username:
             return render_template(
-                'profile.html', message='Username is already taken',
-                form=form, title='Profile', fav_caps=fav_caps,
+                'profile.html', message='Это имя уже занято',
+                form=form, title='Профиль', fav_caps=fav_caps,
                 fav_boats=fav_boats)
         args = {'username': form.username.data, 'email': form.email.data}
         if form.picture.data is not None:
@@ -228,7 +230,7 @@ def user_profile():
         except Exception as error:
             app.logger.fatal('User could not edit profile. Reason:',
                              str(error).split('\n')[-1])
-    return render_template('profile.html', user=user, title='Profile',
+    return render_template('profile.html', user=user, title='Профиль',
                            form=form, fav_caps=fav_caps, fav_boats=fav_boats)
 
 

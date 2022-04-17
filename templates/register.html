@@ -8,7 +8,7 @@
 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
 <div class="card" style="border-radius: 15px;">
 <div class="card-body p-5">
-    <h2 class="text-uppercase text-center mb-5">Register</h2>
+    <h2 class="text-uppercase text-center mb-5">Регистрация</h2>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         {{ render_field(form.username, class="form-control", id="name") }}
@@ -17,7 +17,7 @@
         {{ render_field(form.password_again, class="form-control", type="password", id="password2") }}
         <p>{{ form.submit(type="submit", class="btn btn-primary btn-block") }}</p>
         {{message}}
-        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+        <p class="text-center text-muted mt-5 mb-0">Уже есть аккаунт? <a href="/login" class="fw-bold text-body"><u>Войти</u></a></p>
     </form>
 </div>
 </div>

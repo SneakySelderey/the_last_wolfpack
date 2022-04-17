@@ -20,7 +20,7 @@
     <button type="button" class="close" aria-label="Close" onclick="closeForm()" id="btn_close">
         <span aria-hidden="true">&times;</span>
     </button>
-    <h2 class="text-uppercase text-center mb-5">Edit</h2>
+    <h2 class="text-uppercase text-center mb-5">Редактирование</h2>
     <form action="" method="post" novalidate enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         {{ render_field(form.username, class="form-control", id="name") }}
@@ -80,6 +80,7 @@
           <h5 class="text-uppercase stamp" style="font-size:medium;">Внимание</h5>
           <p>Данный сайт создан исключительно в образовательных целях. Все материалы взяты из открытых источников 
               и не носят политический характер. Авторы проекта не разделяют экспансионистских идей Третьего рейха.</p>
+          <p>Инфрмация о капитанах и лодках Кригсмарине взята с сайта <a href="https://uboat.net/">uboat.net</a>.</p>
         </div>
         <hr class="clearfix w-100 d-md-none pb-3">
   
