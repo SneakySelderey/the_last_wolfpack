@@ -4,7 +4,7 @@
 <div style="margin-top: 2.5%; margin-bottom: 2.5%">
     <h4 class="stamp mb-5 text-center">Карта мест гибели подлодок</h4>
     <div class="container h-100">
-    <container style="display: flex; flex-direction: row; justify-content: space-evenly">
+    <!-- <container style="display: flex; flex-direction: row; justify-content: space-evenly">
         <h4><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_red.png" height="22" width="18"> - 1939 <br />(9 лодок погибли)</h4>
         <h4><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_yellow.png" height="22" width="18"> - 1940 <br />(23 лодки погибли)</h4>
         <h4><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_green.png" height="22" width="18"> - 1941 <br />(36 лодок погибли)</h4>
@@ -12,7 +12,7 @@
         <h4><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_black.png" height="22" width="18"> - 1943 <br />(256 лодок погибли)</h4>
         <h4><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_purple.png" height="22" width="18"> - 1944 <br />(250 лодок погибли)</h4>
         <h4><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_blue.png" height="22" width="18"> - 1945-1946 (операция "Дэдлайт") <br />(525 лодок погибли и затоплены)</h4>
-    </container>
+    </container> -->
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div id="map-test" class="map"></div>
         <script src="https://api-maps.yandex.ru/2.1/?apikey=85d6700b-49e3-4254-a90c-7ea12c8d1a8f&lang=ru_RU"></script>
@@ -20,11 +20,34 @@
             var uboat = {{ uboat | tojson }}
         </script>
         <script type="text/javascript" src="{{url_for('static', filename='scripts/map.js')}}"></script>
+        <div class="row flex-row d-flex justify-content-center mt-3 w-80">
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_red.png" height="22" width="18" class="img-fluid"> - 1939 <br />(9 лодок погибли)</h4>
+            </div>
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_yellow.png" height="22" width="18" class="img-fluid"> - 1940 <br />(23 лодки погибли)</h4>
+            </div>
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_green.png" height="22" width="18" class="img-fluid"> - 1941 <br />(36 лодок погибли)</h4>
+            </div>
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_orange.png" height="22" width="18" class="img-fluid"> - 1942 <br />(85 лодок погибли)</h4>
+            </div>
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_black.png" height="22" width="18" class="img-fluid"> - 1943 <br />(256 лодок погибли)</h4>
+            </div>
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_purple.png" height="22" width="18" class="img-fluid"> - 1944 <br />(250 лодок погибли)</h4>
+            </div>
+            <div class="mr-2">
+                <h6 class="text-break"><img src="https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_blue.png" height="22" width="18" class="img-fluid"> - 1945-1946 (операция "Дэдлайт") <br />(525 лодок погибли и затоплены)</h4>
+            </div>
+    </div>
     </div>
     <h4 class="stamp mb-5 text-center" style="margin-top: 5%">Карта операций Кригсмарине</h4>
     <div class="row d-flex justify-content-center align-items-center h-100">
         <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A779e20faf519889b5976445e5f24819d6adfa730034c171740d523f566afee5c&amp;width=700&amp;height=614&amp;lang=ru_RU&amp;scroll=true"></script>
     </div>
-</div>
+    </div>
 </div>
 {% endblock %}
