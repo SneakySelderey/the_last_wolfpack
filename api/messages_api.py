@@ -3,7 +3,7 @@ from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
 from data.messages import Message
-from api.api_parsers import msg_parser
+from api.api_parsers import msg_parser, msg_get
 import logging
 
 
@@ -44,8 +44,13 @@ class MessagesListResource(Resource):
     """Класс ресурса для списка сообщений"""
     def get(self):
         """Метод получения всех сообщений"""
+        args = msg_get.parse_args()
         session = db_session.create_session()
-        messages = session.query(Message).all()
+        if args.get('last_msgs', False):
+            messages = session.query(Message).filter(Message.id > args[
+                'last_msgs']).all()
+        else:
+            messages = session.query(Message).all()
         to_ret = []
         for i in messages:
             value = i.to_dict()

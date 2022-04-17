@@ -39,3 +39,7 @@ user_post_parser.add_argument('role', required=True)
 msg_parser = reqparse.RequestParser()
 msg_parser.add_argument('text', required=True)
 msg_parser.add_argument('attachment')
+
+# парсер для получения сообщений
+msg_get = reqparse.RequestParser()
+msg_get.add_argument('last_msgs')

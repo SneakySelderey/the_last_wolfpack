@@ -8,6 +8,7 @@ from data.messages import Message
 from api.api_parsers import user_put_parser, user_post_parser
 import logging
 import base64
+import os
 
 
 def abort_if_user_not_found(user_id):
@@ -81,9 +82,12 @@ class UsersResource(Resource):
             msg.text = args['msg']
             if args.get('attachment', False):
                 msg.set_secret_hash(args['att_extension'])
+                print('attachment exists')
+                print(os.listdir())
                 with open("static/img/msg_att/" + msg.attachment, 'wb') as file:
                     data = args['attachment']
                     file.write(base64.b64decode(data))
+                    print('attachment saved')
             user.messages.append(msg)
         session.commit()
         logging.info(f'PUT user {user.username} -> success')
