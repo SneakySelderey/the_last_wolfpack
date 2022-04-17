@@ -119,6 +119,12 @@ def chat():
     return render_template('chat.html', title='Чат', messages=messages)
 
 
+@app.route('/kriegsmarine_operations')
+def kriegsmarine_operations():
+    """Страница с картой операций Кригсмарине"""
+    return render_template('kriegsmarine_operations.html', title='Операции Кригсмарине')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """Страница регистрации и обработка формы"""
