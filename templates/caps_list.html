@@ -61,7 +61,7 @@ height: 100%; margin-top: 1%" class="stamp mb-5">Капитаны Кригсма
                 {% else %}
                     {% set name = 'img/' + loop.index0 | string + '.png' %}
                     {% set static = 'static' %}
-                    <td><img data-src="{{ url_for(static, filename=name) }}" src="{{url_for('static', filename='img/dummy.gif')}}" class="img-fluid img-thumbnail" id="cap_image"> </td>
+                    <td><img data-src="{{ url_for(static, filename=name) }}" src="{{url_for('static', filename='img/dummy.gif')}}" class="img-fluid img-thumbnail zoom" id="cap_image"> </td>
                 {% endif %}
                 <td>{{ item.info }}</td>
                 <td>

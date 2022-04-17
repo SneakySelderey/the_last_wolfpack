@@ -1,4 +1,4 @@
-from browser import document, aio, timer, ajax, html, console
+from browser import document, aio, timer, ajax, html, console, window
 import re
 
 
@@ -42,7 +42,7 @@ def get_data(url, req):
                     if msg['user']['id'] == user_id:
                         new_div.html = f"""<div class="media w-50 ml-auto mb-3">
     <div class="media-body">
-        <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap">
+        <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap {"text-center" if v.startswith('<img') else ''}">
             {v}
         </div>
         <p class="small text-muted text-right">{msg['time']}</p>
@@ -52,7 +52,7 @@ def get_data(url, req):
                         path = 'static/img/profile_pictures/' + msg['user']['profile_picture']
                         new_div.html = f"""<div class="media w-50 mb-3">
             <figure>
-                <img src="{path}" alt="user" width="50" class="rounded-circle">
+                <img src="{path}" alt="user" width="40" class="rounded-circle img-fluid">
                 <figcaption class="mt-1 text-center" style="font-size: 11px;">{msg['user']['username']}</figcaption>
             </figure>
             <div class="media-body ml-3 text-wrap">
