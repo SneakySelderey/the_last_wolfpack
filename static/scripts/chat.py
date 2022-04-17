@@ -52,7 +52,7 @@ def get_data(url, req):
                         path = 'static/img/profile_pictures/' + msg['user']['profile_picture']
                         new_div.html = f"""<div class="media w-50 mb-3">
             <figure>
-                <img src="{path}" alt="user" width="50" class="rounded-circle">
+                <img src="{path}" alt="user" width="40" class="rounded-circle img-fluid">
                 <figcaption class="mt-1 text-center" style="font-size: 11px;">{msg['user']['username']}</figcaption>
             </figure>
             <div class="media-body ml-3 text-wrap">
