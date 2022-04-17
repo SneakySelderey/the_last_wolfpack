@@ -1,9 +1,10 @@
 import sqlalchemy
 from datetime import datetime
-from sqlalchemy import orm, VARCHAR, func
+from sqlalchemy import orm, VARCHAR
 from .db_session import SqlAlchemyBase
 from flask_login import UserMixin
 from sqlalchemy_serializer import SerializerMixin
+from random import getrandbits
 
 
 class TextColumn(VARCHAR):
@@ -23,5 +24,10 @@ class Message(SqlAlchemyBase, UserMixin, SerializerMixin):
     from_user = sqlalchemy.Column(sqlalchemy.Integer,
                                   sqlalchemy.ForeignKey('users.id'))
     text = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    attachment = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     time = sqlalchemy.Column(sqlalchemy.Date, default=datetime.now)
     user = orm.relation('User')
+
+    def set_secret_hash(self, ext):
+        """Установка хеша сообщения"""
+        self.attachment = str(getrandbits(128)) + '.' + ext

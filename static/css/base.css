@@ -179,6 +179,12 @@ img.star {
     border-radius: 5px;
     background: rgba(77, 72, 134, 0.3);
 }
+.link-light{
+    color:#f8f9fa
+}
+.link-light:focus,.link-light:hover{
+    color:#f9fafb
+}
 /* .btn-purple{
     color:#fff;
     background-color:#7f77e0;

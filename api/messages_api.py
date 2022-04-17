@@ -1,10 +1,10 @@
+import base64
 from flask import jsonify
 from flask_restful import Resource, abort
 from data import db_session
 from data.messages import Message
 from api.api_parsers import msg_parser
 import logging
-import json
 
 
 def abort_if_message_not_found(msg_id):
@@ -61,6 +61,11 @@ class MessagesListResource(Resource):
         session = db_session.create_session()
         msg = Message()
         msg.text = args['text']
+        if args.get('attachment', False):
+            msg.set_secret_hash(args['att_extension'])
+            with open("static/img/msg_att/" + msg.attachment, 'wb') as file:
+                data = args['attachment']
+                file.write(base64.b64decode(data))
         session.add(msg)
         session.commit()
         logging.info(f'POST message -> success')

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{{url_for('static', filename='img/main_page_pictures/Icon.ico')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{url_for('static', filename='css/base.css')}}">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -32,7 +33,7 @@
 {% elif title == "Регистрация" or title == "Авторизация" %}
     <body class="gradient-custom" onload="brython();"></body>
 {% elif title == "Профиль" or title == "Чат" %}
-    <body class="gradient-custom3" onload="brython();"></body>
+    <body class="gradient-custom3" onload="brython();" style="overflow-x: hidden"></body>
 {% else %}
     <body onload="brython();">
 {% endif %}
