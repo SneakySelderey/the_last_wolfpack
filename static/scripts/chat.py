@@ -42,7 +42,7 @@ def get_data(url, req):
                     if msg['user']['id'] == user_id:
                         new_div.html = f"""<div class="media w-50 ml-auto mb-3">
     <div class="media-body">
-        <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap">
+        <div class="bg-dark-purple rounded py-2 px-3 mb-2 text-wrap {"text-center" if v.startswith('<img') else ''}">
             {v}
         </div>
         <p class="small text-muted text-right">{msg['time']}</p>
