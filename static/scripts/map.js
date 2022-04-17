@@ -37,7 +37,7 @@ function getCoords(data) {
 
 function placeMark(points, json_data, map, colour, i) { 
     var placemark = new ymaps.Placemark(points[i]["coords"], {
-        balloonContentHeader: points[i]["coords"],
+        balloonContentHeader: points[i]["coords"].join(', '),
         balloonContentBody: json_data[points[i]["coords"]].join(', '),
     }, {
         iconLayout: 'default#image',
@@ -152,7 +152,7 @@ CustomSearchProvider.prototype.geocode = function (request, options) {
         var point = points[i],
             coords = point.coords,
                     text = point.text;
-
+        console.log('a')
         geoObjects.add(new ymaps.Placemark(coords, {
             name: text,
             description: coords,
