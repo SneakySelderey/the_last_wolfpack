@@ -43,7 +43,7 @@ function placeMark(points, json_data, map, colour, i) {
         iconLayout: 'default#image',
         iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_' + colour + '.png',
         iconImageSize: [15, 19],
-        iconImageOffset: [0, 0]
+        iconImageOffset: [-6.5, -6]
     });
     map.geoObjects.add(placemark);
 }
