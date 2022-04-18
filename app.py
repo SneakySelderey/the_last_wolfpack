@@ -1,6 +1,6 @@
 import os.path
 from flask import Flask, request
-from flask import render_template, redirect
+from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user,\
     current_user
 from flask_restful import Api
@@ -20,11 +20,13 @@ from requests import put, post, get
 from decouple import config
 import discord_bot
 from threading import Thread
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = config('FLASK_SECRET_KEY', default='not found')
 app.config['JSON_AS_ASCII'] = False
+socketio = SocketIO(app)
 api = Api(app)
 api.add_resource(users_api.UsersResource, '/api/users/<int:user_id>')
 api.add_resource(users_api.UsersListResource, '/api/users')
@@ -45,11 +47,20 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)s %(name)s %(message)s'
 )
 
+connected_users = set()
+
+
+@app.route("/api/users_online")
+def users_online():
+    global connected_users
+    return jsonify(len(connected_users))
+
 
 @app.route("/")
 def main_page():
+    global connected_users
     """Основная страница"""
-    return render_template('main_content.html', title='The Last Wolfpack')
+    return render_template('main_content.html', title='The Last Wolfpack', online=len(connected_users))
 
 
 @app.route("/uboat_types")
@@ -239,11 +250,36 @@ def dummy():
     return redirect('/profile')
 
 
+@socketio.on('connect')
+def on_connect():
+    global connected_users
+    connected_users.add(request.remote_addr)
+    db_sess = db_session.create_session()
+    print('connected')
+    print(len(connected_users))
+
+
+@socketio.on('disconnect')
+def on_disconnect():
+    global connected_users
+    connected_users.remove(request.remote_addr)
+    print('disconnected')
+    print(len(connected_users))
+
+
+@socketio.on_error()
+def error_handler(e):
+    global connected_users
+    connected_users.remove(request.remote_addr)
+    print('disconnected')
+    print(len(connected_users))
+
+
 def website_run():
     db_session.global_init("database.db")
     # DB_updater.make_relations()
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    socketio.run(app, host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
