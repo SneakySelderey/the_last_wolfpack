@@ -5,6 +5,20 @@ get_cap_parser = reqparse.RequestParser()
 get_cap_parser.add_argument('cap_name')
 get_cap_parser.add_argument('extension_data', type=bool)
 
+# парсер для изменения капитана
+put_cap_parser = reqparse.RequestParser()
+put_cap_parser.add_argument('name')
+put_cap_parser.add_argument('info')
+put_cap_parser.add_argument('profile_link')
+put_cap_parser.add_argument('boats')
+
+# парсер для добавления капитана
+post_cap_parser = reqparse.RequestParser()
+post_cap_parser.add_argument('name', required=True)
+post_cap_parser.add_argument('info', required=True)
+post_cap_parser.add_argument('boats', required=True)
+post_cap_parser.add_argument('profile_link', required=True)
+
 # парсер для получения исторической справки
 get_hist_reference_parser = reqparse.RequestParser()
 
