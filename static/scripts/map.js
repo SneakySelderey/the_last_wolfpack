@@ -35,10 +35,15 @@ function getCoords(data) {
     }
 }
 
-function placeMark(points, json_data, map, colour, i) { 
+function placeMark(points, json_data, map, colour, i) {
+    p_data = json_data[points[i]["coords"]]
+    data_with_a = [];
+    for(let i = 0; i < p_data.length; i ++){
+        data_with_a.push('<a href="/uboats#' + p_data[i] + '">' + p_data[i] + '</a>')
+    }
     var placemark = new ymaps.Placemark(points[i]["coords"], {
         balloonContentHeader: points[i]["coords"].join(', '),
-        balloonContentBody: json_data[points[i]["coords"]].join(', '),
+        balloonContentBody: data_with_a.join(', '),
     }, {
         iconLayout: 'default#image',
         iconImageHref: 'https://the-last-wolfpack.herokuapp.com/static/img/misc.%20pictures/placemark_' + colour + '.png',
