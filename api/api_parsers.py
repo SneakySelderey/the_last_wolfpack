@@ -25,7 +25,33 @@ get_hist_reference_parser = reqparse.RequestParser()
 # парсер для получения исторической справки
 get_uboat_parser = reqparse.RequestParser()
 get_uboat_parser.add_argument('uboat_num')
-get_cap_parser.add_argument('extension_data', type=bool)
+
+# парсер для добавления лодки
+post_boat_parser = reqparse.RequestParser()
+post_boat_parser.add_argument('tactical_number', required=True)
+post_boat_parser.add_argument('ordered', required=True)
+post_boat_parser.add_argument('laid_down', required=True)
+post_boat_parser.add_argument('launched', required=True)
+post_boat_parser.add_argument('commissioned', required=True)
+post_boat_parser.add_argument('commanders', required=True)
+post_boat_parser.add_argument('career', required=True)
+post_boat_parser.add_argument('successes', required=True)
+post_boat_parser.add_argument('fate', required=True)
+post_boat_parser.add_argument('coords')
+
+
+# парсер для изменения лодки
+put_boat_parser = reqparse.RequestParser()
+put_boat_parser.add_argument('tactical_number')
+put_boat_parser.add_argument('ordered')
+put_boat_parser.add_argument('laid_down')
+put_boat_parser.add_argument('launched')
+put_boat_parser.add_argument('commissioned')
+put_boat_parser.add_argument('commanders')
+put_boat_parser.add_argument('career')
+put_boat_parser.add_argument('successes')
+put_boat_parser.add_argument('fate')
+put_boat_parser.add_argument('coords')
 
 # парсер для получения справки по типам лодок
 get_uboat_types_parser = reqparse.RequestParser()
