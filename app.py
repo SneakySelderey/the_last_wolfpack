@@ -1,6 +1,6 @@
 import os.path
 from flask import Flask, request
-from flask import render_template, redirect
+from flask import render_template, redirect, jsonify
 from flask_login import LoginManager, logout_user, login_required, login_user,\
     current_user
 from flask_restful import Api
@@ -48,6 +48,12 @@ logging.basicConfig(
 )
 
 connected_users = set()
+
+
+@app.route("/api/users_online")
+def users_online():
+    global connected_users
+    return jsonify(len(connected_users))
 
 
 @app.route("/")

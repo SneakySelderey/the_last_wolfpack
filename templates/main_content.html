@@ -2,6 +2,7 @@
 
 {% block content %}
 {% from "__formhelper.html" import card %}
+<!-- <script type="text/javascript" src="{{url_for('static', filename='scripts/users_online.py')}}"></script> -->
 <section class="text-center">
     <br>
     <h4 class="stamp mb-5">Разделы</h4>
@@ -35,4 +36,27 @@
 
     </div>
 </section>
+<h5 id="users_online">Пользователей онлайн: {{online}}</h5>
+<script type="text/javascript">
+
+  function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false);
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+  function getUsersOnline() {
+
+    var users_online = httpGet('/api/users_online').toString()
+
+    my_data.innerHTML = `Пользователей онлайн: ${users_online}`
+    console.log('updating users online')
+  }
+
+  var my_data = document.getElementById("users_online");
+  let timerId = setInterval(getUsersOnline, 3000);
+
+</script>
 {% endblock %}
