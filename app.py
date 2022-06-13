@@ -39,7 +39,7 @@ api.add_resource(messages_api.MessagesListResource, '/api/messages')
 api.add_resource(messages_api.MessagesResource, '/api/messages/<int:msg_id>')
 login_manager = LoginManager()
 login_manager.init_app(app)
-logging.getLogger('werkzeug').disabled = True
+# logging.getLogger('werkzeug').disabled = True
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s %(levelname)s %(name)s %(message)s'

@@ -23,7 +23,17 @@ ss = 'ß'.encode()
 
 MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
           'Oct', 'Nov', 'Dec']
+SITE_LINK = 'https://uboat.net/'
 CAPS_PARSE = BOATS_PARSE = False
+
+
+def delete_data_from_db_table(table_name: str) -> None:
+    """Удаление данных из таблицы с именем table_name"""
+    con = sqlite3.connect("db/database.db")
+    cur = con.cursor()
+    cur.execute(f"DELETE from {table_name}")
+    con.commit()
+    con.close()
 
 
 def find_in_caps(text, caps_names):
@@ -85,15 +95,12 @@ def make_json():
     with open('api/caps_boats.json', 'w') as file:
         json.dump(my_dict, file, ensure_ascii=False, indent=4)
         print('json created')
-    # post('https://tlw-api.herokuapp.com/api/rel', json={'token': config(
-    #     'REL_TOKEN', default='not found'), 'data': json.dumps(my_dict)})
 
 
 def make_relations():
     """Функция для заполнения таблицы связей между капитаанми и лодками"""
     make_json()
     data = json.load(open('api/caps_boats.json', encoding='utf8'))
-    # data = get('https://tlw-api.herokuapp.com/api/rel').json()
     con = sqlite3.connect("db/database.db")
     cur = con.cursor()
     cur.execute("""DELETE from captains_to_uboats""")
@@ -141,15 +148,9 @@ def make_relations():
 
 def remove_umlaut(s):
     """Функция, заменяюащя специальные символы utf-8 на транслит"""
-    s = s.encode()
-    s = s.replace(u, b'ue')
-    s = s.replace(U, b'Ue')
-    s = s.replace(a, b'ae')
-    s = s.replace(A, b'Ae')
-    s = s.replace(o, b'oe')
-    s = s.replace(O, b'Oe')
-    s = s.replace(ss, b'ss')
-    s = s.decode('utf-8')
+    s = s.encode().replace(u, b'ue').replace(U, b'Ue').replace(
+        a, b'ae').replace(A, b'Ae').replace(o, b'oe').replace(
+        O, b'Oe').replace(ss, b'ss').decode('utf-8')
     return s
 
 
@@ -162,7 +163,6 @@ def write_captains():
         if i.image and f'static/img/{count_}.png' not in os.listdir(
                 'static/img'):
             name = f'{count_}.png'
-            # print(i.image)
             with open(f'static/img/{name}', 'wb') as f:
                 f.write(bytes.fromhex(i.image))
         count_ += 1
@@ -177,18 +177,7 @@ def cap_parse():
     tr = soup.find_all('tr')
 
     if response.status_code == 200 and len(tr) > 10:
-        # Подключение к БД
-        con = sqlite3.connect("db/database.db")
-
-        # Создание курсора
-        cur = con.cursor()
-        # Выполнение запроса и получение всех результатов
-        result = cur.execute("""DELETE from caps""")
-
-        con.commit()
-        con.close()
-
-        db_session.global_init("database.db")
+        delete_data_from_db_table('caps')
         session = db_session.create_session()
         print('Captains parse started')
 
@@ -233,33 +222,26 @@ def cap_parse():
             cap_list = (profile_link, photo_link, name, info, boats)
             cap_list = list(map(lambda s: remove_umlaut(s), cap_list))
 
+            cap = Captain()
+            cap.name = cap_list[2]
+            cap.info = cap_list[3],
+            cap.boats = cap_list[4],
+            cap.profile_link = cap_list[0]
             try:
-                cap = Captain(
-                    id=count,
-                    image=requests.get(cap_list[1]).content,
-                    name=cap_list[2],
-                    info=cap_list[3],
-                    boats=cap_list[4],
-                    profile_link=cap_list[0])
-                session.add(cap)
-                session.commit()
+                cap.image = requests.get(cap_list[1]).content
             except requests.exceptions.MissingSchema:
-                cap = Captain(
-                    id=count,
-                    name=cap_list[2],
-                    info=cap_list[3],
-                    boats=cap_list[4],
-                    profile_link=cap_list[0])
+                pass
+            finally:
                 session.add(cap)
                 session.commit()
-            count += 1
+                count += 1
 
         print('Captains parse finished')
-        write_captains()
-        CAPS_PARSE = True
-        if BOATS_PARSE and CAPS_PARSE:
-            make_relations()
-            CAPS_PARSE = BOATS_PARSE = False
+        # write_captains()
+        # CAPS_PARSE = True
+        # if BOATS_PARSE and CAPS_PARSE:
+        #     make_relations()
+        #     CAPS_PARSE = BOATS_PARSE = False
 
         # logging.info('Captains parse finished')
     else:
@@ -381,18 +363,7 @@ def uboat_parse():
     soup = BeautifulSoup(response.content, 'lxml')
     a = soup.find_all('a')
     if response.status_code == 200 and len(a) > 20:
-        # Подключение к БД
-        con = sqlite3.connect("db/database.db")
-
-        # Создание курсора
-        cur = con.cursor()
-        # Выполнение запроса и получение всех результатов
-        cur.execute("""DELETE from uboats""")
-
-        con.commit()
-        con.close()
-
-        db_session.global_init("database.db")
+        delete_data_from_db_table('uboats')
         session = db_session.create_session()
         print('U-boats parse started')
 
@@ -416,44 +387,43 @@ def uboat_parse():
         for number in range(4700, 4713):
             uboat_parse_cycle(number, session)
 
-        boat = Uboat(
-            id=count,
-            tactical_number='UD-5',
-            laid_down='1938	Rotterdam, Netherlands',
-            commissioned='30 Jan 1942	Frgkpt. Bruno Mahn',
-            commanders='11.41 - 01.43 KptzS. Bruno Mahn, 12.42 - 01.43 Oblt. Klaus-Dietrich Konig (in deputize), 01.43 - 02.43 Kptlt. Horst-Tessen von Kameke, 02.43 - 05.45 Kptlt. Hans-Ulrich Scheltz',
-            career='2 patrols: 11.41 - 08.42 5th Flotilla (Kiel) training, 08.42 - 01.43 10th Flotilla (Lorient) front boat, 01.43 - 05.45 U-Abwehrschule (Bergen) school boat',
-            successes='Sank the British steamer Primrose Hill on 29 Oct, 1942 (7,628 tons)',
-            fate='Built as the Dutch submarine O 27 but had not been launched when it was captured by the Germans at the Rotterdam yard on 14 May, 1940. Launched 26, Sept 1941 and commissioned into the German Navy on 30 Jan 1942. Surrendered at Bergen, Norway on 9 May 1945. Transferred from Bergen, Norway to Britain on 31 May 1945. Returned from Dundee, Scotland to the Netherlands on 13 July, 1945 and recommissioned as the Dutch submarine O 27. Stricken 14 Nov, 1959 and broken up in 1961.')
+        boat = Uboat()
+        boat.tactical_number = 'UD-5'
+        boat.laid_down = '1938	Rotterdam, Netherlands'
+        boat.commissioned = '30 Jan 1942	Frgkpt. Bruno Mahn'
+        boat.commanders = '11.41 - 01.43 KptzS. Bruno Mahn, 12.42 - 01.43 Oblt. Klaus-Dietrich Konig (in deputize), 01.43 - 02.43 Kptlt. Horst-Tessen von Kameke, 02.43 - 05.45 Kptlt. Hans-Ulrich Scheltz'
+        boat.career = '2 patrols: 11.41 - 08.42 5th Flotilla (Kiel) training, 08.42 - 01.43 10th Flotilla (Lorient) front boat, 01.43 - 05.45 U-Abwehrschule (Bergen) school boat'
+        boat.successes = 'Sank the British steamer Primrose Hill on 29 Oct, 1942 (7,628 tons)'
+        boat.fate = 'Built as the Dutch submarine O 27 but had not been launched when it was captured by the Germans at the Rotterdam yard on 14 May, 1940. Launched 26, Sept 1941 and commissioned into the German Navy on 30 Jan 1942. Surrendered at Bergen, Norway on 9 May 1945. Transferred from Bergen, Norway to Britain on 31 May 1945. Returned from Dundee, Scotland to the Netherlands on 13 July, 1945 and recommissioned as the Dutch submarine O 27. Stricken 14 Nov, 1959 and broken up in 1961.'
         session.add(boat)
-        boat = Uboat(
-            id=count + 1,
-            tactical_number='UIT-24',
-            laid_down='1938	Odero-Terni-Orlando, Italy',
-            commissioned='10 Sept, 1943	Oblt. Heinrich Pahls',
-            commanders='12.43 - 05.45	Oblt. Heinrich Pahls',
-            career='6 patrols: 12.43 - 09.44 12th Flotilla (Bordeaux) front boat, 10.44 - 05.45 33rd Flotilla (Flensburg) front boat',
-            successes='None',
-            fate='Launched as the Italian submarine Comandante Capellini on 13 March, 1939. Taken over by the Germans, following the Italian capitulation, at Sabang in the Far East on 10 Sept, 1943. Taken over by Japan at Kobe and recommissioned as I-503 or I-505 on 10 May, 1945. Surrendered at Kobe, Japan. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.')
+
+        boat = Uboat()
+        boat.tactical_number='UIT-24'
+        boat.laid_down='1938	Odero-Terni-Orlando, Italy'
+        boat.commissioned='10 Sept, 1943	Oblt. Heinrich Pahls'
+        boat.commanders='12.43 - 05.45	Oblt. Heinrich Pahls'
+        boat.career='6 patrols: 12.43 - 09.44 12th Flotilla (Bordeaux) front boat, 10.44 - 05.45 33rd Flotilla (Flensburg) front boat'
+        boat.successes='None'
+        boat.fate='Launched as the Italian submarine Comandante Capellini on 13 March, 1939. Taken over by the Germans, following the Italian capitulation, at Sabang in the Far East on 10 Sept, 1943. Taken over by Japan at Kobe and recommissioned as I-503 or I-505 on 10 May, 1945. Surrendered at Kobe, Japan. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.'
         session.add(boat)
-        boat = Uboat(
-            id=count + 2,
-            tactical_number='UIT-25',
-            laid_down='1938	Odero-Terni-Orlando, Italy',
-            commissioned='10 Sept, 1943	Frgkpt. Werner Striegler',
-            commanders='12.43 - 08.44 Frgkpt. Werner Striegler, 09.44 - 02.45 Oblt. Herbert Schrein (in deputize), 02.45 - 05.45 Oblt. Alfred Meier',
-            career='3 patrols: 	12.43 - 09.44 12th Flotilla (Bordeaux) front boat, 10.44 - 05.45 33rd Flotilla (Flensburg) front boat',
-            successes='None',
-            fate='Launched as the Italian submarine Luigi Torelli. Taken over at Kobe, Japan on 10 May, 1945 and commissioned as I-504. Surrendered at Kobe, Japan in August 1945. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.')
+
+        boat = Uboat()
+        boat.tactical_number='UIT-25'
+        boat.laid_down='1938	Odero-Terni-Orlando, Italy'
+        boat.commissioned='10 Sept, 1943	Frgkpt. Werner Striegler'
+        boat.commanders='12.43 - 08.44 Frgkpt. Werner Striegler, 09.44 - 02.45 Oblt. Herbert Schrein (in deputize), 02.45 - 05.45 Oblt. Alfred Meier'
+        boat.career='3 patrols: 	12.43 - 09.44 12th Flotilla (Bordeaux) front boat, 10.44 - 05.45 33rd Flotilla (Flensburg) front boat'
+        boat.successes='None'
+        boat.fate='Launched as the Italian submarine Luigi Torelli. Taken over at Kobe, Japan on 10 May, 1945 and commissioned as I-504. Surrendered at Kobe, Japan in August 1945. Sunk by the US Navy on 16 April 1946 in the Kii Suido between the Japanese islands of Honshu and Shikolu.'
         session.add(boat)
         session.commit()
 
         print('U-boats parse finished')
-        BOATS_PARSE = True
-        if BOATS_PARSE and CAPS_PARSE:
-            make_relations()
-            BOATS_PARSE = CAPS_PARSE = False
-        # logging.info('U-boats parse finished')
+        # BOATS_PARSE = True
+        # if BOATS_PARSE and CAPS_PARSE:
+        #     make_relations()
+        #     BOATS_PARSE = CAPS_PARSE = False
+        # # logging.info('U-boats parse finished')
     else:
         print('No response from uboat.net U-boats list page')
         # logging.warning('No response from uboat.net U-boats list page')
@@ -465,6 +435,7 @@ thread_uboat_parse = Thread(target=uboat_parse)
 
 def run():
     global thread_cap_parse, thread_uboat_parse
+    db_session.global_init("database.db")
     try:
         thread_cap_parse.start()
         thread_uboat_parse.start()
